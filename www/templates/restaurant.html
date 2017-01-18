@@ -1,0 +1,116 @@
+<ion-view>
+  <ion-header-bar class="bar-stable" ng-bind-html="headerContent" >
+  </ion-header-bar>
+  <!--<ion-content>-->
+  <ion-content restaurant-header-shrink ng-class="margin_top">
+    <div class="row zero-padding">
+      <div class="align-center restaurant-banner">
+        <img ng-src="img/food_slider/1.jpg" style="width:100%">
+      </div>
+    </div>
+    <div class="row">
+      <div class="card restaurant-name-board">
+        <div class="item item-text-wrap align-center">
+          <h2 style="font-size: larger;">Green Foods</h2>
+          <h3 class="grey-content small-margin">Pizza,Veg,Non-Veg</h3>
+          <h3 class="grey-content small-margin">$$$$</h3>
+        </div>
+      </div>
+    </div>
+    <div class="row align-center">
+      <p class="side-margin-auto grey-content" style="margin-top: 8px;"><i class="ion-ios-clock"> </i> Open 10:00 am - 11:00 pm</p>
+    </div>
+    <tab-slide-box>
+      <div class="tsb-icons">
+        <div class="tsb-ic-wrp">
+          <ion-scroll direction="x" class="tsb-hscroll">
+            <a href="javascript:;" class="{{tab.icon}}" ng-repeat="tab in tabs" on-finish-render="onSlideMove(tab)">
+              {{tab.text}}
+            </a>
+          </ion-scroll>
+        </div>
+      </div>
+      <ion-slide-box show-pager="false" on-slide-changed="slideHasChanged($index)">
+        <ion-slide ng-repeat="tab in tabs track by $index">
+          <div ng-if="activeTab == $index">
+            <div  class="card item-card" ng-repeat="foodItem in foodItems">
+              <div class="item item-text-wrap">
+                <div class="row zero-padding">
+                  <div class="col col-25 zero-padding">
+                    <div>
+                      <img ng-src="{{foodItem.imageUrl}}" style="height:100px; width:105px;">
+                    </div>
+                  </div>
+                  <div class="col col-offset-10 zero-padding">
+                    <div class="row zero-padding">
+                      <div class="col zero-padding">
+                        <h3 style="font-size: large; text-align: left;">{{foodItem.itemName}} </h3>
+                        <div class="row zero-padding" style="padding-top: 5px;">
+                          <p style="text-align: left;">{{foodItem.description}}</p>
+                        </div>
+                      </div>
+                      <div class="col.col-30 zero-padding">
+                        Rs {{foodItem.unitPrice}}
+                      </div>
+                    </div>
+                    <div class="row zero-padding">
+                      <div class="col zero-padding">
+                        <md-input-container style="margin: 25px 0px 0px -25px; font-size: smaller ">
+                          <label>size</label>
+                          <md-select ng-model="ctrl.usersize">
+                            <md-option ng-repeat="size in foodItem.sizes" ng-value="size">
+                              {{size}}
+                            </md-option>
+                          </md-select>
+                        </md-input-container>
+                      </div>
+                      <div class="col">
+                        <div class="flex_row">
+                          <a class="button button-clear icon ion-minus-circled grey-content" ng-click="subQty(foodItem)"></a>
+                          <span style="line-height: 44px;">{{foodItem.qty}}</span>
+                          <a class="button button-clear icon ion-plus-circled grey-content" ng-click="addQty(foodItem)"></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ion-slide>
+      </ion-slide-box>
+    </tab-slide-box>
+  </ion-content>
+  <md-menu ng-show="!isCartSeen && isHeaderThin">
+  <!--<md-menu >-->
+    <ion-floating-button click="openMenu($mdOpenMenu, $event)" has-footer="false" button-left="20px" button-color="#2AC9AA" icon="ion-android-options"  icon-color="#fff">
+    </ion-floating-button>
+    <md-menu-content width="4">
+      <md-menu-item>
+        <md-button ng-click="">
+          <img ng-src="img/sort/1.png" style="width:20px">
+          Price Low to High
+        </md-button>
+      </md-menu-item>
+      <md-menu-item>
+        <md-button ng-click="">
+          <img ng-src="img/sort/2.png" style="width:20px">
+          Price High to Low
+        </md-button>
+      </md-menu-item>
+    </md-menu-content>
+  </md-menu>
+  <div class="fixed-outside">
+    <div class="row">
+      <div class="col">
+        <button class="button floating-bottom-button icon" ng-show="isCartSeen" ng-click="checkout()" style="background-color: rgb(42, 201, 170); color: rgb(255, 255, 255); ">
+          2 items | Checkout <i class="ion-log-in"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <a href="" ng-class="isCartSeen ? 'badge1-shallow':'badge1-deep'" data-badge="27"></a>
+  <ion-floating-menu >
+    <ion-floating-item icon="ion-trash-b" click="toggleCart()" text="Clear Cart" ></ion-floating-item>
+  </ion-floating-menu>
+</ion-view>

@@ -1,0 +1,303 @@
+// Ionic Starter App
+
+// angular.module is a global place for creating, registering and retrieving Angular modules
+// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
+// the 2nd parameter is an array of 'requires'
+var t2b_mobile = angular.module('t2b_mobile',
+  [
+    'ngSanitize',
+    'ionic',
+    'pascalprecht.translate',
+    'lang_en',
+    'ngMaterial',
+    'oitozero.ngSweetAlert',
+    'ion-floating-menu',
+    'angular-carousel',
+    'tabSlideBox',
+    'ngProgress'
+  ]);
+
+t2b_mobile.run(function($ionicPlatform) {
+  $ionicPlatform.ready(function() {
+    if(window.cordova && window.cordova.plugins.Keyboard) {
+      // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+      // for form inputs)
+      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+
+      // Don't remove this line unless you know what you are doing. It stops the viewport
+      // from snapping when text inputs are focused. Ionic handles this internally for
+      // a much nicer keyboard experience.
+      cordova.plugins.Keyboard.disableScroll(true);
+    }
+    if(window.StatusBar) {
+      StatusBar.styleDefault();
+    }
+  });
+});
+
+t2b_mobile.config(function($stateProvider, $urlRouterProvider ,$translateProvider) {
+
+  $stateProvider
+    .state('home', {
+      url: '/home',
+      templateUrl: 'templates/home.html',
+      controller: 'homeController'
+    })
+    .state('test', {
+      url: '/test',
+      templateUrl: 'templates/test.html',
+      controller: 'testController'
+    })
+    .state('restaurant', {
+      url: '/restaurant',
+      templateUrl: 'templates/restaurant.html',
+      controller: 'restaurantController'
+    })
+    .state('checkout', {
+      url: '/checkout',
+      templateUrl: 'templates/checkout.html',
+      controller: 'checkoutController'
+    })
+    .state('delivery_guest', {
+      url: '/delivery_guest',
+      templateUrl: 'templates/delivery_guest.html',
+      controller: 'deliveryGuestController'
+    })
+    .state('delivery_member', {
+      url: '/delivery_member',
+      templateUrl: 'templates/delivery_member.html',
+      controller: 'deliveryMemberController'
+    })
+    .state('confirm_order', {
+      url: '/confirm_order',
+      templateUrl: 'templates/confirm_order.html',
+      controller: 'confirmOrderController'
+    })
+    .state('search', {
+      url: '/search',
+      templateUrl: 'templates/confirm_order.html',
+      controller: 'confirmOrderController'
+    });
+  $urlRouterProvider.otherwise('/home');
+  $translateProvider.preferredLanguage("en");
+  // $translateProvider.fallbackLanguage("en");
+});
+
+t2b_mobile.controller("initialController",function($scope,$rootScope,$filter, $timeout, ngProgressFactory){
+  $scope.content = $filter('translate')('BACK');
+  $scope.progressbar = ngProgressFactory.createInstance();
+  $rootScope.$on('$stateChangeStart', function (event,toState) {
+    $scope.progressbar.start();
+    // $timeout(, 1000);
+
+  });
+  $rootScope.$on('$stateChangeSuccess',
+      function(event, toState, toParams, fromState, fromParams){
+        $scope.progressbar.complete()
+  });
+});
+
+t2b_mobile.directive('customHeader', function($ionicHistory,$state) {
+  return {
+    restrict: 'AE',
+    scope: {
+      back:'=',
+    },
+    link: function (scope, elem, attrs) {
+      scope.myGoBack = function () {
+        if(scope.back){
+          $state.go(scope.back);
+        }else{
+          $ionicHistory.goBack();
+        }
+      }
+    },
+    template: ''
+  };
+});
+
+t2b_mobile.directive('compareTo',[function(){
+  return {
+    require: "ngModel",
+    scope: {
+      otherModelValue: "=compareTo"
+    },
+    link: function(scope, element, attributes, ngModel) {
+
+      ngModel.$validators.compareTo = function(modelValue) {
+        return modelValue == scope.otherModelValue;
+      };
+
+      scope.$watch("otherModelValue", function() {
+        ngModel.$validate();
+      });
+    }
+  };
+}]);
+
+//header shrink with scroll
+t2b_mobile.directive('headerShrink', function($document,$sce,$rootScope) {
+  var fadeAmt;
+
+  var shrink = function(header, content, amt, max) {
+
+    amt = Math.min(44, amt);
+    fadeAmt = 1 - amt / 44;
+    ionic.requestAnimationFrame(function() {
+      header.style[ionic.CSS.TRANSFORM] = 'translate3d(0, -' + amt + 'px, 0)';
+      for(var i = 0, j = header.children.length; i < j; i++) {
+        header.children[i].style.opacity = fadeAmt;
+      }
+    });
+  };
+
+  return {
+    restrict: 'A',
+    link: function($scope, $element, $attr) {
+      var starty = $scope.$eval($attr.headerShrink) || 0;
+      var shrinkAmt;
+      var header = $document[0].body.querySelector('.bar-header');
+      var headerHeight = header.offsetHeight;
+      $scope.margin_top = 'thick-header';
+      var headerContentString = '<div style="position: absolute; left: 5px;">'+
+        '<a class="button button-icon row"  ng-click="myGoBack()">'+
+        '<i class="ion-navicon" style="font-size: 30px;"></i>'+
+        '</a>'+
+        '</div>'+
+        '<h3 class="side-margin-auto">Touch2Buy</h3>'+
+        '<div style="position: absolute; right: 5px;">'+
+        '<a class="button button-icon row"  ng-click="myGoBack()">'+
+        '<i class="ion-ios-search-strong" style="font-size: 30px;"></i>'+
+        '</a>'+
+        '</div>';
+      $rootScope.headerContent = $sce.trustAsHtml(headerContentString);
+
+      $element.bind('scroll', function(e) {
+        var scrollTop = null;
+        if(e.detail){
+          scrollTop = e.detail.scrollTop;
+        }else if(e.target){
+          scrollTop = e.target.scrollTop;
+        }
+        if(scrollTop > starty){
+          // Start shrinking
+          shrinkAmt = headerHeight - Math.max(38, (starty + headerHeight) - scrollTop);
+          $scope.margin_top = 'thin-header';
+          var headerContentString =  '<div id="search" class="full-width" style="margin-top: 22px !important;">'+
+          '<input name="q" type="text" size="40" placeholder="Search..." />'+
+          '</div>';
+          $rootScope.headerContent = $sce.trustAsHtml(headerContentString);
+          $scope.$apply();
+          shrink(header, $element[0], shrinkAmt, headerHeight);
+        } else {
+          $scope.margin_top = 'thick-header';
+          var headerContentString = '<div style="position: absolute; left: 5px;">'+
+            '<a class="button button-icon row"  ng-click="myGoBack()">'+
+            '<i class="ion-navicon" style="font-size: 30px;"></i>'+
+            '</a>'+
+            '</div>'+
+            '<h3 class="side-margin-auto">Touch2Buy</h3>'+
+            '<div style="position: absolute; right: 5px;">'+
+            '<a class="button button-icon row"  ng-click="myGoBack()">'+
+            '<i class="ion-ios-search-strong" style="font-size: 30px;"></i>'+
+            '</a>'+
+            '</div>';
+          $rootScope.headerContent = $sce.trustAsHtml(headerContentString);
+          $scope.$apply();
+          shrink(header, $element[0], 0, headerHeight);
+        }
+      });
+    }
+  }
+});
+
+//header shrink of restaurant
+t2b_mobile.directive('restaurantHeaderShrink', function($document,$rootScope,$sce) {
+  var fadeAmt;
+
+  var shrink = function(header, content, amt, max) {
+
+    amt = Math.min(44, amt);
+    fadeAmt = 1 - amt / 44;
+    ionic.requestAnimationFrame(function() {
+      header.style[ionic.CSS.TRANSFORM] = 'translate3d(0, -' + amt + 'px, 0)';
+      for(var i = 0, j = header.children.length; i < j; i++) {
+        header.children[i].style.opacity = fadeAmt;
+      }
+    });
+  };
+
+  return {
+    restrict: 'A',
+    link: function($scope, $element, $attr) {
+      var starty = $scope.$eval($attr.headerShrink) || 0;
+      var shrinkAmt = 0;
+
+      var header = $document[0].body.querySelector('.bar-header');
+      var headerHeight = header.offsetHeight;
+      $scope.margin_top = 'thick-header';
+      var headerContentString = '<div style="position: absolute; left: 5px;">'+
+        '<a class="button button-icon row"  ng-click="myGoBack()">'+
+        '<i class="ion-android-arrow-back" style="font-size: 30px;"></i>'+
+        '</a>'+
+        '</div>'+
+        '<h3 class="side-margin-auto">Touch2Buy</h3>'+
+        '<div style="position: absolute; right: 5px;">'+
+        '<a class="button button-icon row"  ng-click="myGoBack()">'+
+        '<i class="ion-ios-search-strong" style="font-size: 30px;"></i>'+
+        '</a>'+
+        '</div>';
+      $rootScope.headerContent = $sce.trustAsHtml(headerContentString);
+      $rootScope.isHeaderThin = false;
+      $element.bind('scroll', function(e) {
+        var scrollTop = null;
+        if(e.detail){
+          scrollTop = e.detail.scrollTop;
+        }else if(e.target){
+          scrollTop = e.target.scrollTop;
+        }
+        $scope.scrollTop = scrollTop;
+        $scope.$apply();
+
+        if(scrollTop>170 && scrollTop > starty){
+          // Start shrinking
+          shrinkAmt = headerHeight - Math.max(40, (starty + headerHeight) - scrollTop);
+          $scope.margin_top = 'thin-header';
+          // color:#f9690e;
+          var headerContentString = '<div style="position: absolute; left: 5px; margin-top: 22px !important; opacity: 1 !important;">'+
+          '<a class="button button-icon row"  ng-click="myGoBack()">'+
+          '<i class="ion-android-arrow-back" style="font-size: 30px; opacity: 1 !important;"></i>'+
+          '</a>'+
+          '</div>'+
+          '<h3 class="side-margin-auto" style="margin-top: 28px !important; font-size: 18px; opacity: 1 !important;">Green Foods</h3>'+
+          '<div style="position: absolute; right: 5px; margin-top: 22px !important;">'+
+          '<a class="button button-icon row"  ng-click="myGoBack()">'+
+          '<i class="ion-ios-search-strong" style="font-size: 30px; opacity: 1 !important;"></i>'+
+          '</a>'+
+          '</div>';
+          $rootScope.headerContent = $sce.trustAsHtml(headerContentString);
+          $rootScope.isHeaderThin = true;
+          $scope.$apply();
+          shrink(header, $element[0], shrinkAmt, headerHeight);
+        } else {
+          $scope.margin_top = 'thick-header';
+          var headerContentString = '<div style="position: absolute; left: 5px;">'+
+              '<a class="button button-icon row"  ng-click="myGoBack()">'+
+              ' <i class="ion-android-arrow-back" style="font-size: 30px;"></i>'+
+              '</a>'+
+              '</div>'+
+              '<h3 class="side-margin-auto">Touch2Buy</h3>'+
+              '<div style="position: absolute; right: 5px;">'+
+              '<a class="button button-icon row"  ng-click="myGoBack()">'+
+                '<i class="ion-ios-search-strong" style="font-size: 30px;"></i>'+
+              '</a>'+
+            '</div>';
+          $rootScope.headerContent = $sce.trustAsHtml(headerContentString);
+          $rootScope.isHeaderThin = false;
+          $scope.$apply();
+          shrink(header, $element[0], 0, headerHeight);
+        }
+      });
+    }
+  }
+});

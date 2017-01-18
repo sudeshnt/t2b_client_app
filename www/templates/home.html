@@ -1,0 +1,153 @@
+<ion-view>
+  <ion-header-bar class="bar-stable">
+    <div style="position: absolute; left: 5px;">
+      <a class="button button-icon row"  ng-click="myGoBack()">
+        <i class="ion-navicon" style="font-size: 30px;"></i>
+      </a>
+    </div>
+    <h3 class="side-margin-auto">Touch2Buy</h3>
+    <div style="position: absolute; right: 5px;">
+      <a class="button button-icon row"  ng-click="myGoBack()">
+        <i class="ion-ios-search-strong" style="font-size: 30px;"></i>
+      </a>
+    </div>
+  </ion-header-bar>
+  <ion-content style="margin-top: 60px;">
+    <!--<div style="margin-top: 0px;">-->
+      <!--<ul rn-carousel class="image image-carousel" rn-carousel-auto-slide rn-carousel-controls rn-carousel-controls-allow-loop>-->
+        <!--<li class="align-center"><img ng-src="img/food_offers/1.jpg" style="width:100%; max-height: 148px;"></li>-->
+        <!--<li class="align-center"><img ng-src="img/food_offers/2.jpg" style="width:100%; max-height: 148px;"></li>-->
+        <!--<li class="align-center"><img ng-src="img/food_offers/3.jpg" style="width:100%; max-height: 148px;"></li>-->
+        <!--<li class="align-center"><img ng-src="img/food_offers/4.png" style="width:100%; max-height: 148px;"></li>-->
+      <!--</ul>-->
+    <!--</div>-->
+    <tab-slide-box>
+      <div class="tsb-icons">
+        <div class="tsb-ic-wrp">
+          <ion-scroll direction="x" class="tsb-hscroll">
+            <a href="javascript:;" on-finish-render="test()" style="margin: 0px 18px;">
+              <img ng-src="img/categories/meal.png" style="height:60px;">
+              <br><span class="smaller-letters">full course</span>
+            </a>
+            <a href="javascript:;" on-finish-render="test()" style="margin: 0px 18px;">
+              <img ng-src="img/categories/dessert.png" style="height:60px;">
+              <br><span class="smaller-letters">desserts</span>
+            </a>
+            <a href="javascript:;" on-finish-render="test()" style="margin: 0px 18px;">
+              <img ng-src="img/categories/nonveg.png" style="height:60px;">
+              <br><span class="smaller-letters">non-veg</span>
+            </a>
+            <a href="javascript:;" on-finish-render="test()" style="margin: 0px 18px;">
+              <img ng-src="img/categories/veg.png" style="height:60px;">
+              <br><span class="smaller-letters">veg</span>
+            </a>
+            <a href="javascript:;" on-finish-render="test()" style="margin: 0px 18px;">
+              <img ng-src="img/categories/pizza.png" style="height:60px;">
+              <br><span class="smaller-letters">pizza</span>
+            </a>
+            <a href="javascript:;" on-finish-render="test()" style="margin: 0px 15px;">
+              <img ng-src="img/categories/burger.png" style="height:60px;">
+              <br><span class="smaller-letters">burgers</span>
+            </a>
+          </ion-scroll>
+        </div>
+      </div>
+      <ion-slide-box show-pager="false" on-slide-changed="slideHasChanged($index)">
+        <ion-slide>
+          <div class="row" ng-repeat="restaurantRow in restaurants">
+            <div class="col" ng-repeat="restaurant in restaurantRow">
+              <div class="list card" ng-click="goToRestaurant(restaurant)">
+                <div class="item item-image">
+                  <img ng-src="{{restaurant.imageUrl}}">
+                  <div class="text-on-image card-title-shadow">
+                    <h2>{{restaurant.restaurantName}}</h2>
+                    <h3>{{restaurant.status}}</h3>
+                  </div>
+                </div>
+                <div class="item item-text-wrap material-text-zone">
+                  <!--<div class="fab-zone">-->
+                    <!--<button class="fab">$$$$</button>-->
+                  <!--</div>-->
+                  <p class="text-ellipse">{{restaurant.description}}</p>
+                </div>
+                <div class="row zero-padding-tb">
+                  <div class="col zero-padding-tb">
+                    <div class="item tabs tabs-secondary tabs-icon-left white-tabs">
+                      <div class="row zero-padding-tb">
+                        <div class="col zero-padding-tb align-left">
+                          <i class="ion-android-star star-active" ng-repeat="i in getNumber(restaurant.rating) track by $index"></i><i class="ion-android-star-outline star-disabled" ng-repeat="i in getNumber(5-restaurant.rating) track by $index"></i>
+                        </div>
+                        <div class="col zero-padding-tb align-right">
+                          <i class="icon ion-android-share-alt"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ion-slide>
+        <ion-slide>
+        </ion-slide>
+        <ion-slide>
+        </ion-slide>
+        <ion-slide>
+        </ion-slide>
+        <ion-slide>
+        </ion-slide>
+        <ion-slide>
+        </ion-slide>
+      </ion-slide-box>
+    </tab-slide-box>
+    <!--<div class="row" style="padding-bottom: 0px;">-->
+      <!--<ion-scroll zooming="true" direction="xy">-->
+        <!--<div  class="row zero-padding" >-->
+          <!--<div class="cat-image">-->
+            <!--<div class="align-center">-->
+              <!--<img ng-src="img/categories/5.png" style="height:100px;">-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="cat-image">-->
+            <!--<div class="align-center">-->
+              <!--<img ng-src="img/categories/1.png" style="height:100px;">-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="cat-image">-->
+            <!--<div class="align-center">-->
+              <!--<img ng-src="img/categories/2.png" style="height:100px;">-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="cat-image">-->
+            <!--<div class="align-center">-->
+              <!--<img ng-src="img/categories/3.png" style="height:100px;">-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="cat-image">-->
+            <!--<div class="align-center">-->
+              <!--<img ng-src="img/categories/4.png" style="height:100px;">-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</ion-scroll>-->
+    <!--</div>-->
+  </ion-content>
+  <!--<md-menu>-->
+  <!--<ion-floating-button click="openMenu($mdOpenMenu, $event)" has-footer="false" button-left="20px" button-color="#2AC9AA" icon="ion-android-options" icon-color="#fff">-->
+  <!--</ion-floating-button>-->
+    <!--<md-menu-content width="4">-->
+      <!--<md-menu-item>-->
+        <!--<md-button ng-click="">-->
+          <!--<img ng-src="img/sort/1.png" style="width:20px">-->
+          <!--Price Low to High-->
+        <!--</md-button>-->
+      <!--</md-menu-item>-->
+      <!--<md-menu-item>-->
+        <!--<md-button ng-click="">-->
+          <!--<img ng-src="img/sort/2.png" style="width:20px">-->
+          <!--Price High to Low-->
+        <!--</md-button>-->
+      <!--</md-menu-item>-->
+    <!--</md-menu-content>-->
+  <!--</md-menu>-->
+</ion-view>

@@ -1,0 +1,201 @@
+<ion-view>
+  <ion-header-bar class="bar-stable">
+    <div style="position: absolute; left: 5px;">
+      <a class="button button-icon row"  ng-click="myGoBack()">
+        <i class="ion-android-arrow-back" style="font-size: 30px;"></i>
+      </a>
+    </div>
+    <h3 class="side-margin-auto">Touch2Buy</h3>
+    <div style="position: absolute; right: 5px;">
+      <a class="button button-icon row"  ng-click="myGoBack()">
+        <i class="ion-ios-search-strong" style="font-size: 30px;"></i>
+      </a>
+    </div>
+  </ion-header-bar>
+  <ion-content style="margin-top: 60px">
+    <div class="row bs-wizard" style="border-bottom:0;">
+      <div class="col bs-wizard-step disabled">
+        <div class="align-center bs-wizard-stepnum">Checkout</div>
+        <div class="progress"><div class="progress-bar"></div></div>
+        <a href="#" class="bs-wizard-dot-complete"></a>
+        <div class="bs-wizard-info align-center">
+        </div>
+      </div>
+      <div class="col bs-wizard-step disabled"><!-- complete -->
+        <div class="align-center bs-wizard-stepnum">Delivery</div>
+        <div class="progress" style="left:50%; width:100%; "><div class="progress-bar"></div></div>
+        <a href="#" class="bs-wizard-dot bs-wizard-dot-disable"></a>
+        <div class="bs-wizard-info align-center">
+        </div>
+      </div>
+      <div class="col bs-wizard-step disabled"><!-- active -->
+        <div class="align-center bs-wizard-stepnum">Confirm</div>
+        <div class="progress"><div class="progress-bar"></div></div>
+        <a href="#" class="bs-wizard-dot"></a>
+        <div class="bs-wizard-info align-center">
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="row zero-padding">
+        <a style="margin-right: auto; margin-left:10px" ng-click=""><i class="ion-android-arrow-back orange"> Continue Shopping</i></a>
+      </div>
+      <md-whiteframe class="md-whiteframe-2dp small-margin" flex-sm="100" flex-gt-sm="100" flex-gt-md="100" layout layout-align="center center" style="    display: list-item;">
+        <div class="cart-item item-text-wrap">
+            <div class="row zero-padding">
+              <div class="col col-25 zero-padding" style="max-width: 75px;">
+                <div>
+                  <img ng-src="img/food_items/2.jpg" style="height:65px; width:55px;">
+                </div>
+              </div>
+              <div class="col zero-padding">
+                <div class="row zero-padding">
+                  <div class="col zero-padding">
+                    <h3 style="font-size: 14px; text-align: left;">Chicken Burger <span style="font-size: 10px;" ng-show="isEditSeen"> Rs 100 x 1</span></h3>
+                  </div>
+                  <div class="col.col-30 zero-padding">
+                    Rs 100.00
+                  </div>
+                </div>
+                <div class="row zero-padding">
+                  <div style="display: inherit" ng-show="isEditSeen">
+                    <div class="col zero-padding" style="max-width: 65px;">
+                      <md-input-container style="margin: 10px 0px 0px 0px; font-size: smaller ">
+                        <label>size</label>
+                        <md-select ng-model="ctrl.usersize">
+                          <md-option ng-repeat="size in sizes" ng-value="size" ng-disabled="$index === 1">
+                            {{size}}
+                          </md-option>
+                        </md-select>
+                      </md-input-container>
+                    </div>
+                    <div class="col">
+                      <div class="flex_row_checkout">
+                        <button class="button button-clear add-remove-buttons icon black-content" ng-click="sub(item)">
+                          <i class="smaller-letters ion-minus-round"></i>
+                        </button>
+                        <span style="line-height: 46px;">0</span>
+                        <button class="button button-clear add-remove-buttons icon black-content" ng-click="add(item)">
+                          <i class="smaller-letters ion-plus-round"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="display: inherit" ng-show="!isEditSeen">
+                    <span style="font-size: 13px; padding-top: 16px;"> Rs 100 x 1</span>
+                  </div>
+                  <div class="col align-right"  ng-hide="isEditSeen">
+                    <a class="edit-button"><i class="ion-edit" ng-click="toggleEdit()"> edit</i></a>
+                  </div>
+                  <div class="col align-right" style="max-width: 65px;">
+                    <a class="remove-button"><i class="ion-ios-close-empty"> remove</i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <hr style="margin-left: 10px; margin-right: 10px;">
+        <div class="cart-item item-text-wrap">
+          <div class="row zero-padding">
+            <div class="col col-25 zero-padding" style="max-width: 75px;">
+              <div>
+                <img ng-src="img/food_items/2.jpg" style="height:65px; width:55px;">
+              </div>
+            </div>
+            <div class="col zero-padding">
+              <div class="row zero-padding">
+                <div class="col zero-padding">
+                  <h3 style="font-size: 14px; text-align: left;">Chicken Burger <span style="font-size: 10px;" ng-show="isEditSeen"> Rs 100 x 1</span></h3>
+                </div>
+                <div class="col.col-30 zero-padding">
+                  Rs 100.00
+                </div>
+              </div>
+              <div class="row zero-padding">
+                <div style="display: inherit" ng-show="isEditSeen">
+                  <div class="col zero-padding" style="max-width: 65px;">
+                    <md-input-container style="margin: 10px 0px 0px 0px; font-size: smaller ">
+                      <label>size</label>
+                      <md-select ng-model="ctrl.usersize">
+                        <md-option ng-repeat="size in sizes" ng-value="size" ng-disabled="$index === 1">
+                          {{size}}
+                        </md-option>
+                      </md-select>
+                    </md-input-container>
+                  </div>
+                  <div class="col">
+                    <div class="flex_row_checkout">
+                      <button class="button button-clear add-remove-buttons icon black-content" ng-click="sub(item)">
+                        <i class="smaller-letters ion-minus-round"></i>
+                      </button>
+                      <span style="line-height: 46px;">0</span>
+                      <button class="button button-clear add-remove-buttons icon black-content" ng-click="add(item)">
+                        <i class="smaller-letters ion-plus-round"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div style="display: inherit" ng-show="!isEditSeen">
+                  <span style="font-size: 13px; padding-top: 16px;"> Rs 100 x 1</span>
+                </div>
+                <div class="col align-right"  ng-hide="isEditSeen">
+                  <a class="edit-button"><i class="ion-edit" ng-click="toggleEdit()"> edit</i></a>
+                </div>
+                <div class="col align-right" style="max-width: 65px;">
+                  <a class="remove-button"><i class="ion-ios-close-empty"> remove</i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr style="margin-left: 10px; margin-right: 10px;">
+        <div class=" item-text-wrap">
+          <div class="row zero-padding">
+            <h5 style="margin-left: auto; margin-right: 10px;">Total Amount: Rs. 200</h5>
+          </div>
+        </div>
+      </md-whiteframe>
+
+      <ion-list>
+        <ion-item class="item-accordion" ng-show="isMemberLogin" style="padding: 10px;">
+          <!--<ion-item>-->
+          <div class="row zero-padding">
+             <div class="col zero-padding">
+               <div class="form-group" style="margin-bottom: 3px">
+                 <label class="item item-input three-quarter-width" style="height:35px; border-radius: 8px; " required>
+                   <div class="input-icon">
+                     <i class="ion-person"></i>
+                     <input type="number" placeholder="username" ng-model="userLoginDetails.merchantCode" name="merchant_code" required>
+                   </div>
+                 </label>
+               </div>
+               <div class="form-group">
+                 <label class="item item-input three-quarter-width"  style="height:35px; border-radius: 8px;" required>
+                   <div class="input-icon">
+                     <i class="ion-android-lock"></i>
+                     <input type="password" placeholder="password" ng-model="userLoginDetails.password" name="password" required>
+                   </div>
+                 </label>
+               </div>
+             </div>
+             <!--<div class="col.col-5" style="padding: 15px 5px 15px 5px;">-->
+               <!--<button class="button button-balanced">-->
+                 <!--<i class="ion-play "></i>-->
+               <!--</button>-->
+             <!--</div>-->
+          </div>
+          <!--</ion-item>-->
+        </ion-item>
+        <a class="button button-outline button-positive custom-height-button side-margin-auto item-stable"
+                ng-click="isMemberLogin ? logIn() : toggleMemberLoginForm()"
+                ng-class="{active: isMemberLogin}">
+          {{isMemberLogin ? 'Login' : 'Member Login'}}
+        </a>
+        <button class="button button-outline button-assertive custom-height-button side-margin-auto" ng-click="memberDelivery()">
+          Checkout as Guest
+        </button>
+      </ion-list>
+    </div>
+  </ion-content>
+
+</ion-view>
