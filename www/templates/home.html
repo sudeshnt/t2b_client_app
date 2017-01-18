@@ -1,18 +1,50 @@
 <ion-view>
-  <ion-header-bar class="bar-stable">
-    <div style="position: absolute; left: 5px;">
-      <a class="button button-icon row"  ng-click="myGoBack()">
-        <i class="ion-navicon" style="font-size: 30px;"></i>
-      </a>
-    </div>
-    <h3 class="side-margin-auto">Touch2Buy</h3>
-    <div style="position: absolute; right: 5px;">
-      <a class="button button-icon row"  ng-click="myGoBack()">
-        <i class="ion-ios-search-strong" style="font-size: 30px;"></i>
-      </a>
+  <ion-header-bar class="bar-stable "  ng-show="!searchEnabled">
+    <div style="width: 100%; display: inherit;" >
+      <div style="position: absolute; left: 5px;">
+        <a class="button button-icon row"  ng-click="toggleRight()">
+          <i class="ion-navicon white" style="font-size: 30px;"></i>
+        </a>
+      </div>
+      <h3 class="side-margin-auto white"  style="margin-top: 0px">Touch2Buy</h3>
+      <div style="position: absolute; right: 5px;" >
+        <a class="button button-icon row"  ng-click="toggleSearch()">
+          <i class="ion-ios-search-strong white" style="font-size: 30px;"></i>
+        </a>
+      </div>
     </div>
   </ion-header-bar>
-  <ion-content style="margin-top: 60px;">
+  <ion-header-bar class="bar-stable "  ng-show="searchEnabled">
+    <div style="width: 100%; display: inherit;" >
+      <md-autocomplete
+           style="width:90%; margin-top: -5px !important; "
+           ng-disabled="isDisabled"
+           md-no-cache="noCache"
+           md-selected-item="selectedItem"
+           md-search-text-change="searchTextChange(searchText)"
+           md-search-text="searchText"
+           md-selected-item-change="selectedItemChange(item)"
+           md-items="item in querySearch(searchText)"
+           md-item-text="item.display"
+           md-min-length="3"
+           placeholder="What do you want to eat?">
+        <md-item-template>
+          <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.display}}</span>
+        </md-item-template>
+        <md-not-found>
+          No states matching "{{searchText}}" were found.
+          <a ng-click="newState(searchText)">Create a new one!</a>
+        </md-not-found>
+      </md-autocomplete>
+      <div style="position: absolute; right: 5px;">
+        <a class="button button-icon row"  ng-click="toggleSearch()">
+          <i class="ion-ios-search-strong white" style="font-size: 30px;"></i>
+        </a>
+      </div>
+    </div>
+  </ion-header-bar>
+
+  <ion-content style="margin-top: 70px;">
     <!--<div style="margin-top: 0px;">-->
       <!--<ul rn-carousel class="image image-carousel" rn-carousel-auto-slide rn-carousel-controls rn-carousel-controls-allow-loop>-->
         <!--<li class="align-center"><img ng-src="img/food_offers/1.jpg" style="width:100%; max-height: 148px;"></li>-->
@@ -150,4 +182,14 @@
       <!--</md-menu-item>-->
     <!--</md-menu-content>-->
   <!--</md-menu>-->
+  <md-sidenav class="md-sidenav-left md-whiteframe-4dp" md-component-id="right">
+    <md-toolbar class="md-theme-light sidenav-header">
+      <h1 class="md-toolbar-tools white">Touch2Buy</h1>
+    </md-toolbar>
+    <md-content layout-padding>
+      <md-button ng-click="close()" class="md-primary">
+        Close Sidenav Right
+      </md-button>
+    </md-content>
+  </md-sidenav>
 </ion-view>

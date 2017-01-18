@@ -36,12 +36,12 @@
             <div  class="card item-card" ng-repeat="foodItem in foodItems">
               <div class="item item-text-wrap">
                 <div class="row zero-padding">
-                  <div class="col col-25 zero-padding">
+                  <div class="col col-25 zero-padding" style="max-width: 140px;">
                     <div>
                       <img ng-src="{{foodItem.imageUrl}}" style="height:100px; width:105px;">
                     </div>
                   </div>
-                  <div class="col col-offset-10 zero-padding">
+                  <div class="col zero-padding" style="padding-left: 10px !important;">
                     <div class="row zero-padding">
                       <div class="col zero-padding">
                         <h3 style="font-size: large; text-align: left;">{{foodItem.itemName}} </h3>
@@ -54,8 +54,8 @@
                       </div>
                     </div>
                     <div class="row zero-padding">
-                      <div class="col zero-padding">
-                        <md-input-container style="margin: 25px 0px 0px -25px; font-size: smaller ">
+                      <div class="col zero-padding align-left">
+                        <md-input-container style="margin: 25px 0px 0px 0px; font-size: smaller ">
                           <label>size</label>
                           <md-select ng-model="ctrl.usersize">
                             <md-option ng-repeat="size in foodItem.sizes" ng-value="size">
@@ -64,7 +64,7 @@
                           </md-select>
                         </md-input-container>
                       </div>
-                      <div class="col">
+                      <div class="col" style="max-width: 100px;">
                         <div class="flex_row">
                           <a class="button button-clear icon ion-minus-circled grey-content" ng-click="subQty(foodItem)"></a>
                           <span style="line-height: 44px;">{{foodItem.qty}}</span>
@@ -81,8 +81,8 @@
       </ion-slide-box>
     </tab-slide-box>
   </ion-content>
-  <md-menu ng-show="!isCartSeen && isHeaderThin">
-  <!--<md-menu >-->
+  <!--<md-menu ng-show="!isCartSeen && isHeaderThin">-->
+  <md-menu >
     <ion-floating-button click="openMenu($mdOpenMenu, $event)" has-footer="false" button-left="20px" button-color="#2AC9AA" icon="ion-android-options"  icon-color="#fff">
     </ion-floating-button>
     <md-menu-content width="4">

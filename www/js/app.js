@@ -14,7 +14,8 @@ var t2b_mobile = angular.module('t2b_mobile',
     'ion-floating-menu',
     'angular-carousel',
     'tabSlideBox',
-    'ngProgress'
+    'ngProgress',
+    'ngAnimate'
   ]);
 
 t2b_mobile.run(function($ionicPlatform) {
@@ -75,8 +76,8 @@ t2b_mobile.config(function($stateProvider, $urlRouterProvider ,$translateProvide
     })
     .state('search', {
       url: '/search',
-      templateUrl: 'templates/confirm_order.html',
-      controller: 'confirmOrderController'
+      templateUrl: 'templates/search.html',
+      controller: 'searchController'
     });
   $urlRouterProvider.otherwise('/home');
   $translateProvider.preferredLanguage("en");
@@ -238,13 +239,13 @@ t2b_mobile.directive('restaurantHeaderShrink', function($document,$rootScope,$sc
       $scope.margin_top = 'thick-header';
       var headerContentString = '<div style="position: absolute; left: 5px;">'+
         '<a class="button button-icon row"  ng-click="myGoBack()">'+
-        '<i class="ion-android-arrow-back" style="font-size: 30px;"></i>'+
+        '<i class="ion-android-arrow-back white" style="font-size: 30px;"></i>'+
         '</a>'+
         '</div>'+
-        '<h3 class="side-margin-auto">Touch2Buy</h3>'+
+        '<h3 class="side-margin-auto white">Touch2Buy</h3>'+
         '<div style="position: absolute; right: 5px;">'+
         '<a class="button button-icon row"  ng-click="myGoBack()">'+
-        '<i class="ion-ios-search-strong" style="font-size: 30px;"></i>'+
+        '<i class="ion-ios-search-strong white" style="font-size: 30px;"></i>'+
         '</a>'+
         '</div>';
       $rootScope.headerContent = $sce.trustAsHtml(headerContentString);
@@ -264,38 +265,38 @@ t2b_mobile.directive('restaurantHeaderShrink', function($document,$rootScope,$sc
           shrinkAmt = headerHeight - Math.max(40, (starty + headerHeight) - scrollTop);
           $scope.margin_top = 'thin-header';
           // color:#f9690e;
-          var headerContentString = '<div style="position: absolute; left: 5px; margin-top: 22px !important; opacity: 1 !important;">'+
+          var headerContentString = '<div style="position: absolute; left: 5px;">'+
           '<a class="button button-icon row"  ng-click="myGoBack()">'+
-          '<i class="ion-android-arrow-back" style="font-size: 30px; opacity: 1 !important;"></i>'+
+          '<i class="ion-android-arrow-back white" style="font-size: 30px;"></i>'+
           '</a>'+
           '</div>'+
-          '<h3 class="side-margin-auto" style="margin-top: 28px !important; font-size: 18px; opacity: 1 !important;">Green Foods</h3>'+
-          '<div style="position: absolute; right: 5px; margin-top: 22px !important;">'+
+          '<h3 class="side-margin-auto white" >Green Foods</h3>'+
+          '<div style="position: absolute; right: 5px; ">'+
           '<a class="button button-icon row"  ng-click="myGoBack()">'+
-          '<i class="ion-ios-search-strong" style="font-size: 30px; opacity: 1 !important;"></i>'+
+          '<i class="ion-ios-search-strong white" style="font-size: 30px;"></i>'+
           '</a>'+
           '</div>';
           $rootScope.headerContent = $sce.trustAsHtml(headerContentString);
           $rootScope.isHeaderThin = true;
           $scope.$apply();
-          shrink(header, $element[0], shrinkAmt, headerHeight);
+          // shrink(header, $element[0], shrinkAmt, headerHeight);
         } else {
           $scope.margin_top = 'thick-header';
           var headerContentString = '<div style="position: absolute; left: 5px;">'+
               '<a class="button button-icon row"  ng-click="myGoBack()">'+
-              ' <i class="ion-android-arrow-back" style="font-size: 30px;"></i>'+
+              ' <i class="ion-android-arrow-back white" style="font-size: 30px;"></i>'+
               '</a>'+
               '</div>'+
-              '<h3 class="side-margin-auto">Touch2Buy</h3>'+
+              '<h3 class="side-margin-auto white">Touch2Buy</h3>'+
               '<div style="position: absolute; right: 5px;">'+
               '<a class="button button-icon row"  ng-click="myGoBack()">'+
-                '<i class="ion-ios-search-strong" style="font-size: 30px;"></i>'+
+                '<i class="ion-ios-search-strong white" style="font-size: 30px;"></i>'+
               '</a>'+
             '</div>';
           $rootScope.headerContent = $sce.trustAsHtml(headerContentString);
           $rootScope.isHeaderThin = false;
           $scope.$apply();
-          shrink(header, $element[0], 0, headerHeight);
+          // shrink(header, $element[0], 0, headerHeight);
         }
       });
     }

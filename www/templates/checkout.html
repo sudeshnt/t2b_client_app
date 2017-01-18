@@ -1,35 +1,35 @@
 <ion-view>
-  <ion-header-bar class="bar-stable">
-    <div style="position: absolute; left: 5px;">
-      <a class="button button-icon row"  ng-click="myGoBack()">
-        <i class="ion-android-arrow-back" style="font-size: 30px;"></i>
-      </a>
-    </div>
-    <h3 class="side-margin-auto">Touch2Buy</h3>
-    <div style="position: absolute; right: 5px;">
-      <a class="button button-icon row"  ng-click="myGoBack()">
-        <i class="ion-ios-search-strong" style="font-size: 30px;"></i>
-      </a>
-    </div>
-  </ion-header-bar>
-  <ion-content style="margin-top: 60px">
+  <!--<ion-header-bar class="bar-stable">-->
+    <!--<div style="position: absolute; left: 5px;">-->
+      <!--<a class="button button-icon row"  ng-click="myGoBack()">-->
+        <!--<i class="ion-android-arrow-back" style="font-size: 30px;"></i>-->
+      <!--</a>-->
+    <!--</div>-->
+    <!--<h3 class="side-margin-auto">Touch2Buy</h3>-->
+    <!--<div style="position: absolute; right: 5px;">-->
+      <!--<a class="button button-icon row"  ng-click="myGoBack()">-->
+        <!--<i class="ion-ios-search-strong" style="font-size: 30px;"></i>-->
+      <!--</a>-->
+    <!--</div>-->
+  <!--</ion-header-bar>-->
+  <ion-content style="margin-top: 20px">
     <div class="row bs-wizard" style="border-bottom:0;">
       <div class="col bs-wizard-step disabled">
-        <div class="align-center bs-wizard-stepnum">Checkout</div>
+        <div class="align-center bs-wizard-stepnum success-step">Checkout</div>
         <div class="progress"><div class="progress-bar"></div></div>
         <a href="#" class="bs-wizard-dot-complete"></a>
         <div class="bs-wizard-info align-center">
         </div>
       </div>
       <div class="col bs-wizard-step disabled"><!-- complete -->
-        <div class="align-center bs-wizard-stepnum">Delivery</div>
+        <div class="align-center bs-wizard-stepnum pending-step">Delivery</div>
         <div class="progress" style="left:50%; width:100%; "><div class="progress-bar"></div></div>
         <a href="#" class="bs-wizard-dot bs-wizard-dot-disable"></a>
         <div class="bs-wizard-info align-center">
         </div>
       </div>
       <div class="col bs-wizard-step disabled"><!-- active -->
-        <div class="align-center bs-wizard-stepnum">Confirm</div>
+        <div class="align-center bs-wizard-stepnum pending-step">Confirm</div>
         <div class="progress"><div class="progress-bar"></div></div>
         <a href="#" class="bs-wizard-dot"></a>
         <div class="bs-wizard-info align-center">
@@ -82,7 +82,7 @@
                     </div>
                   </div>
                   <div style="display: inherit" ng-show="!isEditSeen">
-                    <span style="font-size: 13px; padding-top: 16px;"> Rs 100 x 1</span>
+                    <span style="font-size: 13px; padding-top: 16px;"> Rs 100 x 1 (qty)</span>
                   </div>
                   <div class="col align-right"  ng-hide="isEditSeen">
                     <a class="edit-button"><i class="ion-edit" ng-click="toggleEdit()"> edit</i></a>
@@ -136,7 +136,7 @@
                   </div>
                 </div>
                 <div style="display: inherit" ng-show="!isEditSeen">
-                  <span style="font-size: 13px; padding-top: 16px;"> Rs 100 x 1</span>
+                  <span style="font-size: 13px; padding-top: 16px;"> Rs 100 x 1 (qty)</span>
                 </div>
                 <div class="col align-right"  ng-hide="isEditSeen">
                   <a class="edit-button"><i class="ion-edit" ng-click="toggleEdit()"> edit</i></a>
@@ -156,7 +156,7 @@
         </div>
       </md-whiteframe>
 
-      <ion-list>
+      <ion-list class="align-center">
         <ion-item class="item-accordion" ng-show="isMemberLogin" style="padding: 10px;">
           <!--<ion-item>-->
           <div class="row zero-padding">
@@ -186,14 +186,14 @@
           </div>
           <!--</ion-item>-->
         </ion-item>
-        <a class="button button-outline button-positive custom-height-button side-margin-auto item-stable"
+        <a class="button  button-positive custom-height-button side-margin-auto item-stable"
                 ng-click="isMemberLogin ? logIn() : toggleMemberLoginForm()"
                 ng-class="{active: isMemberLogin}">
           {{isMemberLogin ? 'Login' : 'Member Login'}}
         </a>
-        <button class="button button-outline button-assertive custom-height-button side-margin-auto" ng-click="memberDelivery()">
+        <a class="button  button-assertive custom-height-button side-margin-auto" ng-click="memberDelivery()">
           Checkout as Guest
-        </button>
+        </a>
       </ion-list>
     </div>
   </ion-content>

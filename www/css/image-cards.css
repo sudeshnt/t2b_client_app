@@ -81,7 +81,8 @@
 
 .material-text-zone {
   padding-top: 17px !important;
-  padding-bottom: 0px !important;
+  padding-bottom: 3px !important;
+  border-bottom-style: none;
   /*margin-bottom: 50px !important;*/
 }
 

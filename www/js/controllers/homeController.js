@@ -1,9 +1,9 @@
 var t2b_mobile = angular.module('t2b_mobile');
 
-t2b_mobile.controller('homeController', function ($scope,$state,$mdBottomSheet,$translate,$rootScope) {
+t2b_mobile.controller('homeController', function ($scope,$state,$mdBottomSheet,$mdSidenav, $log,$sce,$translate,$rootScope) {
 
   $scope.restaurants = [];
-
+  $scope.searchEnabled = false;
   initRestaurants();
 
   function initRestaurants() {
@@ -59,6 +59,10 @@ t2b_mobile.controller('homeController', function ($scope,$state,$mdBottomSheet,$
     $state.go('restaurant');
   };
 
+  $scope.toggleSearch = function () {
+    $scope.searchEnabled = $scope.searchEnabled ? false : true;
+  };
+
   $scope.showListBottomSheet = function() {
     $scope.alert = '';
     $mdBottomSheet.show({
@@ -67,6 +71,24 @@ t2b_mobile.controller('homeController', function ($scope,$state,$mdBottomSheet,$
     }).then(function(clickedItem) {
       $scope.alert = clickedItem['name'] + ' clicked!';
     });
+  };
+  $scope.toggleRight = buildToggler('right');
+  function buildToggler(navID) {
+    return function() {
+      // Component lookup should always be available since we are not using `ng-if`
+      $mdSidenav(navID)
+        .toggle()
+        .then(function () {
+          $log.debug("toggle " + navID + " is done");
+        });
+    }
+  }
+  $scope.close = function () {
+    // Component lookup should always be available since we are not using `ng-if`
+    $mdSidenav('right').close()
+      .then(function () {
+        $log.debug("close RIGHT is done");
+      });
   };
 
   var originatorEv;
