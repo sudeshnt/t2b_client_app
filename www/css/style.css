@@ -98,12 +98,12 @@
 .remove-button{
   color: red;
   position: absolute;
-  bottom: 8px;
+  bottom: 10px;
   right: 10px;
 }
 .edit-button{
   position: absolute;
-  bottom: 8px;
+  bottom: 10px;
   right: 85px;
 }
 .add-remove-buttons {
@@ -128,7 +128,7 @@
 }
 .total-col{
   font-size: 15px;
-  padding-top: 12px;
+  padding-top: 0px;
   padding-right: 12px;
   min-width: 100px;
   text-align: right;
@@ -402,4 +402,22 @@
 .fadein.ng-hide-remove.ng-hide-remove-active {
   opacity: 1;
   display: inline-flex !important;
+}
+
+/*checkout-button*/
+.checkout-button{
+  max-width:100px;
+  background-color: rgb(42, 201, 170);
+  color: rgb(255, 255, 255);
+  font-size: 10px;
+  height: 25px;
+  line-height: 23px;
+}
+.clear-cart-button{
+  max-width:100px;
+  background-color:rgb(239, 71, 58);
+  color: rgb(255, 255, 255);
+  font-size: 10px;
+  height: 25px;
+  line-height: 23px;
 }

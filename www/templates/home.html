@@ -2,7 +2,7 @@
   <ion-header-bar class="bar-stable "  ng-show="!searchEnabled">
     <div style="width: 100%; display: inherit;" >
       <div style="position: absolute; left: 5px;">
-        <a class="button button-icon row"  ng-click="toggleRight()">
+        <a class="button button-icon row"  ng-click="toggleSideBar()">
           <i class="ion-navicon white" style="font-size: 30px;"></i>
         </a>
       </div>
@@ -17,7 +17,7 @@
   <ion-header-bar class="bar-stable "  ng-show="searchEnabled">
     <div style="width: 100%; display: inherit;" >
       <md-autocomplete
-           style="width:90%; margin-top: -5px !important; "
+           style="width:89%; margin-top: -5px !important; "
            ng-disabled="isDisabled"
            md-no-cache="noCache"
            md-selected-item="selectedItem"
@@ -44,7 +44,7 @@
     </div>
   </ion-header-bar>
 
-  <ion-content style="margin-top: 70px;">
+  <ion-content style="margin-top: 62px;">
     <!--<div style="margin-top: 0px;">-->
       <!--<ul rn-carousel class="image image-carousel" rn-carousel-auto-slide rn-carousel-controls rn-carousel-controls-allow-loop>-->
         <!--<li class="align-center"><img ng-src="img/food_offers/1.jpg" style="width:100%; max-height: 148px;"></li>-->

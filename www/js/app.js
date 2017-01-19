@@ -84,18 +84,40 @@ t2b_mobile.config(function($stateProvider, $urlRouterProvider ,$translateProvide
   // $translateProvider.fallbackLanguage("en");
 });
 
-t2b_mobile.controller("initialController",function($scope,$rootScope,$filter, $timeout, ngProgressFactory){
+t2b_mobile.controller("initialController",function($scope,$state,$rootScope,$filter, $timeout, ngProgressFactory,$mdBottomSheet){
   $scope.content = $filter('translate')('BACK');
   $scope.progressbar = ngProgressFactory.createInstance();
   $rootScope.$on('$stateChangeStart', function (event,toState) {
     $scope.progressbar.start();
-    // $timeout(, 1000);
-
   });
   $rootScope.$on('$stateChangeSuccess',
       function(event, toState, toParams, fromState, fromParams){
         $scope.progressbar.complete()
   });
+  $scope.checkout = function () {
+    $mdBottomSheet.hide();
+    $state.go('checkout');
+  };
+  $scope.showListBottomSheet = function() {
+    $scope.alert = '';
+    $mdBottomSheet.show({
+      templateUrl: 'templates/bottomSheetList.html',
+      controller: 'ListBottomSheetCtrl'
+    }).then(function(clickedItem) {
+      $scope.alert = clickedItem['name'] + ' clicked!';
+    });
+  };
+  $scope.toggleRight = buildToggler('right');
+  function buildToggler(navID) {
+    return function() {
+      // Component lookup should always be available since we are not using `ng-if`
+      $mdSidenav(navID)
+        .toggle()
+        .then(function () {
+          $log.debug("toggle " + navID + " is done");
+        });
+    }
+  }
 });
 
 t2b_mobile.directive('customHeader', function($ionicHistory,$state) {
@@ -216,18 +238,6 @@ t2b_mobile.directive('headerShrink', function($document,$sce,$rootScope) {
 t2b_mobile.directive('restaurantHeaderShrink', function($document,$rootScope,$sce) {
   var fadeAmt;
 
-  var shrink = function(header, content, amt, max) {
-
-    amt = Math.min(44, amt);
-    fadeAmt = 1 - amt / 44;
-    ionic.requestAnimationFrame(function() {
-      header.style[ionic.CSS.TRANSFORM] = 'translate3d(0, -' + amt + 'px, 0)';
-      for(var i = 0, j = header.children.length; i < j; i++) {
-        header.children[i].style.opacity = fadeAmt;
-      }
-    });
-  };
-
   return {
     restrict: 'A',
     link: function($scope, $element, $attr) {
@@ -244,7 +254,7 @@ t2b_mobile.directive('restaurantHeaderShrink', function($document,$rootScope,$sc
         '</div>'+
         '<h3 class="side-margin-auto white">Touch2Buy</h3>'+
         '<div style="position: absolute; right: 5px;">'+
-        '<a class="button button-icon row"  ng-click="myGoBack()">'+
+        '<a class="button button-icon row"  ng-click="toggleSearch()">'+
         '<i class="ion-ios-search-strong white" style="font-size: 30px;"></i>'+
         '</a>'+
         '</div>';

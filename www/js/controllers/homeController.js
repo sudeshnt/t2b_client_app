@@ -72,7 +72,8 @@ t2b_mobile.controller('homeController', function ($scope,$state,$mdBottomSheet,$
       $scope.alert = clickedItem['name'] + ' clicked!';
     });
   };
-  $scope.toggleRight = buildToggler('right');
+  $scope.toggleSideBar = buildToggler('right');
+
   function buildToggler(navID) {
     return function() {
       // Component lookup should always be available since we are not using `ng-if`

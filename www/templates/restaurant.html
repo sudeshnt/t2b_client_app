@@ -82,7 +82,7 @@
     </tab-slide-box>
   </ion-content>
   <!--<md-menu ng-show="!isCartSeen && isHeaderThin">-->
-  <md-menu >
+  <md-menu  ng-show="!isCartSeen">
     <ion-floating-button click="openMenu($mdOpenMenu, $event)" has-footer="false" button-left="20px" button-color="#2AC9AA" icon="ion-android-options"  icon-color="#fff">
     </ion-floating-button>
     <md-menu-content width="4">
@@ -109,8 +109,8 @@
       </div>
     </div>
   </div>
-  <a href="" ng-class="isCartSeen ? 'badge1-shallow':'badge1-deep'" data-badge="27"></a>
-  <ion-floating-menu >
-    <ion-floating-item icon="ion-trash-b" click="toggleCart()" text="Clear Cart" ></ion-floating-item>
-  </ion-floating-menu>
+  <!--<a href="" ng-class="isCartSeen ? 'badge1-shallow':'badge1-deep'" data-badge="27"></a>-->
+  <!--<ion-floating-menu >-->
+    <!--<ion-floating-item icon="ion-trash-b" click="toggleCart()" text="Clear Cart" ></ion-floating-item>-->
+  <!--</ion-floating-menu>-->
 </ion-view>
