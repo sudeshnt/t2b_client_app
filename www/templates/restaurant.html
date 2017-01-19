@@ -1,37 +1,57 @@
 <ion-view>
-  <ion-header-bar class="bar-stable" ng-bind-html="headerContent" >
+  <!--<ion-header-bar class="bar-stable" ng-bind-html="headerContent" >-->
+  <ion-header-bar class="bar-stable" >
+    <div style="width: 100%; display: inherit;" >
+      <div style="position: absolute; left: 5px;">
+        <a class="button button-icon row"  ng-click="goToHome()">
+          <i class="ion-android-arrow-back white" style="font-size: 30px;"></i>
+        </a>
+      </div>
+      <h3 class="side-margin-auto white"  style="margin-top: 0px">{{headerText}}</h3>
+      <div style="position: absolute; right: 5px;" >
+        <a class="button button-icon row"  ng-click="toggleSearch()">
+          <i class="ion-ios-search-strong white" style="font-size: 30px;"></i>
+        </a>
+      </div>
+    </div>
   </ion-header-bar>
+
   <!--<ion-content>-->
   <ion-content restaurant-header-shrink ng-class="margin_top">
     <div class="row zero-padding">
       <div class="align-center restaurant-banner">
-        <img ng-src="img/food_slider/1.jpg" style="width:100%">
+        <img ng-src="{{restaurant.imageUrl}}" style="width:100%">
       </div>
     </div>
     <div class="row">
       <div class="card restaurant-name-board">
         <div class="item item-text-wrap align-center">
-          <h2 style="font-size: larger;">Green Foods</h2>
-          <h3 class="grey-content small-margin">Pizza,Veg,Non-Veg</h3>
-          <h3 class="grey-content small-margin">$$$$</h3>
+          <h2 style="font-size: larger;">{{restaurant.organizationName}}</h2>
+          <h3 class="grey-content small-margin">{{restaurant.description}}</h3>
+          <!--<h3 class="grey-content small-margin">$$$$</h3>-->
+          <i class="ion-android-star star-active"></i>
+          <i class="ion-android-star star-active"></i>
+          <i class="ion-android-star star-active"></i>
+          <i class="ion-android-star-outline star-disabled"></i>
+          <i class="ion-android-star-outline star-disabled"></i>
         </div>
       </div>
     </div>
     <div class="row align-center">
-      <p class="side-margin-auto grey-content" style="margin-top: 8px;"><i class="ion-ios-clock"> </i> Open 10:00 am - 11:00 pm</p>
+      <p class="side-margin-auto grey-content" style="margin-top: 8px;"><i class="ion-ios-clock"> </i> Open {{restaurant.openTime}} - {{restaurant.closeTime}}</p>
     </div>
     <tab-slide-box>
       <div class="tsb-icons">
         <div class="tsb-ic-wrp">
           <ion-scroll direction="x" class="tsb-hscroll">
-            <a href="javascript:;" class="{{tab.icon}}" ng-repeat="tab in tabs" on-finish-render="onSlideMove(tab)">
+            <a href="javascript:;" class="{{tab.icon}}" ng-repeat="tab in restaurant.categories" on-finish-render="onSlideMove(tab)">
               {{tab.text}}
             </a>
           </ion-scroll>
         </div>
       </div>
       <ion-slide-box show-pager="false" on-slide-changed="slideHasChanged($index)">
-        <ion-slide ng-repeat="tab in tabs track by $index">
+        <ion-slide ng-repeat="tab in restaurant.categories track by $index">
           <div ng-if="activeTab == $index">
             <div  class="card item-card" ng-repeat="foodItem in foodItems">
               <div class="item item-text-wrap">
@@ -50,15 +70,16 @@
                         </div>
                       </div>
                       <div class="col.col-30 zero-padding">
-                        Rs {{foodItem.unitPrice}}
+                        <span style="font-size: 10px;" ng-show="foodItem.qty>0">Rs. {{foodItem.unitPrice}} x {{foodItem.qty}}<br></span>
+                        <span style="font-weight: 400;">Rs {{foodItem.qty>0? foodItem.unitPrice*foodItem.qty : foodItem.unitPrice}}</span>
                       </div>
                     </div>
                     <div class="row zero-padding">
                       <div class="col zero-padding align-left">
                         <md-input-container style="margin: 25px 0px 0px 0px; font-size: smaller ">
                           <label>size</label>
-                          <md-select ng-model="ctrl.usersize">
-                            <md-option ng-repeat="size in foodItem.sizes" ng-value="size">
+                          <md-select ng-model="foodItem.qty">
+                            <md-option ng-repeat="size in foodItem.sizes" ng-value="size" ng-selected="$index === 0">
                               {{size}}
                             </md-option>
                           </md-select>

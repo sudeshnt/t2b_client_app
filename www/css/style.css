@@ -98,12 +98,12 @@
 .remove-button{
   color: red;
   position: absolute;
-  bottom: 10px;
-  right: 10px;
+  bottom: 20px;
+  right: 13px;
 }
 .edit-button{
   position: absolute;
-  bottom: 10px;
+  bottom: 20px;
   right: 85px;
 }
 .add-remove-buttons {
@@ -173,7 +173,8 @@
   -webkit-flex-direction: row;
   flex-direction: row;
   position: absolute;
-  bottom: -5px;
+  bottom: 6px;
+  right: 65px;
 }
 
 .fake-statusbar {

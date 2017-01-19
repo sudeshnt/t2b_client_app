@@ -40,30 +40,30 @@
       <div class="row zero-padding">
         <a style="margin-right: auto; margin-left:10px" ng-click=""><i class="ion-android-arrow-back orange"> Continue Shopping</i></a>
       </div>
-      <md-whiteframe class="md-whiteframe-2dp small-margin" flex-sm="100" flex-gt-sm="100" flex-gt-md="100" layout layout-align="center center" style="    display: list-item;">
-        <div class="cart-item item-text-wrap">
+      <md-whiteframe ng-repeat="orgObject in cart" class="md-whiteframe-2dp small-margin" flex-sm="100" flex-gt-sm="100" flex-gt-md="100" layout layout-align="center center" style="    display: list-item;">
+        <div ng-repeat="item in orgObject.items" class="cart-item item-text-wrap">
             <div class="row zero-padding">
               <div class="col col-25 zero-padding" style="max-width: 75px;">
                 <div>
-                  <img ng-src="img/food_items/2.jpg" style="height:65px; width:55px;">
+                  <img ng-src="{{item.imageUrl}}" style="height:65px; width:55px;">
                 </div>
               </div>
               <div class="col zero-padding">
                 <div class="row zero-padding">
                   <div class="col zero-padding">
-                    <h3 style="font-size: 14px; text-align: left;">Chicken Burger <span style="font-size: 10px;" ng-show="isEditSeen"> Rs 100 x 1</span></h3>
+                    <h3 style="font-size: 14px; text-align: left;">{{item.itemName}} <span style="font-size: 10px;" ng-show="item.editEnabled"> Rs {{item.unitPrice}} x {{item.qty}}</span></h3>
                   </div>
                   <div class="col.col-30 zero-padding">
-                    Rs 100.00
+                    Rs {{item.unitPrice*item.qty}}.00
                   </div>
                 </div>
                 <div class="row zero-padding">
-                  <div style="display: inherit" ng-show="isEditSeen">
+                  <div style="display: inherit" ng-show="item.editEnabled">
                     <div class="col zero-padding" style="max-width: 65px;">
                       <md-input-container style="margin: 10px 0px 0px 0px; font-size: smaller ">
                         <label>size</label>
-                        <md-select ng-model="ctrl.usersize">
-                          <md-option ng-repeat="size in sizes" ng-value="size" ng-disabled="$index === 1">
+                        <md-select ng-model="item.selectedSize">
+                          <md-option ng-repeat="size in sizes" ng-value="size">
                             {{size}}
                           </md-option>
                         </md-select>
@@ -71,21 +71,23 @@
                     </div>
                     <div class="col">
                       <div class="flex_row_checkout">
-                        <button class="button button-clear add-remove-buttons icon black-content" ng-click="sub(item)">
-                          <i class="smaller-letters ion-minus-round"></i>
-                        </button>
-                        <span style="line-height: 46px;">0</span>
-                        <button class="button button-clear add-remove-buttons icon black-content" ng-click="add(item)">
-                          <i class="smaller-letters ion-plus-round"></i>
-                        </button>
+                        <a class="button button-clear icon ion-minus-circled grey-content" ng-click="sub(item)"></a>
+                        <!--<a class="button button-clear add-remove-buttons icon black-content" ng-click="sub(item)">-->
+                          <!--<i class="smaller-letters ion-minus-round"></i>-->
+                        <!--</a>-->
+                        <span style="line-height: 46px;">{{item.qty}}</span>
+                        <a class="button button-clear icon ion-plus-circled grey-content" ng-click="add(item)"></a>
+                        <!--<a class="button button-clear add-remove-buttons icon black-content" ng-click="add(item)">-->
+                          <!--<i class="smaller-letters ion-plus-round"></i>-->
+                        <!--</a>-->
                       </div>
                     </div>
                   </div>
-                  <div style="display: inherit" ng-show="!isEditSeen">
-                    <span style="font-size: 13px; padding-top: 16px;"> Rs 100 x 1 (qty)</span>
+                  <div style="display: inherit" ng-show="!item.editEnabled">
+                    <span style="font-size: 13px; padding-top: 16px;"> Rs {{item.unitPrice}} x {{item.qty}} (qty)</span>
                   </div>
-                  <div class="col align-right"  ng-hide="isEditSeen">
-                    <a class="edit-button"><i class="ion-edit" ng-click="toggleEdit()" style="font-size: 13px;"> edit</i></a>
+                  <div class="col align-right"  ng-hide="item.editEnabled">
+                    <a class="edit-button"><i class="ion-edit" ng-click="toggleEdit(item)" style="font-size: 13px;"> edit</i></a>
                   </div>
                   <div class="col align-right" style="max-width: 65px;">
                     <a class="remove-button"><i class="ion-ios-close-empty" style="font-size: 13px;"> remove</i></a>
@@ -93,67 +95,14 @@
                 </div>
               </div>
             </div>
+          <hr style="margin-left: 10px; margin-right: 10px;">
           </div>
-        <hr style="margin-left: 10px; margin-right: 10px;">
-        <div class="cart-item item-text-wrap">
-          <div class="row zero-padding">
-            <div class="col col-25 zero-padding" style="max-width: 75px;">
-              <div>
-                <img ng-src="img/food_items/2.jpg" style="height:65px; width:55px;">
-              </div>
-            </div>
-            <div class="col zero-padding">
-              <div class="row zero-padding">
-                <div class="col zero-padding">
-                  <h3 style="font-size: 14px; text-align: left;">Chicken Burger <span style="font-size: 10px;" ng-show="isEditSeen"> Rs 100 x 1</span></h3>
-                </div>
-                <div class="col.col-30 zero-padding">
-                  Rs 100.00
-                </div>
-              </div>
-              <div class="row zero-padding">
-                <div style="display: inherit" ng-show="isEditSeen">
-                  <div class="col zero-padding" style="max-width: 65px;">
-                    <md-input-container style="margin: 10px 0px 0px 0px; font-size: smaller ">
-                      <label>size</label>
-                      <md-select ng-model="ctrl.usersize">
-                        <md-option ng-repeat="size in sizes" ng-value="size" ng-disabled="$index === 1">
-                          {{size}}
-                        </md-option>
-                      </md-select>
-                    </md-input-container>
-                  </div>
-                  <div class="col">
-                    <div class="flex_row_checkout">
-                      <button class="button button-clear add-remove-buttons icon black-content" ng-click="sub(item)">
-                        <i class="smaller-letters ion-minus-round"></i>
-                      </button>
-                      <span style="line-height: 46px;">0</span>
-                      <button class="button button-clear add-remove-buttons icon black-content" ng-click="add(item)">
-                        <i class="smaller-letters ion-plus-round"></i>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div style="display: inherit" ng-show="!isEditSeen">
-                  <span style="font-size: 13px; padding-top: 16px;"> Rs 100 x 1 (qty)</span>
-                </div>
-                <div class="col align-right"  ng-hide="isEditSeen">
-                  <a class="edit-button"><i class="ion-edit" ng-click="toggleEdit()" style="font-size: 13px;"> edit</i></a>
-                </div>
-                <div class="col align-right" style="max-width: 65px;">
-                  <a class="remove-button"><i class="ion-ios-close-empty" style="font-size: 13px;"> remove</i></a>
-                </div>
-              </div>
+          <!--<hr style="margin-left: 10px; margin-right: 10px;">-->
+          <div class=" item-text-wrap">
+            <div class="row zero-padding">
+              <h5 style="margin: 15px 12px 15px auto;">Total Amount: Rs. {{orgObject.totalAmount}}</h5>
             </div>
           </div>
-        </div>
-        <hr style="margin-left: 10px; margin-right: 10px;">
-        <div class=" item-text-wrap">
-          <div class="row zero-padding">
-            <h5 style="margin-left: auto; margin-right: 10px;">Total Amount: Rs. 200</h5>
-          </div>
-        </div>
       </md-whiteframe>
 
       <ion-list class="align-center">

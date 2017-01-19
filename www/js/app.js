@@ -236,30 +236,18 @@ t2b_mobile.directive('headerShrink', function($document,$sce,$rootScope) {
 
 //header shrink of restaurant
 t2b_mobile.directive('restaurantHeaderShrink', function($document,$rootScope,$sce) {
-  var fadeAmt;
 
   return {
     restrict: 'A',
     link: function($scope, $element, $attr) {
+
       var starty = $scope.$eval($attr.headerShrink) || 0;
       var shrinkAmt = 0;
 
       var header = $document[0].body.querySelector('.bar-header');
       var headerHeight = header.offsetHeight;
       $scope.margin_top = 'thick-header';
-      var headerContentString = '<div style="position: absolute; left: 5px;">'+
-        '<a class="button button-icon row"  ng-click="myGoBack()">'+
-        '<i class="ion-android-arrow-back white" style="font-size: 30px;"></i>'+
-        '</a>'+
-        '</div>'+
-        '<h3 class="side-margin-auto white">Touch2Buy</h3>'+
-        '<div style="position: absolute; right: 5px;">'+
-        '<a class="button button-icon row"  ng-click="toggleSearch()">'+
-        '<i class="ion-ios-search-strong white" style="font-size: 30px;"></i>'+
-        '</a>'+
-        '</div>';
-      $rootScope.headerContent = $sce.trustAsHtml(headerContentString);
-      $rootScope.isHeaderThin = false;
+      $rootScope.headerText = 'Touch2Buy';
       $element.bind('scroll', function(e) {
         var scrollTop = null;
         if(e.detail){
@@ -274,38 +262,13 @@ t2b_mobile.directive('restaurantHeaderShrink', function($document,$rootScope,$sc
           // Start shrinking
           shrinkAmt = headerHeight - Math.max(40, (starty + headerHeight) - scrollTop);
           $scope.margin_top = 'thin-header';
-          // color:#f9690e;
-          var headerContentString = '<div style="position: absolute; left: 5px;">'+
-          '<a class="button button-icon row"  ng-click="myGoBack()">'+
-          '<i class="ion-android-arrow-back white" style="font-size: 30px;"></i>'+
-          '</a>'+
-          '</div>'+
-          '<h3 class="side-margin-auto white" >Green Foods</h3>'+
-          '<div style="position: absolute; right: 5px; ">'+
-          '<a class="button button-icon row"  ng-click="myGoBack()">'+
-          '<i class="ion-ios-search-strong white" style="font-size: 30px;"></i>'+
-          '</a>'+
-          '</div>';
-          $rootScope.headerContent = $sce.trustAsHtml(headerContentString);
-          $rootScope.isHeaderThin = true;
-          $scope.$apply();
+          $rootScope.headerText = 'Green Foods';
+          // $scope.$apply();
           // shrink(header, $element[0], shrinkAmt, headerHeight);
         } else {
           $scope.margin_top = 'thick-header';
-          var headerContentString = '<div style="position: absolute; left: 5px;">'+
-              '<a class="button button-icon row"  ng-click="myGoBack()">'+
-              ' <i class="ion-android-arrow-back white" style="font-size: 30px;"></i>'+
-              '</a>'+
-              '</div>'+
-              '<h3 class="side-margin-auto white">Touch2Buy</h3>'+
-              '<div style="position: absolute; right: 5px;">'+
-              '<a class="button button-icon row"  ng-click="myGoBack()">'+
-                '<i class="ion-ios-search-strong white" style="font-size: 30px;"></i>'+
-              '</a>'+
-            '</div>';
-          $rootScope.headerContent = $sce.trustAsHtml(headerContentString);
-          $rootScope.isHeaderThin = false;
-          $scope.$apply();
+          $rootScope.headerText = 'Touch2Buy';
+          // $scope.$apply();
           // shrink(header, $element[0], 0, headerHeight);
         }
       });
