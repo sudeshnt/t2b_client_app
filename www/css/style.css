@@ -86,7 +86,7 @@
   position: relative;
   z-index: 2;
   display: block;
-  padding: 0px 10px 0px 10px;
+  padding: 8px 10px 0px 10px;
   font-size: 16px;
 }
 .close-button{
@@ -209,7 +209,12 @@
 .scroll-content{
   top:0 !important
 }
-
+/*bottom-sheet-styles*/
+.bottom-sheet{
+  height: auto;
+  padding-left: 8px;
+  min-height: 180px;
+}
 /*floating content bottom*/
 .fixed-outside{
   position: absolute;

@@ -2,7 +2,7 @@ var t2b_mobile = angular.module('t2b_mobile');
 
 t2b_mobile.controller('restaurantController', function ($scope,$state,$translate,$rootScope,$sce) {
   $scope.restaurant = {};
-  $scope.cart = {
+  $rootScope.cart = {
     organizationId : 1,
     organizationName : 'Green Foods',
     items : [
@@ -83,56 +83,134 @@ t2b_mobile.controller('restaurantController', function ($scope,$state,$translate
              itemId : 1,
              itemName : 'Chilly Chicken',
              imageUrl : 'img/food_items/1.jpeg',
-             description : 'Prevent food spoilage from...',
-             unitPrice : 100,
-             qty : 0,
+             description : 'Prevent food spoilage...',
              category:'non-veg',
-             sizes : ['small','large']
+             sizes : [
+               {
+                 sizeId:1,
+                 text:'small',
+                 qty:0,
+                 unitPrice:100
+               },
+               {
+                 sizeId:3,
+                 text:'large',
+                 qty:0,
+                 unitPrice:150
+               }
+             ]
            },{
              itemId : 2,
              itemName : 'Chicken Burger',
              imageUrl : 'img/food_items/2.jpg',
-             description : 'Prevent food spoilage from...',
-             unitPrice : 50,
-             qty : 0,
+             description : 'Prevent food spoilage...',
              category:'non-veg',
-             sizes : ['small','medium','large']
+             sizes : [
+               {
+                 sizeId:1,
+                 text:'small',
+                 qty:0,
+                 unitPrice:50
+               },
+               {
+                 sizeId:2,
+                 text:'medium',
+                 qty:0,
+                 unitPrice:80
+               },
+               {
+                 sizeId:3,
+                 text:'large',
+                 qty:0,
+                 unitPrice:150
+               }
+             ]
            },{
              itemId : 3,
              itemName : 'Potato Chips',
              imageUrl : 'img/food_items/3.jpg',
-             description : 'Prevent food spoilage from...',
-             unitPrice : 150,
-             qty : 0,
+             description : 'Prevent food spoilage...',
              category:'veg',
-             sizes : ['medium','large']
+             sizes : [
+               {
+                 sizeId:2,
+                 text:'medium',
+                 qty:0,
+                 unitPrice:150
+               },
+               {
+                 sizeId:3,
+                 text:'large',
+                 qty:0,
+                 unitPrice:250
+               }
+             ]
            },{
              itemId : 4,
              itemName : 'BBQ Pizza',
              imageUrl : 'img/food_items/4.jpg',
-             description : 'Prevent food spoilage from...',
-             unitPrice : 200,
-             qty : 0,
+             description : 'Prevent food spoilage...',
              category:'pizza',
-             sizes : ['small','medium','large']
+             sizes : [
+               {
+                 sizeId:1,
+                 text:'small',
+                 qty:0,
+                 unitPrice:200
+               },
+               {
+                 sizeId:2,
+                 text:'medium',
+                 qty:0,
+                 unitPrice:250
+               },
+               {
+                 sizeId:3,
+                 text:'large',
+                 qty:0,
+                 unitPrice:350
+               }
+             ]
            },{
              itemId : 5,
              itemName : 'Egg Bun',
              imageUrl : 'img/food_items/5.jpg',
-             description : 'Prevent food spoilage from...',
-             unitPrice : 30,
-             qty : 0,
+             description : 'Prevent food spoilage...',
              category:'breakfast',
-             sizes : ['small']
+             sizes : [
+               {
+                 sizeId:1,
+                 text:'small',
+                 qty:0,
+                 unitPrice:30
+               }
+             ]
            },{
              itemId : 6,
              itemName : 'Sea Food Burger',
              imageUrl : 'img/food_items/6.jpg',
-             description : 'Prevent food spoilage from...',
-             unitPrice : 70,
-             qty : 0,
+             description : 'Prevent food spoilage...',
              category:'sea-food',
-             sizes : ['small','medium','large']
+             sizes : [
+               {
+                 sizeId:1,
+                 text:'small',
+                 qty:0,
+                 unitPrice:70
+               },
+               {
+                 sizeId:2,
+                 text:'medium',
+                 qty:0,
+                 unitPrice:100
+               },
+               {
+                 sizeId:3,
+                 text:'large',
+                 qty:0,
+                 unitPrice:150
+               }
+             ]
            }
          ];
          break;
@@ -142,20 +220,48 @@ t2b_mobile.controller('restaurantController', function ($scope,$state,$translate
              itemId : 1,
              itemName : 'Chilly Chicken',
              imageUrl : 'img/food_items/1.jpeg',
-             description : 'Prevent food spoilage from...',
-             unitPrice : 100,
-             qty : 0,
+             description : 'Prevent food spoilage...',
              category:'non-veg',
-             sizes : ['small','large']
+             sizes : [
+               {
+                 sizeId:1,
+                 text:'small',
+                 qty:0,
+                 unitPrice:100
+               },
+               {
+                 sizeId:3,
+                 text:'large',
+                 qty:0,
+                 unitPrice:150
+               }
+             ]
            },{
              itemId : 2,
              itemName : 'Chicken Burger',
              imageUrl : 'img/food_items/2.jpg',
-             description : 'Prevent food spoilage from...',
-             unitPrice : 50,
-             qty : 0,
+             description : 'Prevent food spoilage...',
              category:'non-veg',
-             sizes : ['small','medium','large']
+             sizes : [
+               {
+                 sizeId:1,
+                 text:'small',
+                 qty:0,
+                 unitPrice:50
+               },
+               {
+                 sizeId:2,
+                 text:'medium',
+                 qty:0,
+                 unitPrice:75
+               },
+               {
+                 sizeId:3,
+                 text:'large',
+                 qty:0,
+                 unitPrice:100
+               }
+             ]
            }
          ];
          break;
@@ -165,11 +271,22 @@ t2b_mobile.controller('restaurantController', function ($scope,$state,$translate
              itemId : 3,
              itemName : 'Potato Chips',
              imageUrl : 'img/food_items/3.jpg',
-             description : 'Prevent food spoilage from...',
-             unitPrice : 150,
-             qty : 0,
+             description : 'Prevent food spoilage...',
              category:'veg',
-             sizes : ['medium','large']
+             sizes : [
+               {
+                 sizeId:2,
+                 text:'medium',
+                 qty:0,
+                 unitPrice:150
+               },
+               {
+                 sizeId:3,
+                 text:'large',
+                 qty:0,
+                 unitPrice:175
+               }
+             ]
            }
          ];
          break;
@@ -179,11 +296,28 @@ t2b_mobile.controller('restaurantController', function ($scope,$state,$translate
              itemId : 4,
              itemName : 'BBQ Pizza',
              imageUrl : 'img/food_items/4.jpg',
-             description : 'Prevent food spoilage from...',
-             unitPrice : 200,
-             qty : 0,
+             description : 'Prevent food spoilage...',
              category:'pizza',
-             sizes : ['small','medium','large']
+             sizes : [
+               {
+                 sizeId:1,
+                 text:'small',
+                 qty:0,
+                 unitPrice:200
+               },
+               {
+                 sizeId:2,
+                 text:'medium',
+                 qty:0,
+                 unitPrice:225
+               },
+               {
+                 sizeId:3,
+                 text:'large',
+                 qty:0,
+                 unitPrice:275
+               }
+             ]
            }
          ];
          break;
@@ -193,11 +327,28 @@ t2b_mobile.controller('restaurantController', function ($scope,$state,$translate
              itemId : 2,
              itemName : 'Chicken Burger',
              imageUrl : 'img/food_items/2.jpg',
-             description : 'Prevent food spoilage from...',
-             unitPrice : 50,
-             qty : 0,
+             description : 'Prevent food spoilage...',
              category:'non-veg',
-             sizes : ['small','medium','large']
+             sizes : [
+               {
+                 sizeId:1,
+                 text:'small',
+                 qty:0,
+                 unitPrice:50
+               },
+               {
+                 sizeId:2,
+                 text:'medium',
+                 qty:0,
+                 unitPrice:100
+               },
+               {
+                 sizeId:3,
+                 text:'large',
+                 qty:0,
+                 unitPrice:150
+               }
+             ]
            }
          ];
          break;
@@ -207,11 +358,28 @@ t2b_mobile.controller('restaurantController', function ($scope,$state,$translate
              itemId : 6,
              itemName : 'Sea Food Burger',
              imageUrl : 'img/food_items/6.jpg',
-             description : 'Prevent food spoilage from...',
-             unitPrice : 70,
-             qty : 0,
+             description : 'Prevent food spoilage...',
              category:'sea-food',
-             sizes : ['small','medium','large']
+             sizes : [
+               {
+                 sizeId:1,
+                 text:'small',
+                 qty:0,
+                 unitPrice:70
+               },
+               {
+                 sizeId:2,
+                 text:'medium',
+                 qty:0,
+                 unitPrice:100
+               },
+               {
+                 sizeId:3,
+                 text:'large',
+                 qty:0,
+                 unitPrice:130
+               }
+             ]
            }
          ];
          break;
@@ -221,11 +389,16 @@ t2b_mobile.controller('restaurantController', function ($scope,$state,$translate
              itemId : 5,
              itemName : 'Egg Bun',
              imageUrl : 'img/food_items/5.jpg',
-             description : 'Prevent food spoilage from...',
-             unitPrice : 30,
-             qty : 0,
+             description : 'Prevent food spoilage...',
              category:'breakfast',
-             sizes : ['small']
+             sizes : [
+               {
+                 sizeId:1,
+                 text:'small',
+                 qty:0,
+                 unitPrice:30
+               }
+             ]
            }
          ];
          break;
@@ -236,34 +409,37 @@ t2b_mobile.controller('restaurantController', function ($scope,$state,$translate
   }
 
   $scope.subQty = function (item) {
-    if(item.qty>0){
-      item.qty--;
-      angular.forEach($scope.cart.items, function(obj) {
-        if(obj.itemId == item.itemId && obj.selectedSize == item.selectedSize){
-          obj.qty--;
+    if(item.selectedSize.qty>0){
+      item.selectedSize.qty--;
+      angular.forEach($rootScope.cart.items, function(obj) {
+        if(obj.itemId == item.itemId && obj.selectedSize.sizeId == item.selectedSize.sizeId){
+          obj.selectedSize.qty--;
         }
       });
-      console.log($scope.cart);
+      console.log($rootScope.cart);
     }
   };
 
   $scope.addQty = function (item) {
-    item.qty++;
-    if($scope.cart.items.length>0){
-      angular.forEach($scope.cart.items, function(obj) {
-        if(obj.itemId == item.itemId && obj.selectedSize == item.selectedSize){
-          obj.qty++;
-        }else{
-          $scope.cart.items.push(item);
+    item.selectedSize.qty++;
+    if($rootScope.cart.items.length>0){
+      var itemAvailable = false;
+      angular.forEach($rootScope.cart.items, function(obj) {
+        console.log(obj.itemId == item.itemId);
+        console.log(obj.selectedSize.sizeId == item.selectedSize.sizeId);
+        if(obj.itemId == item.itemId && obj.selectedSize.sizeId == item.selectedSize.sizeId){
+          obj.selectedSize.qty++;
+          itemAvailable = true;
         }
       });
+      if(!itemAvailable){
+        $rootScope.cart.items.push(angular.copy(item));
+      }
     }else {
-      $scope.cart.items.push(item);
+      $rootScope.cart.items.push(angular.copy(item));
     }
-    console.log($scope.cart);
+     console.log($rootScope.cart);
   };
-
-  $scope.sizes = ['small','medium','large'];
 
   var originatorEv;
 

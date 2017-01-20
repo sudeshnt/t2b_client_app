@@ -70,17 +70,17 @@
                         </div>
                       </div>
                       <div class="col.col-30 zero-padding">
-                        <span style="font-size: 10px;" ng-show="foodItem.qty>0">Rs. {{foodItem.unitPrice}} x {{foodItem.qty}}<br></span>
-                        <span style="font-weight: 400;">Rs {{foodItem.qty>0? foodItem.unitPrice*foodItem.qty : foodItem.unitPrice}}</span>
+                        <span style="font-size: 10px;" ng-show="foodItem.selectedSize.qty>0">Rs. {{foodItem.selectedSize.unitPrice}} x {{foodItem.selectedSize.qty}}<br></span>
+                        <span style="font-weight: 400;">Rs {{foodItem.selectedSize.qty>0? foodItem.selectedSize.unitPrice*foodItem.selectedSize.qty : foodItem.selectedSize.unitPrice}}</span>
                       </div>
                     </div>
                     <div class="row zero-padding">
                       <div class="col zero-padding align-left">
                         <md-input-container style="margin: 25px 0px 0px 0px; font-size: smaller ">
                           <label>size</label>
-                          <md-select ng-model="foodItem.qty">
+                          <md-select ng-model="foodItem.selectedSize">
                             <md-option ng-repeat="size in foodItem.sizes" ng-value="size" ng-selected="$index === 0">
-                              {{size}}
+                              {{size.text}}
                             </md-option>
                           </md-select>
                         </md-input-container>
@@ -88,7 +88,7 @@
                       <div class="col" style="max-width: 100px;">
                         <div class="flex_row">
                           <a class="button button-clear icon ion-minus-circled grey-content" ng-click="subQty(foodItem)"></a>
-                          <span style="line-height: 44px;">{{foodItem.qty}}</span>
+                          <span style="line-height: 44px;">{{foodItem.selectedSize.qty}}</span>
                           <a class="button button-clear icon ion-plus-circled grey-content" ng-click="addQty(foodItem)"></a>
                         </div>
                       </div>

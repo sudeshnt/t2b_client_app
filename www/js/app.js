@@ -94,10 +94,21 @@ t2b_mobile.controller("initialController",function($scope,$state,$rootScope,$fil
       function(event, toState, toParams, fromState, fromParams){
         $scope.progressbar.complete()
   });
+
+
   $scope.checkout = function () {
     $mdBottomSheet.hide();
     $state.go('checkout');
   };
+  $scope.getTotal = function(){
+    var total = 0;
+    for(var i = 0; i < $rootScope.cart.items.length; i++){
+      var product = $rootScope.cart.items[i];
+      total += (product.selectedSize.unitPrice * product.selectedSize.qty);
+    }
+    return total;
+  };
+
   $scope.showListBottomSheet = function() {
     $scope.alert = '';
     $mdBottomSheet.show({
@@ -117,6 +128,9 @@ t2b_mobile.controller("initialController",function($scope,$state,$rootScope,$fil
           $log.debug("toggle " + navID + " is done");
         });
     }
+  }
+  $scope.closeCart = function () {
+    $mdBottomSheet.hide();
   }
 });
 
