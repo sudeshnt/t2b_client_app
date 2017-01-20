@@ -54,6 +54,7 @@
                     <h3 style="font-size: 14px; text-align: left;">{{item.itemName}} <span style="font-size: 10px;" ng-show="!item.editEnabled">({{item.selectedSize.text}})</span> <span style="font-size: 10px;" ng-show="item.editEnabled"> Rs {{item.selectedSize.unitPrice}} x {{item.selectedSize.qty}}</span></h3>
                   </div>
                   <div class="col.col-30 zero-padding">
+                    <!--Rs {{item.itemTotal}}.00-->
                     Rs {{item.selectedSize.unitPrice*item.selectedSize.qty}}.00
                   </div>
                 </div>
@@ -62,8 +63,8 @@
                     <div class="col zero-padding" style="max-width: 65px;">
                       <md-input-container style="margin: 10px 0px 0px 0px; font-size: smaller ">
                         <label>size</label>
-                        <md-select ng-model="item.selectedSize.sizeId">
-                          <md-option ng-repeat="size in item.sizes" ng-value="size.sizeId">
+                        <md-select ng-model="item.selectedSize">
+                          <md-option ng-repeat="size in item.sizes" ng-value="size">
                             {{size.text}}
                           </md-option>
                         </md-select>

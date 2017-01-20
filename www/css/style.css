@@ -28,7 +28,7 @@
   margin: 0px !important;
 }
 .restaurant-banner{
-  height: 175px;
+  height: 88px;
   overflow: hidden;
 }
 .restaurant-name-board {
@@ -86,7 +86,7 @@
   position: relative;
   z-index: 2;
   display: block;
-  padding: 8px 10px 0px 10px;
+  padding: 0px 10px 0px 10px;
   font-size: 16px;
 }
 .close-button{

@@ -1,26 +1,26 @@
 <ion-view>
   <!--<ion-header-bar class="bar-stable" ng-bind-html="headerContent" >-->
-  <ion-header-bar class="bar-stable" >
-    <div style="width: 100%; display: inherit;" >
+  <ion-header-bar class="bar-stable" style="background:rgba(255,255,255,0); height:35px !important; ">
+    <div style="width: 100%; display: inherit; margin-top: 0px !important;" >
       <div style="position: absolute; left: 5px;">
         <a class="button button-icon row"  ng-click="goToHome()">
-          <i class="ion-android-arrow-back white" style="font-size: 30px;"></i>
+          <i class="ion-android-arrow-back white" style="font-size: 20px;"></i>
         </a>
       </div>
-      <h3 class="side-margin-auto white"  style="margin-top: 0px">{{headerText}}</h3>
+      <!--<h3 class="side-margin-auto white"  style="margin-top: 0px">{{headerText}}</h3>-->
       <div style="position: absolute; right: 5px;" >
         <a class="button button-icon row"  ng-click="toggleSearch()">
-          <i class="ion-ios-search-strong white" style="font-size: 30px;"></i>
+          <i class="ion-ios-search-strong white" style="font-size: 20px;"></i>
         </a>
       </div>
     </div>
   </ion-header-bar>
 
-  <!--<ion-content>-->
-  <ion-content restaurant-header-shrink ng-class="margin_top">
+  <ion-content>
+  <!--<ion-content restaurant-header-shrink ng-class="margin_top">-->
     <div class="row zero-padding">
       <div class="align-center restaurant-banner">
-        <img ng-src="{{restaurant.imageUrl}}" style="width:100%">
+        <img ng-src="{{restaurant.imageUrl}}" style="width:100%; ">
       </div>
     </div>
     <div class="row">
@@ -38,7 +38,7 @@
       </div>
     </div>
     <div class="row align-center">
-      <p class="side-margin-auto grey-content" style="margin-top: 8px;"><i class="ion-ios-clock"> </i> Open {{restaurant.openTime}} - {{restaurant.closeTime}}</p>
+      <p class="side-margin-auto grey-content" style="margin-top: 5px; margin-bottom: 0px;"><i class="ion-ios-clock"> </i> Open {{restaurant.openTime}} - {{restaurant.closeTime}}</p>
     </div>
     <tab-slide-box>
       <div class="tsb-icons">

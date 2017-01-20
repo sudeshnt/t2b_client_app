@@ -100,6 +100,7 @@ t2b_mobile.controller("initialController",function($scope,$state,$rootScope,$fil
     $mdBottomSheet.hide();
     $state.go('checkout');
   };
+
   $scope.getTotal = function(){
     var total = 0;
     for(var i = 0; i < $rootScope.cart.items.length; i++){
