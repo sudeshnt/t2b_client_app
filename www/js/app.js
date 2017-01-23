@@ -5,6 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 var t2b_mobile = angular.module('t2b_mobile',
   [
+    'ngCordova',
     'ngSanitize',
     'ionic',
     'pascalprecht.translate',
@@ -39,6 +40,16 @@ t2b_mobile.run(function($ionicPlatform) {
 t2b_mobile.config(function($stateProvider, $urlRouterProvider ,$translateProvider) {
 
   $stateProvider
+    .state('login', {
+      url: '/login',
+      templateUrl: 'templates/profile/login.html',
+      controller: 'loginController'
+    })
+    .state('register', {
+      url: '/register',
+      templateUrl: 'templates/profile/register.html',
+      controller: 'registerController'
+    })
     .state('home', {
       url: '/home',
       templateUrl: 'templates/home.html',
@@ -173,6 +184,27 @@ t2b_mobile.directive('compareTo',[function(){
   };
 }]);
 
+// This service keeps track of pending requests
+t2b_mobile.service('pendingRequests', function() {
+  var pending = [];
+  this.get = function() {
+    return pending;
+  };
+  this.add = function(request) {
+    pending.push(request);
+  };
+  this.remove = function(request) {
+    pending = _.filter(pending, function(p) {
+      return p.url !== request;
+    });
+  };
+  this.cancelAll = function() {
+    angular.forEach(pending, function(p) {
+      p.canceller.resolve();
+    });
+    pending.length = 0;
+  };
+});
 //header shrink with scroll
 t2b_mobile.directive('headerShrink', function($document,$sce,$rootScope) {
   var fadeAmt;

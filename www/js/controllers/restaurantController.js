@@ -1,7 +1,10 @@
 var t2b_mobile = angular.module('t2b_mobile');
 
 t2b_mobile.controller('restaurantController', function ($scope,$state,$translate,$rootScope,$sce) {
+
+  $rootScope.cartVisible = true;
   $scope.restaurant = {};
+
   $rootScope.cart = {
     organizationId : 1,
     organizationName : 'Green Foods',
@@ -9,6 +12,7 @@ t2b_mobile.controller('restaurantController', function ($scope,$state,$translate
 
     ]
   };
+
   init();
 
   function init() {

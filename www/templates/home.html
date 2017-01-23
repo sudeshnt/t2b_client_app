@@ -54,7 +54,7 @@
       <!--</ul>-->
     <!--</div>-->
     <tab-slide-box>
-      <div class="tsb-icons">
+      <div class="tsb-icons" style="margin-top:5px;">
         <div class="tsb-ic-wrp">
           <ion-scroll direction="x" class="tsb-hscroll">
             <a href="javascript:;" on-finish-render="test()" style="margin: 0px 18px;">
@@ -92,7 +92,7 @@
                 <div class="item item-image">
                   <img ng-src="{{restaurant.imageUrl}}">
                   <div class="text-on-image card-title-shadow">
-                    <h2>{{restaurant.restaurantName}}</h2>
+                    <h2>{{restaurant.orgName}}</h2>
                     <h3>{{restaurant.status}}</h3>
                   </div>
                 </div>
@@ -190,20 +190,20 @@
       <img ng-src="img/food_slider/4.jpg" style="width:100%">
       <md-list flex>
         <md-list-item class="md-3-line" style="height: 45px; min-height:0px; padding-top: 11px;">
-          <div class="md-list-item-text zero-margin" layout="column">
+          <div class="md-list-item-text zero-margin" layout="column" ng-click="goToLogin()">
             <h3>Login</h3>
           </div>
         </md-list-item>
         <md-divider ></md-divider>
         <md-list-item class="md-3-line" style="height: 45px; min-height:0px; padding-top: 11px;">
-          <div class="md-list-item-text zero-margin" layout="column">
-            <h3>Login</h3>
+          <div class="md-list-item-text zero-margin" layout="column" ng-click="goToRegistration()">
+            <h3>Register</h3>
           </div>
         </md-list-item>
         <md-divider ></md-divider>
         <md-list-item class="md-3-line" style="height: 45px; min-height:0px; padding-top: 11px;">
           <div class="md-list-item-text zero-margin" layout="column">
-            <h3>Login</h3>
+            <h3>About us</h3>
           </div>
         </md-list-item>
         <md-divider ></md-divider>

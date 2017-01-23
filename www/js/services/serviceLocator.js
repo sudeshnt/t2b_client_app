@@ -5,20 +5,13 @@ angular.module('t2b_mobile').service('serviceLocator', [serviceLocator]);
   function serviceLocator(){
 
     var serviceList = {
-          PayLeService : {
-            serviceId:1,
-            serviceName:'PayLe Rest',
-            serviceUrl:'http://52.77.133.12',
-            port:'8080',
-            base_url:'/Pay_Web/rest'
-          },
-          IDImage: {
-            serviceId:2,
-            serviceName:'Id Image Upload View',
-            serviceUrl:'http://52.77.133.12',
-            port:'8080',
-            base_url:'/Pay_Web'
-          }
+        t2bMobileApi:{
+          serviceId:3,
+          serviceName:'touch2but Mobile Api',
+          serviceUrl:'http://52.221.14.28',
+          port:'8080',
+          base_url:'/api'
+        }
     };
 
     var statusList = {

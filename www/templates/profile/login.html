@@ -1,0 +1,22 @@
+<ion-view>
+  <ion-content style="padding-top:40px;">
+    <div style="text-align: center; padding:35px 0px;"><img class="full-width" src="img/logo.png" style="max-width: 230px;"></div>
+    <form  class="form-horizontal" role="form" name="userLoginForm">
+      <md-input-container class="md-icon-float md-block" style="margin-top: 15px;">
+        <label>Phone Number / Email</label>
+        <md-icon class="name ion-person align-right md-primary"></md-icon>
+        <input ng-model="user.userName" type="text" style="width: 90%;" name="userName" required>
+      </md-input-container>
+      <md-input-container class="md-icon-float md-block" style="margin-top: 15px;">
+        <md-icon class="name ion-android-lock align-right md-primary"></md-icon>
+        <input ng-model="user.password" type="password" placeholder="Password" style="width: 90%;" name="password" required>
+      </md-input-container>
+      <a md-no-ink class="md-primary zero-margin font-size-10" style="text-transform:none; padding-left: 5%;">forgot your password ?</a>
+      <md-input-container class="md-icon-float md-block align-center" >
+        <md-button class="md-raised custom-height-button md-primary" ng-click="doLogin(userLoginForm.$valid)" style="height: 25px; line-height: 25px; font-size: 10px; width: 90%;">Login</md-button>
+      </md-input-container>
+      <a md-no-ink class="md-primary zero-margin font-size-10" style="text-transform:none; padding-left: 5%; margin-top: -8px !important;">doesn't have an account? Sign Up</a>
+    </form>
+  </ion-content>
+</ion-view>
+

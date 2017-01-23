@@ -24,17 +24,6 @@ angular.module('t2b_mobile').service('httpService', ['$http', '$q', '$ionicLoadi
     }
 
     function postRequest(service,extended_url,data,config){
-      if(localStorage.getItem('loginResponse')!=null && localStorage.getItem('loginResponse')!='null' && localStorage.getItem('loginResponse')!='' && localStorage.getItem('loginResponse')!=undefined && localStorage.getItem('loginResponse')!='undefined'){
-        if(data.merchantCode==null || data.merchantCode=='null' || data.merchantCode=='' || data.merchantCode==undefined){
-          data.merchantCode = JSON.parse(localStorage.getItem('loginResponse')).merchantCode;
-        }
-        data.sessionId = JSON.parse(localStorage.getItem('loginResponse')).sessionId;
-      }else{
-        if(data.merchantCode==null || data.merchantCode=='null' || data.merchantCode=='' || data.merchantCode==undefined) {
-          data.merchantCode = null;
-        }
-        data.sessionId = null;
-      }
       var deferred = $q.defer();
       var url = service.serviceUrl+':'+service.port+service.base_url+extended_url;
       console.log(JSON.stringify(url));
@@ -56,17 +45,6 @@ angular.module('t2b_mobile').service('httpService', ['$http', '$q', '$ionicLoadi
     }
 
     function putRequest(service,extended_url,data,config){
-      if(localStorage.getItem('loginResponse')!=null && localStorage.getItem('loginResponse')!='null' && localStorage.getItem('loginResponse')!='' && localStorage.getItem('loginResponse')!=undefined && localStorage.getItem('loginResponse')!='undefined'){
-        if(data.merchantCode==null || data.merchantCode=='null' || data.merchantCode=='' || data.merchantCode==undefined) {
-          data.merchantCode = JSON.parse(localStorage.getItem('loginResponse')).merchantCode;
-        }
-        data.sessionId = JSON.parse(localStorage.getItem('loginResponse')).sessionId;
-      }else{
-        if(data.merchantCode==null || data.merchantCode=='null' || data.merchantCode=='' || data.merchantCode==undefined) {
-          data.merchantCode = null;
-        }
-        data.sessionId = null;
-      }
       var deferred = $q.defer();
       var url = service.serviceUrl+':'+service.port+service.base_url+extended_url;
       addToPendingRequests(url,deferred);
@@ -105,7 +83,7 @@ angular.module('t2b_mobile').service('httpService', ['$http', '$q', '$ionicLoadi
 
     function showLoading(){
       $ionicLoading.show({
-        template: '<ion-spinner icon="bubbles"></ion-spinner>',
+        template: '<ion-spinner icon="lines"></ion-spinner>',
         hideOnStateChange: true
       });
     }
