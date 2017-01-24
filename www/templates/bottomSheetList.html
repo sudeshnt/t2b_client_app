@@ -14,14 +14,14 @@
           <div class="col zero-padding">
             <div class="row zero-padding">
               <div class="col zero-padding">
-                <h3 style="font-size: 12px; text-align: left;">{{cartItem.itemName}}</span></h3>
+                <h3 style="font-size: 12px; text-align: left;">{{cartItem.selectedSize.name}}</span></h3>
               </div>
-              <div class="col.col-30 zero-padding">
-                <span style="font-size: 12px;">Rs {{cartItem.selectedSize.unitPrice*cartItem.selectedSize.qty}}.00</span>
+              <div class="col.col-30 zero-padding align-right" style="min-width:60px;">
+                <span style="font-size: 12px;">Rs {{cartItem.selectedSize.finalPrice*cartItem.selectedSize.qty}}.00</span>
               </div>
             </div>
-            <div class="row zero-padding">
-              <span style="font-size: 12px;"> Rs {{cartItem.selectedSize.unitPrice}} x {{cartItem.selectedSize.qty}} <span style="font-size: 10px;">({{cartItem.selectedSize.text}})</span>
+            <div class="row zero-padding" >
+              <span style="font-size: 12px;"> Rs {{cartItem.selectedSize.finalPrice}} x {{cartItem.selectedSize.qty}} <span style="font-size: 10px;">({{cartItem.selectedSize.sizeName}})</span>
             </div>
           </div>
         </div>

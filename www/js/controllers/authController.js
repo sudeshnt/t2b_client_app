@@ -4,7 +4,8 @@
 var t2b_mobile = angular.module('t2b_mobile');
 
 t2b_mobile.controller('loginController', function ($scope,$state,serviceLocator,httpService,$translate,$rootScope) {
-
+  $scope.forgotPassword = false;
+  $scope.enterOTP = true;
   $scope.user = {};
   $scope.doLogin = function (isValid) {
     if (isValid) {

@@ -1,15 +1,13 @@
 var t2b_mobile = angular.module('t2b_mobile');
 
 t2b_mobile.controller('homeController', function ($scope,$state,$mdBottomSheet,$mdSidenav, $log,serviceLocator,httpService,$sce,$translate,$rootScope) {
+  var t2bMobileApi = serviceLocator.serviceList.t2bMobileApi;
 
   $scope.restaurants = [];
   $scope.searchEnabled = false;
   initRestaurants();
 
   function initRestaurants() {
-    //hardcoded values
-    $scope.restaurants = [];
-    var t2bMobileApi = serviceLocator.serviceList.t2bMobileApi;
     var extended_url = '/organization/getAll';
     httpService.postRequest(t2bMobileApi,extended_url,{},{}).then(function(response){
       if(response!=null) {
@@ -75,8 +73,18 @@ t2b_mobile.controller('homeController', function ($scope,$state,$mdBottomSheet,$
   //   console.log($index);
   // };
 
-  $scope.goToRestaurant = function () {
-    $state.go('restaurant');
+  $scope.goToRestaurant = function (selectedOrganization) {
+    var extended_url = '/organization/getOrganizationDetails';
+    var reqObj = {
+      "orgId": selectedOrganization.orgId,
+      "lang": "en"
+    };
+    httpService.postRequest(t2bMobileApi,extended_url,reqObj,{}).then(function(response){
+      if(response!=null) {
+        localStorage.setItem('lastVisitedOrg',JSON.stringify(response));
+        $state.go('restaurant',{organization:response});
+      }
+    });
   };
 
   $scope.goToRegistration = function () {

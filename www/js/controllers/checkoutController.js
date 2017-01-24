@@ -2,9 +2,6 @@ var t2b_mobile = angular.module('t2b_mobile');
 
 t2b_mobile.controller('checkoutController', function ($scope,$state,$translate,$rootScope) {
 
-  $scope.sizes = ['small','medium','large'];
-
-  $scope.items = ['asda','asdas'];
   $scope.isMemberLogin = false;
   $scope.isEditSeen = false;
 
@@ -53,7 +50,7 @@ t2b_mobile.controller('checkoutController', function ($scope,$state,$translate,$
           obj.totalAmount = 0;
           for(var i=0;i< obj.items.length;i++){
             console.log(obj.items[i]);
-            obj.totalAmount += obj.items[i].selectedSize.unitPrice * obj.items[i].selectedSize.qty;
+            obj.totalAmount += obj.items[i].selectedSize.finalPrice * obj.items[i].selectedSize.qty;
           }
         // }
       });

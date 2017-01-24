@@ -63,7 +63,8 @@ t2b_mobile.config(function($stateProvider, $urlRouterProvider ,$translateProvide
     .state('restaurant', {
       url: '/restaurant',
       templateUrl: 'templates/restaurant.html',
-      controller: 'restaurantController'
+      controller: 'restaurantController',
+      params : {organization : null}
     })
     .state('checkout', {
       url: '/checkout',
@@ -116,7 +117,7 @@ t2b_mobile.controller("initialController",function($scope,$state,$rootScope,$fil
     var total = 0;
     for(var i = 0; i < $rootScope.cart.items.length; i++){
       var product = $rootScope.cart.items[i];
-      total += (product.selectedSize.unitPrice * product.selectedSize.qty);
+      total += (product.selectedSize.finalPrice * product.selectedSize.qty);
     }
     return total;
   };

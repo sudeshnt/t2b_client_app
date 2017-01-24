@@ -87,12 +87,12 @@
       <ion-slide-box show-pager="false" on-slide-changed="slideHasChanged($index)">
         <ion-slide>
           <div class="row" ng-repeat="restaurantRow in restaurants">
-            <div class="col" ng-repeat="restaurant in restaurantRow">
+            <div class="col" ng-repeat="restaurant in restaurantRow" style="max-width: 50%;">
               <div class="list card" ng-click="goToRestaurant(restaurant)">
                 <div class="item item-image">
                   <img ng-src="{{restaurant.imageUrl}}">
                   <div class="text-on-image card-title-shadow">
-                    <h2>{{restaurant.orgName}}</h2>
+                    <h2 style="font-size: 20px !important;">{{restaurant.orgName}}</h2>
                     <h3>{{restaurant.status}}</h3>
                   </div>
                 </div>

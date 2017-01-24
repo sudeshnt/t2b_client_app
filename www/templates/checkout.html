@@ -51,11 +51,11 @@
               <div class="col zero-padding">
                 <div class="row zero-padding">
                   <div class="col zero-padding">
-                    <h3 style="font-size: 14px; text-align: left;">{{item.itemName}} <span style="font-size: 10px;" ng-show="!item.editEnabled">({{item.selectedSize.text}})</span> <span style="font-size: 10px;" ng-show="item.editEnabled"> Rs {{item.selectedSize.unitPrice}} x {{item.selectedSize.qty}}</span></h3>
+                    <h3 style="font-size: 14px; text-align: left;">{{item.selectedSize.name}} <span style="font-size: 10px;" ng-show="!item.editEnabled">({{item.selectedSize.sizeName}})</span> <span style="font-size: 10px;" ng-show="item.editEnabled"> Rs {{item.selectedSize.finalPrice}} x {{item.selectedSize.qty}}</span></h3>
                   </div>
                   <div class="col.col-30 zero-padding">
                     <!--Rs {{item.itemTotal}}.00-->
-                    Rs {{item.selectedSize.unitPrice*item.selectedSize.qty}}.00
+                    Rs {{item.selectedSize.finalPrice*item.selectedSize.qty}}.00
                   </div>
                 </div>
                 <div class="row zero-padding">
@@ -64,8 +64,8 @@
                       <md-input-container style="margin: 10px 0px 0px 0px; font-size: smaller ">
                         <label>size</label>
                         <md-select ng-model="item.selectedSize">
-                          <md-option ng-repeat="size in item.sizes" ng-value="size">
-                            {{size.text}}
+                          <md-option ng-repeat="size in item.products" ng-value="size">
+                            {{size.sizeName}}
                           </md-option>
                         </md-select>
                       </md-input-container>
@@ -85,7 +85,7 @@
                     </div>
                   </div>
                   <div style="display: inherit" ng-show="!item.editEnabled">
-                    <span style="font-size: 13px; padding-top: 16px;"> Rs {{item.selectedSize.unitPrice}} x {{item.selectedSize.qty}} (qty)</span>
+                    <span style="font-size: 13px; padding-top: 16px;"> Rs {{item.selectedSize.finalPrice}} x {{item.selectedSize.qty}} (qty)</span>
                   </div>
                   <div class="col align-right"  ng-hide="item.editEnabled">
                     <a class="edit-button"><i class="ion-edit" ng-click="toggleEdit(item)" style="font-size: 13px;"> edit</i></a>

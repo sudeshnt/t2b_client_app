@@ -1,4 +1,4 @@
-<ion-view>
+<ion-view cache-view="false">
   <!--<ion-header-bar class="bar-stable" ng-bind-html="headerContent" >-->
   <ion-header-bar class="bar-stable" style="background:rgba(255,255,255,0); height:35px !important; ">
     <div style="width: 100%; display: inherit; margin-top: 0px !important;" >
@@ -20,14 +20,14 @@
   <!--<ion-content restaurant-header-shrink ng-class="margin_top">-->
     <div class="row zero-padding">
       <div class="align-center restaurant-banner">
-        <img ng-src="{{restaurant.imageUrl}}" style="width:100%; ">
+        <img ng-src="img/food_slider/1.jpg" style="width:100%; ">
       </div>
     </div>
     <div class="row">
       <div class="card restaurant-name-board">
         <div class="item item-text-wrap align-center">
-          <h2 style="font-size: larger;">{{restaurant.organizationName}}</h2>
-          <h3 class="grey-content small-margin">{{restaurant.description}}</h3>
+            <h2 style="font-size: larger;">{{restaurant.displayName}}</h2>
+          <h3 class="grey-content small-margin">{{restaurant.companyMotto}}</h3>
           <!--<h3 class="grey-content small-margin">$$$$</h3>-->
           <i class="ion-android-star star-active"></i>
           <i class="ion-android-star star-active"></i>
@@ -40,12 +40,14 @@
     <div class="row align-center">
       <p class="side-margin-auto grey-content" style="margin-top: 5px; margin-bottom: 0px;"><i class="ion-ios-clock"> </i> Open {{restaurant.openTime}} - {{restaurant.closeTime}}</p>
     </div>
+    <!--{{activeTab}}-->
+
     <tab-slide-box>
       <div class="tsb-icons">
         <div class="tsb-ic-wrp">
           <ion-scroll direction="x" class="tsb-hscroll">
             <a href="javascript:;" class="{{tab.icon}}" ng-repeat="tab in restaurant.categories" on-finish-render="onSlideMove(tab)">
-              {{tab.text}}
+              {{tab.categoryName  }}
             </a>
           </ion-scroll>
         </div>
@@ -64,28 +66,29 @@
                   <div class="col zero-padding" style="padding-left: 10px !important;">
                     <div class="row zero-padding">
                       <div class="col zero-padding">
-                        <h3 style="font-size: large; text-align: left;">{{foodItem.itemName}} </h3>
+                        <h3 style=" font-size: 17px; text-align: left;">{{foodItem.selectedSize.name}}</h3>
                         <div class="row zero-padding" style="padding-top: 5px;">
-                          <p style="text-align: left;">{{foodItem.description}}</p>
+                          <p style="text-align: left;">{{foodItem.description.substring(0, 20);}}</p>
                         </div>
                       </div>
                       <div class="col.col-30 zero-padding">
-                        <span style="font-size: 10px;" ng-show="foodItem.selectedSize.qty>0">Rs. {{foodItem.selectedSize.unitPrice}} x {{foodItem.selectedSize.qty}}<br></span>
-                        <span style="font-weight: 400;">Rs {{foodItem.selectedSize.qty>0? foodItem.selectedSize.unitPrice*foodItem.selectedSize.qty : foodItem.selectedSize.unitPrice}}</span>
+                        <span style="font-size: 10px;" ng-show="foodItem.selectedSize.qty>0">Rs. {{foodItem.selectedSize.finalPrice}} x {{foodItem.selectedSize.qty}}<br></span>
+                        <span style="font-weight: 400;">Rs {{foodItem.selectedSize.qty>0? foodItem.selectedSize.finalPrice*foodItem.selectedSize.qty : foodItem.selectedSize.finalPrice}}</span>
                       </div>
                     </div>
                     <div class="row zero-padding">
                       <div class="col zero-padding align-left">
                         <md-input-container style="margin: 25px 0px 0px 0px; font-size: smaller ">
                           <label>size</label>
-                          <md-select ng-model="foodItem.selectedSize">
-                            <md-option ng-repeat="size in foodItem.sizes" ng-value="size" ng-selected="$index === 0">
-                              {{size.text}}
+                          <md-select ng-model="foodItem.selectedSize" >
+                            <md-option ng-repeat="size in foodItem.products" ng-value="size" ng-selected="$index === 0" ng-init='size.qty = 0;'>
+                              {{size.sizeName}}
                             </md-option>
                           </md-select>
                         </md-input-container>
                       </div>
-                      <div class="col" style="max-width: 100px;">
+                      <!--{{foodItem.selectedSize}}-->
+                      <div class="col" style="max-width: 100px;" ng-init="foodItem.selectedSize.qty = 0;">
                         <div class="flex_row">
                           <a class="button button-clear icon ion-minus-circled grey-content" ng-click="subQty(foodItem)"></a>
                           <span style="line-height: 44px;">{{foodItem.selectedSize.qty}}</span>
