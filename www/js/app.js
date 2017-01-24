@@ -50,6 +50,11 @@ t2b_mobile.config(function($stateProvider, $urlRouterProvider ,$translateProvide
       templateUrl: 'templates/profile/register.html',
       controller: 'registerController'
     })
+    .state('confirmOTP', {
+      url: '/confirmOTP',
+      templateUrl: 'templates/profile/confirmOTP.html',
+      controller: 'confirmOTPController'
+    })
     .state('home', {
       url: '/home',
       templateUrl: 'templates/home.html',

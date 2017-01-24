@@ -1,0 +1,23 @@
+<ion-view>
+  <ion-content style="padding-top:40px;">
+    <div style="text-align: center; padding:35px 0px;"><img class="full-width" src="img/logo.png" style="max-width: 230px;"></div>
+
+    <form  class="form-horizontal" role="form" name="userLoginForm">
+      <div style="text-align: center; padding:5%;">Enter OTP received in the SMS.<br>didn't receive otp ? <a ng-click="resentOTP()" md-no-ink class="md-primary zero-margin" style="text-transform:none;">resend otp</a></div>
+      <div class="row">
+        <div class="col col-20"></div>
+        <div class="col col-60">
+          <md-input-container class="md-icon-float md-block" style="margin-top: 0px; margin-bottom: 10px;">
+            <label>OTP</label>
+            <md-icon class="name ion-android-lock align-right md-primary" style="top: 12px;"></md-icon>
+            <input ng-model="user.userName" type="text" style="width: 90%;" name="userName" required>
+          </md-input-container>
+        </div>
+        <div class="col col-20"></div>
+      </div>
+      <md-input-container class="md-icon-float md-block align-center" >
+        <md-button class="md-raised custom-height-button md-primary" ng-click="doLogin(userLoginForm.$valid)" style="height: 25px; line-height: 25px; font-size: 10px; width: 90%;">Submit</md-button>
+      </md-input-container>
+    </form>
+  </ion-content>
+</ion-view>

@@ -4,12 +4,15 @@
 var t2b_mobile = angular.module('t2b_mobile');
 
 t2b_mobile.controller('loginController', function ($scope,$state,serviceLocator,httpService,$translate,$rootScope) {
+
+  var t2bMobileApi = serviceLocator.serviceList.t2bMobileApi;
+
   $scope.forgotPassword = false;
-  $scope.enterOTP = true;
   $scope.user = {};
+  $scope.forgetPasswordRequest = {};
+
   $scope.doLogin = function (isValid) {
     if (isValid) {
-      var t2bMobileApi = serviceLocator.serviceList.t2bMobileApi;
       var extended_url = '/User/login';
       var reqObj = {
         "userName": $scope.user.userName,
@@ -17,18 +20,40 @@ t2b_mobile.controller('loginController', function ($scope,$state,serviceLocator,
         "channel": "mobile"
       };
       httpService.postRequest(t2bMobileApi, extended_url, reqObj, {}).then(function (response) {
-        if (response != null) {
+        if (response != null){
           if(response.loginStatus==1){
             localStorage.setItem('loginStatus',true);
             localStorage.setItem('authResponse',JSON.stringify(response.user));
             $state.go('home');
-          } else{
+          }else{
             $scope.errorMessage = response.message;
           }
         }
       });
     }
-  }
+  };
+
+  $scope.requestForgotPassword = function (isValid) {
+    if (isValid) {
+      var extended_url = '/User/forgotPassword';
+      var reqObj = {
+        "userName": $scope.forgetPasswordRequest.userName
+      };
+      httpService.postRequest(t2bMobileApi, extended_url, reqObj, {}).then(function (response) {
+        if (response != null){
+          $state.go('confirmOTP');
+        }
+      });
+    }
+  };
+
+  $scope.resentOTP = function () {
+
+  };
+
+  $scope.toggleForgotPassword = function () {
+    $scope.forgotPassword = !$scope.forgotPassword;
+  };
 
 });
 
@@ -62,3 +87,8 @@ t2b_mobile.controller('registerController', function ($scope,serviceLocator,http
   };
 
 });
+
+t2b_mobile.controller('confirmOTPController', function ($scope,$state,serviceLocator,httpService,$translate,$rootScope) {
+
+});
+
