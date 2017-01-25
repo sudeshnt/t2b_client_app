@@ -8,20 +8,24 @@ t2b_mobile.controller('checkoutController', function ($scope,$state,$translate,$
   $scope.cart = [
     $rootScope.cart
   ];
-  console.log($scope.cart);
 
   if($rootScope.cart==undefined){
     $state.go('restaurant');
   }
 
+  initLoginStatus();
   calculateCartFullAmount();
 
-  $scope.toggleMemberLoginForm = function() {
-    if($scope.isMemberLogin) {
-      $scope.isMemberLogin = false;
-    }else {
-      $scope.isMemberLogin = true;
+  function initLoginStatus(){
+    if(localStorage.getItem('loginStatus')!=null){
+      $scope.loginStatus = localStorage.getItem('loginStatus') && localStorage.getItem('loginStatus') != 'undefined' ? true : false;
+    }else{
+      $scope.loginStatus = false;
     }
+  }
+
+  $scope.toggleMemberLoginForm = function() {
+    $scope.isMemberLogin = $scope.isMemberLogin ? false : true;
   };
 
   $scope.toggleEdit = function (item) {

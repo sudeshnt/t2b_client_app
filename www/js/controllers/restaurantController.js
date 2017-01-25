@@ -93,7 +93,7 @@ t2b_mobile.controller('restaurantController', function ($scope,$state,$translate
     };
     httpService.postRequest(t2bMobileApi,extended_url,reqObj,{}).then(function(response){
       if(response!=null) {
-        // console.log(response);
+        console.log(response);
         $scope.restaurant.categories.push({
           branchId: 0,
           categoryId: 0,

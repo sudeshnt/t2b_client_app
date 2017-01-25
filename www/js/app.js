@@ -53,7 +53,8 @@ t2b_mobile.config(function($stateProvider, $urlRouterProvider ,$translateProvide
     .state('confirmOTP', {
       url: '/confirmOTP',
       templateUrl: 'templates/profile/confirmOTP.html',
-      controller: 'confirmOTPController'
+      controller: 'confirmOTPController',
+      params:{mobile:null}
     })
     .state('home', {
       url: '/home',
@@ -104,8 +105,12 @@ t2b_mobile.config(function($stateProvider, $urlRouterProvider ,$translateProvide
 t2b_mobile.controller("initialController",function($scope,$state,$rootScope,$filter, $timeout, ngProgressFactory,$mdBottomSheet){
   $scope.content = $filter('translate')('BACK');
   $scope.progressbar = ngProgressFactory.createInstance();
-  $rootScope.$on('$stateChangeStart', function (event,toState) {
+  $rootScope.$on('$stateChangeStart', function (event,toState,toParams, fromState, fromParams) {
     $scope.progressbar.start();
+    console.log();
+    if(fromState.name == 'restaurant'){
+      $rootScope.cartVisible = false;
+    }
   });
   $rootScope.$on('$stateChangeSuccess',
       function(event, toState, toParams, fromState, fromParams){

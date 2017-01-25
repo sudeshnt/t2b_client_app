@@ -20,6 +20,7 @@
         <md-input-container class="md-icon-float md-block" style="padding-left: 36px;">
           <i class="ion-eye"  style="font-size: 22px;" ng-class="type=='text' ? 'eye-lit' : 'eye-dull'" ng-click="toggleShowHide();"> <span style="font-size: 10px; vertical-align: top; color: black;"> Show Password</span></i>
         </md-input-container>
+        <div class="error" style="margin:1%" ng-if="errorMessage">{{errorMessage}}</div>
         <md-input-container class="md-icon-float md-block align-center" style="margin-top: 4px;">
           <md-button class="md-raised custom-height-button md-primary" style="height: 30px; line-height: 30px; font-size: 13px; width: 90%;"  ng-click="createUser(userRegistrationForm.$valid)">Register</md-button>
         </md-input-container>

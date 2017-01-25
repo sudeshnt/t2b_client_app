@@ -26,7 +26,7 @@
     <div class="row">
       <div class="card restaurant-name-board">
         <div class="item item-text-wrap align-center">
-            <h2 style="font-size: larger;">{{restaurant.displayName}}</h2>
+            <h2 style="font-size: 15px;">{{restaurant.displayName}}</h2>
           <h3 class="grey-content small-margin">{{restaurant.companyMotto}}</h3>
           <!--<h3 class="grey-content small-margin">$$$$</h3>-->
           <i class="ion-android-star star-active"></i>
@@ -37,7 +37,7 @@
         </div>
       </div>
     </div>
-    <div class="row align-center">
+    <div class="row align-center" style="padding-bottom: 3px;">
       <p class="side-margin-auto grey-content" style="margin-top: 5px; margin-bottom: 0px;"><i class="ion-ios-clock"> </i> Open {{restaurant.openTime}} - {{restaurant.closeTime}}</p>
     </div>
     <!--{{activeTab}}-->
@@ -60,13 +60,13 @@
                 <div class="row zero-padding">
                   <div class="col col-25 zero-padding" style="max-width: 140px;">
                     <div>
-                      <img ng-src="{{foodItem.imageUrl}}" style="height:100px; width:105px;">
+                      <img ng-src="{{foodItem.imageUrl}}" style="height:93px; width:97px;">
                     </div>
                   </div>
                   <div class="col zero-padding" style="padding-left: 10px !important;">
-                    <div class="row zero-padding">
+                    <div class="row zero-padding" style="min-height: 42px;">
                       <div class="col zero-padding">
-                        <h3 style=" font-size: 17px; text-align: left;">{{foodItem.selectedSize.name}}</h3>
+                        <h3 style=" font-size: 13px; text-align: left;">{{foodItem.selectedSize.name}}</h3>
                         <div class="row zero-padding" style="padding-top: 5px;">
                           <p style="text-align: left;">{{foodItem.description.substring(0, 20);}}</p>
                         </div>

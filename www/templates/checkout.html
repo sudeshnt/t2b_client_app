@@ -105,41 +105,34 @@
             </div>
           </div>
       </md-whiteframe>
-
-      <ion-list class="align-center">
+      <md-input-container class="md-icon-float md-block align-right" >
+        <md-button class="md-raised custom-height-button" ng-click="logIn()" style="height: 25px; line-height: 25px; font-size: 10px; width: 64%; color: white; background-color: #4caf50;">Continue <i class="ion-arrow-right-c"></i></md-button>
+      </md-input-container>
+      <ion-list class="align-center" ng-if="!loginStatus">
         <ion-item class="item-accordion" ng-show="isMemberLogin" style="padding: 10px;">
-          <!--<ion-item>-->
           <div class="row zero-padding">
-             <div class="col zero-padding">
-               <div class="form-group" style="margin-bottom: 3px">
-                 <label class="item item-input three-quarter-width" style="height:35px; border-radius: 8px; " required>
-                   <div class="input-icon">
-                     <i class="ion-person"></i>
-                     <input type="number" placeholder="username" ng-model="userLoginDetails.merchantCode" name="merchant_code" required>
-                   </div>
-                 </label>
-               </div>
-               <div class="form-group">
-                 <label class="item item-input three-quarter-width"  style="height:35px; border-radius: 8px;" required>
-                   <div class="input-icon">
-                     <i class="ion-android-lock"></i>
-                     <input type="password" placeholder="password" ng-model="userLoginDetails.password" name="password" required>
-                   </div>
-                 </label>
-               </div>
-             </div>
-             <!--<div class="col.col-5" style="padding: 15px 5px 15px 5px;">-->
-               <!--<button class="button button-balanced">-->
-                 <!--<i class="ion-play "></i>-->
-               <!--</button>-->
-             <!--</div>-->
+            <form  class="form-horizontal side-margin-auto" style="width: 75%;" role="form" name="userLoginForm" ng-if="!forgotPassword">
+              <md-input-container class="md-icon-float md-block" style="margin-top: 5px;">
+                <label class="align-left">Phone Number / Email</label>
+                <md-icon class="name ion-person align-right md-primary"></md-icon>
+                <input ng-model="user.userName" type="text" style="width: 90%;" name="userName" required>
+              </md-input-container>
+              <md-input-container class="md-icon-float md-block" style="margin-top: 15px;">
+                <label class="align-left">Password</label>
+                <md-icon class="name ion-android-lock align-right md-primary"></md-icon>
+                <input ng-model="user.password" type="password"  style="width: 90%;" name="password" required>
+              </md-input-container>
+              <div class="error" style="margin:1%" ng-if="errorMessage">{{errorMessage}}</div>
+              <md-input-container class="md-icon-float md-block align-center" >
+                <md-button class="md-raised custom-height-button md-primary" ng-click="doLogin(userLoginForm.$valid)" style="height: 25px; line-height: 25px; font-size: 10px; width: 90%;">Login</md-button>
+              </md-input-container>
+            </form>
           </div>
-          <!--</ion-item>-->
         </ion-item>
         <a class="button  button-positive custom-height-button side-margin-auto item-stable"
-                ng-click="isMemberLogin ? logIn() : toggleMemberLoginForm()"
-                ng-class="{active: isMemberLogin}">
-          {{isMemberLogin ? 'Login' : 'Member Login'}}
+                ng-if="!isMemberLogin"
+                ng-click="toggleMemberLoginForm()">
+          Member Login
         </a>
         <a class="button  button-assertive custom-height-button side-margin-auto" ng-click="memberDelivery()">
           Checkout as Guest

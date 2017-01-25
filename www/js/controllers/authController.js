@@ -37,11 +37,11 @@ t2b_mobile.controller('loginController', function ($scope,$state,serviceLocator,
     if (isValid) {
       var extended_url = '/User/forgotPassword';
       var reqObj = {
-        "userName": $scope.forgetPasswordRequest.userName
+        "userName": $scope.forgetPasswordRequest.mobile
       };
       httpService.postRequest(t2bMobileApi, extended_url, reqObj, {}).then(function (response) {
         if (response != null){
-          $state.go('confirmOTP');
+          $state.go('confirmOTP',{mobile:$scope.forgetPasswordRequest.mobile});
         }
       });
     }
@@ -53,6 +53,10 @@ t2b_mobile.controller('loginController', function ($scope,$state,serviceLocator,
 
   $scope.toggleForgotPassword = function () {
     $scope.forgotPassword = !$scope.forgotPassword;
+  };
+
+  $scope.goToRegister = function () {
+    $state.go('register');
   };
 
 });
@@ -78,9 +82,11 @@ t2b_mobile.controller('registerController', function ($scope,serviceLocator,http
       };
       httpService.postRequest(t2bMobileApi,extended_url,reqObj,{}).then(function(response){
         if(response!=null) {
-          // if(response.statusCode==0){
-          //   console.log(response);
-          // }else{$scope.errorMessage = response.message;}
+          if(response.statusCode==0){
+            $state.go('confirmOTP',{mobile:$scope.user.phoneNumber});
+          }else{
+            $scope.errorMessage = response.message;
+          }
         }
       });
     }
@@ -88,7 +94,72 @@ t2b_mobile.controller('registerController', function ($scope,serviceLocator,http
 
 });
 
-t2b_mobile.controller('confirmOTPController', function ($scope,$state,serviceLocator,httpService,$translate,$rootScope) {
+t2b_mobile.controller('confirmOTPController', function ($scope,$state,serviceLocator,httpService,$stateParams,$cordovaToast,$translate,$rootScope) {
+    var t2bMobileApi = serviceLocator.serviceList.t2bMobileApi;
+    $scope.verifyOtpReq = {};
+    $scope.resetForgotPasswordReq = {};
+
+    $scope.otpVerification = true;
+    $scope.resetForgotPassword = false;
+
+    if($stateParams.mobile!=null){
+      $scope.mobile = $stateParams.mobile;
+    }else{
+      $state.go('login');
+    }
+
+    $scope.resendOTP = function () {
+        var extended_url = '/User/resendOtp';
+        var reqObj = {
+          "mobile": $scope.mobile
+        };
+        httpService.postRequest(t2bMobileApi,extended_url,reqObj,{}).then(function(response){
+          if(response!=null) {
+            $cordovaToast.showLongBottom('OTP resent').then();
+          }
+        });
+    };
+
+    $scope.verifyOTP = function (isValid) {
+      if(isValid){
+        var extended_url = '/User/verifyOtp';
+        var reqObj = {
+          "mobile": $scope.mobile,
+          "otp": $scope.verifyOtpReq.otp
+        };
+        httpService.postRequest(t2bMobileApi,extended_url,reqObj,{}).then(function(response){
+          if(response!=null) {
+            if(response.code == 0){
+              $scope.resetForgotPassword = true;
+              $cordovaToast.showLongBottom('OTP successfully verified').then();
+            }else{
+              $scope.errorMessage = response.message;
+            }
+          }
+        });
+      }
+    };
+
+    $scope.resetPassword = function (isValid) {
+      if(isValid){
+        var extended_url = '/User/resetForgotPassword';
+        var reqObj = {
+          "mobile": $scope.mobile,
+          "otp": $scope.verifyOtpReq.otp,
+          "password" : $scope.resetForgotPasswordReq.password
+        };
+        httpService.postRequest(t2bMobileApi,extended_url,reqObj,{}).then(function(response){
+          if(response!=null) {
+            if(response.code == 0 && response.isChanged){
+               $cordovaToast.showLongBottom(response.message).then();
+               $state.go('home');
+            }else{
+              $scope.errorMessage = response.message;
+            }
+          }
+        });
+      }
+    };
 
 });
 
