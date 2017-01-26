@@ -1,26 +1,20 @@
 var t2b_mobile = angular.module('t2b_mobile');
 
-t2b_mobile.controller('restaurantController', function ($scope,$state,$translate,$rootScope,$stateParams,serviceLocator,httpService) {
+t2b_mobile.controller('restaurantController', function ($scope,$state,$translate,$rootScope,$stateParams,cartService,serviceLocator,httpService) {
   var t2bMobileApi = serviceLocator.serviceList.t2bMobileApi;
 
   $rootScope.cartVisible = true;
 
+  $scope.cart = cartService;
   $scope.restaurant = {};
   $scope.foodItems = [];
-
-  $rootScope.cart = {
-    organizationId : 1,
-    organizationName : 'Green Foods',
-    items : [
-
-    ]
-  };
 
   init();
 
   function init() {
     $scope.activeTab = 0;
     initRestaurant();
+    initCart();
     initFoodItems('all');
   }
 
@@ -36,52 +30,52 @@ t2b_mobile.controller('restaurantController', function ($scope,$state,$translate
     $scope.restaurant.openTime = '10:00 am';
     $scope.restaurant.closeTime = '11:00 pm';
     $scope.restaurant.categories = [
-          // {
-          //   "categoryId":0,
-          //   "categoryName" : "all"
-          // }
-          // {
-          //   "categoryId":1,
-          //   "categoryName" : "non-veg"
-          // },
-          // {
-          //   "categoryId":2,
-          //   "categoryName" : "veg"
-          // },
-          // {
-          //   "categoryId":3,
-          //   "categoryName" : "pizza"
-          // },
-          // {
-          //   "categoryId":4,
-          //   "categoryName" : "burger"
-          // },
-          // {
-          //   "categoryId":5,
-          //   "categoryName" : "sea-food"
-          // },
-          // {
-          //   "categoryId":6,
-          //   "categoryName" : "breakfast"
-          // },
-          // {
-          //   "categoryId":7,
-          //   "categoryName" : "lunch"
-          // },
-          // {
-          //   "categoryId":8,
-          //   "categoryName" : "dinner"
-          // },
-          // {
-          //   "categoryId":9,
-          //   "categoryName" : "natural"
-          // },
-          // {
-          //   "categoryId":10,
-          //   "categoryName" : "organic"
-          // }
+      // {
+      //   "categoryId":0,
+      //   "categoryName" : "all"
+      // }
+      // {
+      //   "categoryId":1,
+      //   "categoryName" : "non-veg"
+      // },
+      // {
+      //   "categoryId":2,
+      //   "categoryName" : "veg"
+      // },
+      // {
+      //   "categoryId":3,
+      //   "categoryName" : "pizza"
+      // },
+      // {
+      //   "categoryId":4,
+      //   "categoryName" : "burger"
+      // },
+      // {
+      //   "categoryId":5,
+      //   "categoryName" : "sea-food"
+      // },
+      // {
+      //   "categoryId":6,
+      //   "categoryName" : "breakfast"
+      // },
+      // {
+      //   "categoryId":7,
+      //   "categoryName" : "lunch"
+      // },
+      // {
+      //   "categoryId":8,
+      //   "categoryName" : "dinner"
+      // },
+      // {
+      //   "categoryId":9,
+      //   "categoryName" : "natural"
+      // },
+      // {
+      //   "categoryId":10,
+      //   "categoryName" : "organic"
+      // }
     ];
-     initCategories($scope.restaurant.orgId);
+    initCategories($scope.restaurant.orgId);
   };
 
   function initCategories(orgId){
@@ -109,6 +103,32 @@ t2b_mobile.controller('restaurantController', function ($scope,$state,$translate
       }
     });
   };
+
+  function initCart(){
+     console.log($scope.cart);
+     if($scope.cart.CART.cartObject!=null){
+       console.log($scope.cart.CART.cartObject.organizationId,$scope.restaurant.orgId);
+       if($scope.cart.CART.cartObject.organizationId==$scope.restaurant.orgId){
+         $rootScope.cart = $scope.cart.CART.cartObject;
+       }else{
+         $rootScope.cart = {
+           organizationId : $scope.restaurant.orgId,
+           organizationName : $scope.restaurant.orgName,
+           items : [
+
+           ]
+         };
+       }
+     }else{
+       $rootScope.cart = {
+         organizationId : $scope.restaurant.orgId,
+         organizationName : $scope.restaurant.orgName,
+         items : [
+
+         ]
+       };
+     }
+  }
 
   function initFoodItems(category){
      // switch(category){
@@ -441,7 +461,7 @@ t2b_mobile.controller('restaurantController', function ($scope,$state,$translate
      //     $scope.foodItems = [];
      //     break;
      // }
-    console.log();
+    $scope.foodItems = [];
     var extended_url;
     var reqObj;
     switch(category){
@@ -464,7 +484,6 @@ t2b_mobile.controller('restaurantController', function ($scope,$state,$translate
         break;
     }
     httpService.postRequest(t2bMobileApi,extended_url,reqObj,{}).then(function(response){
-      $scope.foodItems = [];
       if(response!=null) {
         $scope.foodItems = response;
         console.log($scope.foodItems);
@@ -513,9 +532,12 @@ t2b_mobile.controller('restaurantController', function ($scope,$state,$translate
   $scope.subQty = function (item) {
     if(item.selectedSize.qty>0){
       item.selectedSize.qty--;
-      angular.forEach($rootScope.cart.items, function(obj) {
+      angular.forEach($rootScope.cart.items, function(obj,iterator) {
         if(obj.itemId == item.itemId && obj.selectedSize.sizeId == item.selectedSize.sizeId){
           obj.selectedSize.qty--;
+          if(obj.selectedSize.qty==0){
+              $rootScope.cart.items.splice(iterator, 1);
+          }
         }
       });
       console.log($rootScope.cart);

@@ -1,24 +1,28 @@
 var t2b_mobile = angular.module('t2b_mobile');
 
-t2b_mobile.controller('checkoutController', function ($scope,$state,$translate,$rootScope) {
+t2b_mobile.controller('checkoutController', function ($scope,$state,$translate,$rootScope,cartService) {
 
   $scope.isMemberLogin = false;
   $scope.isEditSeen = false;
 
-  $scope.cart = [
-    $rootScope.cart
-  ];
+  $scope.cart = cartService;
 
-  if($rootScope.cart==undefined){
-    $state.go('restaurant');
-  }
-
+  initCart();
   initLoginStatus();
   calculateCartFullAmount();
 
+  function initCart() {
+    if($scope.cart.CART.cartObject!=null){
+      $rootScope.cart = $scope.cart.CART.cartObject;
+      $scope.currentCart = $scope.cart.CART.cartObject;
+    }else{
+      $state.go('restaurant');
+    }
+  }
+
   function initLoginStatus(){
     if(localStorage.getItem('loginStatus')!=null){
-      $scope.loginStatus = localStorage.getItem('loginStatus') && localStorage.getItem('loginStatus') != 'undefined' ? true : false;
+      $scope.loginStatus = localStorage.getItem('loginStatus')=='true' && localStorage.getItem('loginStatus') != 'undefined' ? true : false;
     }else{
       $scope.loginStatus = false;
     }
@@ -49,15 +53,15 @@ t2b_mobile.controller('checkoutController', function ($scope,$state,$translate,$
 
   function calculateCartFullAmount(){
     // if($scope.cart.length>0){
-      angular.forEach($scope.cart, function(obj) {
+    //   angular.forEach($scope.cart, function(obj) {
         // if(obj!=undefined){
-          obj.totalAmount = 0;
-          for(var i=0;i< obj.items.length;i++){
-            console.log(obj.items[i]);
-            obj.totalAmount += obj.items[i].selectedSize.finalPrice * obj.items[i].selectedSize.qty;
+          $rootScope.cart.totalAmount = 0;
+          for(var i=0;i< $rootScope.cart.items.length;i++){
+            // console.log(obj.items[i]);
+            $rootScope.cart.totalAmount += $rootScope.cart.items[i].selectedSize.finalPrice * $rootScope.cart.items[i].selectedSize.qty;
           }
         // }
-      });
+      // });
     // }
   };
 

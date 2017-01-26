@@ -16,7 +16,8 @@ var t2b_mobile = angular.module('t2b_mobile',
     'angular-carousel',
     'tabSlideBox',
     'ngProgress',
-    'ngAnimate'
+    'ngAnimate',
+    'bookingCartService'
   ]);
 
 t2b_mobile.run(function($ionicPlatform) {
@@ -102,9 +103,11 @@ t2b_mobile.config(function($stateProvider, $urlRouterProvider ,$translateProvide
   // $translateProvider.fallbackLanguage("en");
 });
 
-t2b_mobile.controller("initialController",function($scope,$state,$rootScope,$filter, $timeout, ngProgressFactory,$mdBottomSheet){
+t2b_mobile.controller("initialController",function($scope,$state,$rootScope,cartService,$filter, $timeout, ngProgressFactory,$mdBottomSheet){
+
   $scope.content = $filter('translate')('BACK');
   $scope.progressbar = ngProgressFactory.createInstance();
+
   $rootScope.$on('$stateChangeStart', function (event,toState,toParams, fromState, fromParams) {
     $scope.progressbar.start();
     console.log();
@@ -112,11 +115,22 @@ t2b_mobile.controller("initialController",function($scope,$state,$rootScope,$fil
       $rootScope.cartVisible = false;
     }
   });
+
   $rootScope.$on('$stateChangeSuccess',
       function(event, toState, toParams, fromState, fromParams){
         $scope.progressbar.complete()
   });
 
+  $rootScope.$watch('cart',function () {
+    if($rootScope.cart!=undefined){
+      cartService.CART.addCartObject($rootScope.cart);
+    }
+  },true);
+
+  $scope.clearCart = function () {
+    $rootScope.cart.items = [];
+    delete $rootScope.cart.totalAmount;
+  };
 
   $scope.checkout = function () {
     $mdBottomSheet.hide();
@@ -141,7 +155,9 @@ t2b_mobile.controller("initialController",function($scope,$state,$rootScope,$fil
       $scope.alert = clickedItem['name'] + ' clicked!';
     });
   };
+
   $scope.toggleRight = buildToggler('right');
+
   function buildToggler(navID) {
     return function() {
       // Component lookup should always be available since we are not using `ng-if`
@@ -151,7 +167,8 @@ t2b_mobile.controller("initialController",function($scope,$state,$rootScope,$fil
           $log.debug("toggle " + navID + " is done");
         });
     }
-  }
+  };
+
   $scope.closeCart = function () {
     $mdBottomSheet.hide();
   }

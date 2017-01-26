@@ -40,8 +40,9 @@
       <div class="row zero-padding">
         <a style="margin-right: auto; margin-left:10px" ng-click=""><i class="ion-android-arrow-back orange"> Continue Shopping</i></a>
       </div>
-      <md-whiteframe ng-repeat="orgObject in cart" class="md-whiteframe-2dp small-margin" flex-sm="100" flex-gt-sm="100" flex-gt-md="100" layout layout-align="center center" style="    display: list-item;">
-        <div ng-repeat="item in orgObject.items" class="cart-item item-text-wrap">
+      <!--{{cart}}-->
+      <md-whiteframe class="md-whiteframe-2dp small-margin" flex-sm="100" flex-gt-sm="100" flex-gt-md="100" layout layout-align="center center" style="    display: list-item;">
+        <div ng-repeat="item in currentCart.items" class="cart-item item-text-wrap">
             <div class="row zero-padding">
               <div class="col col-25 zero-padding" style="max-width: 65px;">
                 <div>
@@ -49,11 +50,11 @@
                 </div>
               </div>
               <div class="col zero-padding">
-                <div class="row zero-padding">
+                <div class="row zero-padding" style="min-height: 35px;">
                   <div class="col zero-padding">
-                    <h3 style="font-size: 14px; text-align: left;">{{item.selectedSize.name}} <span style="font-size: 10px;" ng-show="!item.editEnabled">({{item.selectedSize.sizeName}})</span> <span style="font-size: 10px;" ng-show="item.editEnabled"> Rs {{item.selectedSize.finalPrice}} x {{item.selectedSize.qty}}</span></h3>
+                    <h3 style="font-size: 14px; text-align: left;" class="zero-margin">{{item.selectedSize.name}} <span style="font-size: 10px;" ng-show="!item.editEnabled">({{item.selectedSize.sizeName}})</span> <span style="font-size: 10px;" ng-show="item.editEnabled"> Rs {{item.selectedSize.finalPrice}} x {{item.selectedSize.qty}}</span></h3>
                   </div>
-                  <div class="col.col-30 zero-padding">
+                  <div class="col.col-30 zero-padding align-right" style="min-width: 90px;">
                     <!--Rs {{item.itemTotal}}.00-->
                     Rs {{item.selectedSize.finalPrice*item.selectedSize.qty}}.00
                   </div>
@@ -61,7 +62,7 @@
                 <div class="row zero-padding">
                   <div style="display: inherit" ng-show="item.editEnabled">
                     <div class="col zero-padding" style="max-width: 65px;">
-                      <md-input-container style="margin: 10px 0px 0px 0px; font-size: smaller ">
+                      <md-input-container style="margin: 13px 0px 0px 0px; font-size: smaller ">
                         <label>size</label>
                         <md-select ng-model="item.selectedSize">
                           <md-option ng-repeat="size in item.products" ng-value="size">
@@ -85,7 +86,7 @@
                     </div>
                   </div>
                   <div style="display: inherit" ng-show="!item.editEnabled">
-                    <span style="font-size: 13px; padding-top: 16px;"> Rs {{item.selectedSize.finalPrice}} x {{item.selectedSize.qty}} (qty)</span>
+                    <span style="font-size: 13px; padding-top: 15px;"> Rs {{item.selectedSize.finalPrice}} x {{item.selectedSize.qty}} (qty)</span>
                   </div>
                   <div class="col align-right"  ng-hide="item.editEnabled">
                     <a class="edit-button"><i class="ion-edit" ng-click="toggleEdit(item)" style="font-size: 13px;"> edit</i></a>
@@ -101,18 +102,18 @@
           <!--<hr style="margin-left: 10px; margin-right: 10px;">-->
           <div class=" item-text-wrap">
             <div class="row zero-padding">
-              <h5 style="margin: 15px 12px 15px auto;">Total Amount: Rs. {{orgObject.totalAmount}}</h5>
+              <h5 style="margin: 15px 12px 15px auto;">Total Amount: Rs. {{calculateCartFullAmount()}} {{currentCart.totalAmount}}</h5>
             </div>
           </div>
       </md-whiteframe>
       <md-input-container class="md-icon-float md-block align-right" >
-        <md-button class="md-raised custom-height-button" ng-click="logIn()" style="height: 25px; line-height: 25px; font-size: 10px; width: 64%; color: white; background-color: #4caf50;">Continue <i class="ion-arrow-right-c"></i></md-button>
+        <md-button class="md-raised custom-height-button" ng-if="loginStatus" ng-click="logIn()" style="height: 25px; line-height: 25px; font-size: 10px; width: 64%; color: white; background-color: #4caf50;">Continue <i class="ion-arrow-right-c"></i></md-button>
       </md-input-container>
       <ion-list class="align-center" ng-if="!loginStatus">
-        <ion-item class="item-accordion" ng-show="isMemberLogin" style="padding: 10px;">
+        <ion-item class="item-accordion zero-padding" ng-show="isMemberLogin" style="padding: 10px;">
           <div class="row zero-padding">
             <form  class="form-horizontal side-margin-auto" style="width: 75%;" role="form" name="userLoginForm" ng-if="!forgotPassword">
-              <md-input-container class="md-icon-float md-block" style="margin-top: 5px;">
+              <md-input-container class="md-icon-float md-block" style="margin-top: 15px;">
                 <label class="align-left">Phone Number / Email</label>
                 <md-icon class="name ion-person align-right md-primary"></md-icon>
                 <input ng-model="user.userName" type="text" style="width: 90%;" name="userName" required>
@@ -123,20 +124,25 @@
                 <input ng-model="user.password" type="password"  style="width: 90%;" name="password" required>
               </md-input-container>
               <div class="error" style="margin:1%" ng-if="errorMessage">{{errorMessage}}</div>
-              <md-input-container class="md-icon-float md-block align-center" >
+              <md-input-container class="md-icon-float md-block align-center zero-padding" >
                 <md-button class="md-raised custom-height-button md-primary" ng-click="doLogin(userLoginForm.$valid)" style="height: 25px; line-height: 25px; font-size: 10px; width: 90%;">Login</md-button>
               </md-input-container>
             </form>
           </div>
         </ion-item>
-        <a class="button  button-positive custom-height-button side-margin-auto item-stable"
-                ng-if="!isMemberLogin"
-                ng-click="toggleMemberLoginForm()">
-          Member Login
-        </a>
-        <a class="button  button-assertive custom-height-button side-margin-auto" ng-click="memberDelivery()">
-          Checkout as Guest
-        </a>
+        <md-input-container class="md-icon-float md-block align-center" ng-if="!isMemberLogin && !loginStatus">
+          <md-button class="md-raised custom-height-button md-primary" ng-click="toggleMemberLoginForm()" style="height: 25px; line-height: 25px; font-size: 10px; width: 90%;">Member Login</md-button>
+        </md-input-container>
+        <md-input-container class="md-icon-float md-block align-center" ng-if="!loginStatus">
+          <md-button class="md-raised custom-height-button md-primary" ng-click="memberDelivery()" style="height: 25px; line-height: 25px; font-size: 10px; width: 90%; background-color: #4caf50;">Checkout as Guest</md-button>
+        </md-input-container>
+        <!--<a class="button  button-positive custom-height-button side-margin-auto item-stable"-->
+                <!--ng-click="">-->
+          <!--Member Login-->
+        <!--</a>-->
+        <!--<a class="button  button-assertive custom-height-button side-margin-auto" ng-click="memberDelivery()">-->
+          <!--Checkout as Guest-->
+        <!--</a>-->
       </ion-list>
     </div>
   </ion-content>

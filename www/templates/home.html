@@ -92,7 +92,10 @@
                 <div class="item item-image">
                   <img ng-src="{{restaurant.imageUrl}}">
                   <div class="text-on-image card-title-shadow">
-                    <h2 style="font-size: 20px !important;">{{restaurant.orgName}}</h2>
+                    <div class="align-center">
+                      <img ng-src="{{restaurant.images[restaurant.images.length-1].imageUri}}" style="height:40px; width:auto; background-color: white; opacity:0.8;">
+                    </div>
+                    <h2 style="font-size: 18px !important;">{{restaurant.orgName}}{{restaurant.images[restaurants.images.length-1]}}</h2>
                     <h3>{{restaurant.status}}</h3>
                   </div>
                 </div>

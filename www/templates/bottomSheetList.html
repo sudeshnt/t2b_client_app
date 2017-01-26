@@ -1,4 +1,4 @@
-<md-bottom-sheet class="md-list bottom-sheet" ng-controller="initialController">
+<md-bottom-sheet class="md-list bottom-sheet" ng-controller="initialController" style="padding: 8px 8px 88px;">
 
   <div class="row zero-padding">
     <div class="col align-left zero-padding">
@@ -43,12 +43,22 @@
       <br>
       <span style="font-size:15px;" ng-if="cart.items.length==0">Your Cart is Empty !</span>
       <div style="position: absolute; bottom:85px;" ng-if="cart.items.length>0">
-        <a class="button icon custom-height-button clear-cart-button" ng-click="checkout()">
-          clear cart <i class="ion-trash-b"></i>
-        </a>
-        <a class="button icon custom-height-button checkout-button" ng-click="checkout()">
-          checkout <i class="ion-log-in"></i>
-        </a>
+        <!--<a class="button icon custom-height-button clear-cart-button" ng-click="checkout()">-->
+          <!--clear cart <i class="ion-trash-b"></i>-->
+        <!--</a>-->
+        <md-input-container class="md-icon-float md-block align-right" >
+          <md-button class="md-raised custom-height-button clear-cart-button zero-margin" ng-click="clearCart()">
+            Clear Cart <i class="ion-trash-b"></i>
+          </md-button>
+        </md-input-container>
+        <!--<a class="button icon custom-height-button checkout-button" >-->
+          <!--checkout <i class="ion-log-in"></i>-->
+        <!--</a>-->
+        <md-input-container class="md-icon-float md-block align-right" >
+          <md-button class="md-raised custom-height-button checkout-button zero-margin" ng-click="checkout()" style="color: white; background-color: #4caf50;">
+            Continue <i class="ion-log-in"></i>
+          </md-button>
+        </md-input-container>
       </div>
     </div>
   </div>
