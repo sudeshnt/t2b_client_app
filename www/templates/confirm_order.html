@@ -48,50 +48,28 @@
 
     <md-whiteframe class="md-whiteframe-2dp " flex-sm="100" flex-gt-sm="100" flex-gt-md="100" layout layout-align="center center" style="display: block; margin:8px 25px 8px 25px">
       <div class="cart-item item-text-wrap">
-        <div class="row zero-padding">
+        <div class="row zero-padding" ng-repeat="orderItem in confirmedCart.orders">
           <div class="col col-25 zero-padding" style="max-width: 75px;">
             <div>
-              <img ng-src="img/food_items/2.jpg" style="height:65px; width:55px;">
+              <img ng-src="{{orderItem.imageUrl}}" style="height:65px; width:55px;">
             </div>
           </div>
           <div class="col zero-padding">
             <div class="row zero-padding">
               <div class="col zero-padding">
-                <h3 style="font-size: 15px; text-align: left;">Chicken Burger</h3>
+                <h3 style="font-size: 15px; text-align: left;">{{orderItem.itemName}}</h3>
               </div>
               <div class="col.col-30 zero-padding">
-                Rs 100.00
+                Rs {{orderItem.selectedSize.finalPrice*orderItem.selectedSize.qty}}.00
               </div>
             </div>
             <div class="row zero-padding">
-              <span style="font-size: 13px;"> Rs 100 x 1</span>
+              <span style="font-size: 13px;"> Rs {{orderItem.selectedSize.finalPrice}} x {{orderItem.selectedSize.qty}}</span>
             </div>
           </div>
         </div>
       </div>
       <!--<hr style="margin-left: 10px; margin-right: 10px;">-->
-      <div class="cart-item item-text-wrap">
-        <div class="row zero-padding">
-          <div class="col col-25 zero-padding" style="max-width: 75px;">
-            <div>
-              <img ng-src="img/food_items/2.jpg" style="height:65px; width:55px;">
-            </div>
-          </div>
-          <div class="col zero-padding">
-            <div class="row zero-padding">
-              <div class="col zero-padding">
-                <h3 style="font-size: 15px; text-align: left;">Chicken Burger</h3>
-              </div>
-              <div class="col.col-30 zero-padding">
-                Rs 100.00
-              </div>
-            </div>
-            <div class="row zero-padding">
-              <span style="font-size: 13px;"> Rs 100 x 1</span>
-            </div>
-          </div>
-        </div>
-      </div>
       <hr style="margin-left: 10px; margin-right: 10px;">
       <div class=" item-text-wrap">
         <div class="row zero-padding">

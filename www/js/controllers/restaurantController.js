@@ -26,56 +26,17 @@ t2b_mobile.controller('restaurantController', function ($scope,$state,$translate
     }else{
       $state.go('home');
     }
-    $scope.restaurant.organizationRating = 3;
-    $scope.restaurant.openTime = '10:00 am';
-    $scope.restaurant.closeTime = '11:00 pm';
-    $scope.restaurant.categories = [
-      // {
-      //   "categoryId":0,
-      //   "categoryName" : "all"
-      // }
-      // {
-      //   "categoryId":1,
-      //   "categoryName" : "non-veg"
-      // },
-      // {
-      //   "categoryId":2,
-      //   "categoryName" : "veg"
-      // },
-      // {
-      //   "categoryId":3,
-      //   "categoryName" : "pizza"
-      // },
-      // {
-      //   "categoryId":4,
-      //   "categoryName" : "burger"
-      // },
-      // {
-      //   "categoryId":5,
-      //   "categoryName" : "sea-food"
-      // },
-      // {
-      //   "categoryId":6,
-      //   "categoryName" : "breakfast"
-      // },
-      // {
-      //   "categoryId":7,
-      //   "categoryName" : "lunch"
-      // },
-      // {
-      //   "categoryId":8,
-      //   "categoryName" : "dinner"
-      // },
-      // {
-      //   "categoryId":9,
-      //   "categoryName" : "natural"
-      // },
-      // {
-      //   "categoryId":10,
-      //   "categoryName" : "organic"
-      // }
-    ];
-    initCategories($scope.restaurant.orgId);
+    // init Main Branch
+    var extended_url = '/organization/branches';
+    var reqObj = {
+      "organizationId": $scope.restaurant.orgId
+    };
+    httpService.postRequest(t2bMobileApi,extended_url,reqObj,{}).then(function(response){
+      $scope.restaurant.mainBranch = response[0];
+      $scope.restaurant.organizationRating = 3;
+      $scope.restaurant.categories = [];
+      initCategories($scope.restaurant.orgId);
+    });
   };
 
   function initCategories(orgId){
@@ -113,8 +74,10 @@ t2b_mobile.controller('restaurantController', function ($scope,$state,$translate
        }else{
          $rootScope.cart = {
            organizationId : $scope.restaurant.orgId,
+           branchId : $scope.restaurant.mainBranchId,
+           channel:'android',
            organizationName : $scope.restaurant.orgName,
-           items : [
+           orders : [
 
            ]
          };
@@ -122,8 +85,10 @@ t2b_mobile.controller('restaurantController', function ($scope,$state,$translate
      }else{
        $rootScope.cart = {
          organizationId : $scope.restaurant.orgId,
+         branchId : $scope.restaurant.mainBranchId,
+         channel:'android',
          organizationName : $scope.restaurant.orgName,
-         items : [
+         orders : [
 
          ]
        };
@@ -532,11 +497,11 @@ t2b_mobile.controller('restaurantController', function ($scope,$state,$translate
   $scope.subQty = function (item) {
     if(item.selectedSize.qty>0){
       item.selectedSize.qty--;
-      angular.forEach($rootScope.cart.items, function(obj,iterator) {
+      angular.forEach($rootScope.cart.orders, function(obj,iterator) {
         if(obj.itemId == item.itemId && obj.selectedSize.sizeId == item.selectedSize.sizeId){
           obj.selectedSize.qty--;
           if(obj.selectedSize.qty==0){
-              $rootScope.cart.items.splice(iterator, 1);
+              $rootScope.cart.orders.splice(iterator, 1);
           }
         }
       });
@@ -546,9 +511,9 @@ t2b_mobile.controller('restaurantController', function ($scope,$state,$translate
 
   $scope.addQty = function (item) {
     item.selectedSize.qty++;
-    if($rootScope.cart.items.length>0){
+    if($rootScope.cart.orders.length>0){
       var itemAvailable = false;
-      angular.forEach($rootScope.cart.items, function(obj) {
+      angular.forEach($rootScope.cart.orders, function(obj) {
         console.log(obj.itemId == item.itemId);
         console.log(obj.selectedSize.sizeId == item.selectedSize.sizeId);
         if(obj.itemId == item.itemId && obj.selectedSize.sizeId == item.selectedSize.sizeId){
@@ -557,10 +522,10 @@ t2b_mobile.controller('restaurantController', function ($scope,$state,$translate
         }
       });
       if(!itemAvailable){
-        $rootScope.cart.items.push(angular.copy(item));
+        $rootScope.cart.orders.push(angular.copy(item));
       }
     }else {
-      $rootScope.cart.items.push(angular.copy(item));
+      $rootScope.cart.orders.push(angular.copy(item));
     }
      console.log($rootScope.cart);
   };

@@ -37,6 +37,16 @@
       </div>
     </div>
     <div>
+      <div class="row">
+        <md-input-container class="side-margin-auto">
+          <label>Delivery Option</label>
+          <md-select ng-model="checkoutCart.deliveryOption" >
+            <md-option ng-repeat="deliveryOption in deliveryOptions" ng-value="deliveryOption.id" ng-selected="$index === 0">
+              {{deliveryOption.description}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+      </div>
       <div class="row zero-padding">
         <a style="margin-left: auto; margin-right:10px" ng-click="addNew()"><i class="ion-plus-round"> add new</i></a>
       </div>
@@ -160,7 +170,7 @@
             </a>
           </div>
           <div class="row" ng-if="!address.editEnabled">
-            <a class="button button-balanced custom-height-button address-submit" style="margin-top: -30px;" ng-click="confirmOrder();">
+            <a class="button button-balanced custom-height-button address-submit" style="margin-top: -30px;" ng-click="deleverHere(address);">
               <i class="ion-android-bicycle"> </i> Deliver Here
             </a>
           </div>

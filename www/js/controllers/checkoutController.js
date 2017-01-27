@@ -8,13 +8,13 @@ t2b_mobile.controller('checkoutController', function ($scope,$state,$translate,$
   $scope.cart = cartService;
 
   initCart();
-  initLoginStatus();
-  calculateCartFullAmount();
 
   function initCart() {
-    if($scope.cart.CART.cartObject!=null){
+    if($scope.cart.CART.cartObject!=null && $scope.cart.CART.cartObject.orders.length>0){
       $rootScope.cart = $scope.cart.CART.cartObject;
-      $scope.currentCart = $scope.cart.CART.cartObject;
+      $scope.currentCart = angular.copy($scope.cart.CART.cartObject);
+      initLoginStatus();
+      calculateCartFullAmount();
     }else{
       $state.go('restaurant');
     }
@@ -52,18 +52,34 @@ t2b_mobile.controller('checkoutController', function ($scope,$state,$translate,$
   };
 
   function calculateCartFullAmount(){
-    // if($scope.cart.length>0){
-    //   angular.forEach($scope.cart, function(obj) {
-        // if(obj!=undefined){
+      if($rootScope.cart.orders.length>0){
           $rootScope.cart.totalAmount = 0;
-          for(var i=0;i< $rootScope.cart.items.length;i++){
-            // console.log(obj.items[i]);
-            $rootScope.cart.totalAmount += $rootScope.cart.items[i].selectedSize.finalPrice * $rootScope.cart.items[i].selectedSize.qty;
+          for(var i=0;i< $rootScope.cart.orders.length;i++){
+            $rootScope.cart.totalAmount += $rootScope.cart.orders[i].selectedSize.finalPrice * $rootScope.cart.orders[i].selectedSize.qty;
           }
-        // }
-      // });
-    // }
+      }
   };
+
+  $scope.continueToDelivery = function () {
+    processCartObject();
+  };
+
+  function processCartObject(){
+    var orders = [];
+    angular.forEach($scope.currentCart.orders,function(itemObj){
+        orders.push(
+          {
+            "foodItemId": itemObj.itemId,
+            "quantity": itemObj.selectedSize.qty,
+            "sizeId": itemObj.selectedSize.sizeId
+          }
+        );
+    });
+    $scope.currentCart.orders = orders;
+    delete $scope.currentCart.organizationName;
+    localStorage.setItem('CHECKOUT_CART',JSON.stringify($scope.currentCart));
+    $state.go('delivery_member');
+  }
 
   $scope.logIn = function () {
     $state.go('delivery_member');
@@ -75,7 +91,14 @@ t2b_mobile.controller('checkoutController', function ($scope,$state,$translate,$
 
 });
 
-t2b_mobile.controller('confirmOrderController', function ($scope,$state,$translate,$rootScope) {
+t2b_mobile.controller('confirmOrderController', function ($scope,$state,$translate,$rootScope,$stateParams) {
+
+  if($stateParams.bookingCart!=null){
+    $scope.confirmedCart = JSON.parse($stateParams.bookingCart);
+  }else{
+    $state.go('restaurant');
+  }
+  console.log($scope.confirmedCart);
 
 });
 

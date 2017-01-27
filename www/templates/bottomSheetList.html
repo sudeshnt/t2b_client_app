@@ -2,10 +2,10 @@
 
   <div class="row zero-padding">
     <div class="col align-left zero-padding">
-      <img ng-src="img/empty_cart.png" class="full-width" style="max-width: 150px" ng-if="cart.items.length==0">
+      <img ng-src="img/empty_cart.png" class="full-width" style="max-width: 150px" ng-if="cart.orders.length==0">
 
-      <div class="cart-item item-text-wrap" ng-if="cart.items.length>0">
-        <div class="row zero-padding" ng-repeat="cartItem in cart.items" style="margin-bottom: 5px;">
+      <div class="cart-item item-text-wrap" ng-if="cart.orders.length>0">
+        <div class="row zero-padding" ng-repeat="cartItem in cart.orders" style="margin-bottom: 5px;">
           <div class="col col-25 zero-padding" style="max-width: 50px;">
             <div>
               <img ng-src="{{cartItem.imageUrl}}" style="height:38px; width:38px;">
@@ -41,8 +41,8 @@
     <div class="col col-20 align-right zero-padding" style="min-width: 100px;">
       <a style="position: absolute; right: 15px;" ng-click="closeCart()"><i class="ion-android-close"> </i></a>
       <br>
-      <span style="font-size:15px;" ng-if="cart.items.length==0">Your Cart is Empty !</span>
-      <div style="position: absolute; bottom:85px;" ng-if="cart.items.length>0">
+      <span style="font-size:15px;" ng-if="cart.orders.length==0">Your Cart is Empty !</span>
+      <div style="position: absolute; bottom:85px;" ng-if="cart.orders.length>0">
         <!--<a class="button icon custom-height-button clear-cart-button" ng-click="checkout()">-->
           <!--clear cart <i class="ion-trash-b"></i>-->
         <!--</a>-->

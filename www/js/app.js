@@ -91,7 +91,8 @@ t2b_mobile.config(function($stateProvider, $urlRouterProvider ,$translateProvide
     .state('confirm_order', {
       url: '/confirm_order',
       templateUrl: 'templates/confirm_order.html',
-      controller: 'confirmOrderController'
+      controller: 'confirmOrderController',
+      params : {bookingCart : null}
     })
     .state('search', {
       url: '/search',
@@ -128,7 +129,7 @@ t2b_mobile.controller("initialController",function($scope,$state,$rootScope,cart
   },true);
 
   $scope.clearCart = function () {
-    $rootScope.cart.items = [];
+    $rootScope.cart.orders = [];
     delete $rootScope.cart.totalAmount;
   };
 
@@ -139,8 +140,8 @@ t2b_mobile.controller("initialController",function($scope,$state,$rootScope,cart
 
   $scope.getTotal = function(){
     var total = 0;
-    for(var i = 0; i < $rootScope.cart.items.length; i++){
-      var product = $rootScope.cart.items[i];
+    for(var i = 0; i < $rootScope.cart.orders.length; i++){
+      var product = $rootScope.cart.orders[i];
       total += (product.selectedSize.finalPrice * product.selectedSize.qty);
     }
     return total;
@@ -152,7 +153,7 @@ t2b_mobile.controller("initialController",function($scope,$state,$rootScope,cart
       templateUrl: 'templates/bottomSheetList.html',
       controller: 'ListBottomSheetCtrl'
     }).then(function(clickedItem) {
-      $scope.alert = clickedItem['name'] + ' clicked!';
+      // $scope.alert = clickedItem['name'] + ' clicked!';
     });
   };
 

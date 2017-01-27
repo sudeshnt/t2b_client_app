@@ -77,5 +77,6 @@
 }
 .tabbed-slidebox .tsb-icons .scroll a.active {
   font-size: 15px;
+  min-width: 50px;
   border-bottom: 3px solid #f9690e;
 }

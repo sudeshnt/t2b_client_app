@@ -42,7 +42,7 @@
       </div>
       <!--{{cart}}-->
       <md-whiteframe class="md-whiteframe-2dp small-margin" flex-sm="100" flex-gt-sm="100" flex-gt-md="100" layout layout-align="center center" style="    display: list-item;">
-        <div ng-repeat="item in currentCart.items" class="cart-item item-text-wrap">
+        <div ng-repeat="item in currentCart.orders" class="cart-item item-text-wrap">
             <div class="row zero-padding">
               <div class="col col-25 zero-padding" style="max-width: 65px;">
                 <div>
@@ -107,7 +107,7 @@
           </div>
       </md-whiteframe>
       <md-input-container class="md-icon-float md-block align-right" >
-        <md-button class="md-raised custom-height-button" ng-if="loginStatus" ng-click="logIn()" style="height: 25px; line-height: 25px; font-size: 10px; width: 64%; color: white; background-color: #4caf50;">Continue <i class="ion-arrow-right-c"></i></md-button>
+        <md-button class="md-raised custom-height-button" ng-if="loginStatus" ng-click="continueToDelivery()" style="height: 25px; line-height: 25px; font-size: 10px; width: 64%; color: white; background-color: #4caf50;">Continue <i class="ion-arrow-right-c"></i></md-button>
       </md-input-container>
       <ion-list class="align-center" ng-if="!loginStatus">
         <ion-item class="item-accordion zero-padding" ng-show="isMemberLogin" style="padding: 10px;">
