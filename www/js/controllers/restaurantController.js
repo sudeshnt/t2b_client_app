@@ -460,12 +460,24 @@ t2b_mobile.controller('restaurantController', function ($scope,$state,$translate
         };
         break;
     }
-    // console.log(reqObj);
     httpService.postRequest(t2bMobileApi,extended_url,reqObj,{}).then(function(response){
       if(response!=null) {
         if(response.length>0){
-          // console.log(response);
-          // console.log(offset,limit);
+          if($rootScope.cart.orders.length>0){
+            for(var i=0 ; i<response.length ; i++){
+              for(var j=0 ; j<$rootScope.cart.orders.length ; j++ ){
+                if(response[i].itemId==$rootScope.cart.orders[j].itemId){
+                   response[i].selectedSize = angular.copy($rootScope.cart.orders[j].selectedSize);
+                   for(var k=0;k<response[i].products.length;k++){
+                     if(response[i].selectedSize.foodProductId==response[i].products[k].foodProductId){
+                       response[i].selectedIndex = k;
+                       response[i].products[k].qty = $rootScope.cart.orders[j].selectedSize.qty;
+                     }
+                   };
+                }
+              }
+            }
+          }
           if(response.length==limit){
             offset+=limit;
             $scope.noMoreItemsAvailable = false;

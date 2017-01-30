@@ -25,7 +25,7 @@
     </div>
     <div class="row">
       <div class="card restaurant-name-board">
-        <div class="item item-text-wrap align-center">
+        <div class="item item-text-wrap align-center" style="padding: 5px 0px;">
             <h2 style="font-size: 15px;">{{restaurant.displayName}}</h2>
           <h3 class="grey-content small-margin">{{restaurant.companyMotto}}</h3>
           <!--<h3 class="grey-content small-margin">$$$$</h3>-->
@@ -60,7 +60,7 @@
                 <div class="row zero-padding">
                   <div class="col col-25 zero-padding" style="max-width: 140px;">
                     <div>
-                      <img ng-src="{{foodItem.imageUrl}}" style="height:93px; width:97px;">
+                      <img ng-src="{{foodItem.imageUrl}}" style="height:88px; width:92px;">
                     </div>
                   </div>
                   <div class="col zero-padding" style="padding-left: 10px !important;">
@@ -78,10 +78,10 @@
                     </div>
                     <div class="row zero-padding">
                       <div class="col zero-padding align-left">
-                        <md-input-container style="margin: 25px 0px 0px 0px; font-size: smaller ">
+                        <md-input-container style="margin: 18px 0px 0px 0px; font-size: smaller ">
                           <label>size</label>
                           <md-select ng-model="foodItem.selectedSize" >
-                            <md-option ng-repeat="size in foodItem.products" ng-value="size" ng-selected="$index === 0" ng-init='size.qty = 0;'>
+                            <md-option ng-repeat="size in foodItem.products" ng-value="size" ng-selected="$index === (foodItem.selectedIndex!=undefined ? foodItem.selectedIndex : 0)" ng-init='size.qty==undefined?size.qty = 0:""'>
                               {{size.sizeName}}
                             </md-option>
                           </md-select>
@@ -89,7 +89,7 @@
                       </div>
                       <!--{{foodItem.selectedSize}}-->
                       <div class="col" style="max-width: 100px;" ng-init="foodItem.selectedSize.qty = 0;">
-                        <div class="flex_row">
+                        <div class="flex_row" style="bottom:6px;">
                           <a class="button button-clear icon ion-minus-circled grey-content" ng-click="subQty(foodItem)"></a>
                           <span style="line-height: 44px;">{{foodItem.selectedSize.qty}}</span>
                           <a class="button button-clear icon ion-plus-circled grey-content" ng-click="addQty(foodItem)"></a>
