@@ -130,6 +130,7 @@ t2b_mobile.controller("initialController",function($scope,$state,$rootScope,cart
   $scope.clearCart = function () {
     $rootScope.cart.orders = [];
     delete $rootScope.cart.totalAmount;
+    $rootScope.$emit("resetCartItemQty");
   };
 
   $scope.checkout = function () {

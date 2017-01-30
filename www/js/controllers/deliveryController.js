@@ -129,7 +129,7 @@ t2b_mobile.controller('deliveryMemberController', function ($scope,$state,servic
       $scope.checkoutCart.city = deliveryAddress.city;
       $scope.checkoutCart.customerMobile = deliveryAddress.telephone;
       $scope.checkoutCart.customerName = deliveryAddress.contactName;
-      // console.log(JSON.stringify($scope.checkoutCart));
+      console.log(JSON.stringify($scope.checkoutCart));
       var extended_url = '/orders/new';
       httpService.postRequest(t2bMobileApi,extended_url,$scope.checkoutCart,{}).then(function(response){
         if(response!=null) {

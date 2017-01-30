@@ -46,16 +46,26 @@ t2b_mobile.controller('checkoutController', function ($scope,$state,$translate,$
       calculateCartFullAmount();
   };
 
-  $scope.getItemTotal = function (item) {
-    // console.log(item);
-    // return item.selectedSize.unitPrice*item.selectedSize.qty;
+  $scope.deleteItemFromCart = function (item) {
+    for(var i=0;i< $scope.currentCart.orders.length;i++){
+      if($scope.currentCart.orders[i].itemId == item.itemId){
+         $scope.currentCart.orders.splice(i, 1);
+      }
+    }
+    calculateCartFullAmount();
+  };
+
+  $scope.resetCart = function () {
+    $scope.currentCart = angular.copy($scope.cart.CART.cartObject);
+    calculateCartFullAmount();
   };
 
   function calculateCartFullAmount(){
       if($rootScope.cart.orders.length>0){
-          $rootScope.cart.totalAmount = 0;
-          for(var i=0;i< $rootScope.cart.orders.length;i++){
-            $rootScope.cart.totalAmount += $rootScope.cart.orders[i].selectedSize.finalPrice * $rootScope.cart.orders[i].selectedSize.qty;
+          $scope.currentCart.totalAmount = 0;
+          for(var i=0;i< $scope.currentCart.orders.length;i++){
+            console.log($scope.currentCart.orders[i].selectedSize);
+            $scope.currentCart.totalAmount += $scope.currentCart.orders[i].selectedSize.finalPrice * $scope.currentCart.orders[i].selectedSize.qty;
           }
       }
   };
@@ -77,6 +87,7 @@ t2b_mobile.controller('checkoutController', function ($scope,$state,$translate,$
     });
     $scope.currentCart.orders = orders;
     delete $scope.currentCart.organizationName;
+    delete $scope.currentCart.totalAmount;
     localStorage.setItem('CHECKOUT_CART',JSON.stringify($scope.currentCart));
     $state.go('delivery_member');
   }
@@ -95,10 +106,20 @@ t2b_mobile.controller('confirmOrderController', function ($scope,$state,$transla
 
   if($stateParams.bookingCart!=null){
     $scope.confirmedCart = JSON.parse($stateParams.bookingCart);
+    calculateCartFullAmount();
   }else{
     $state.go('restaurant');
   }
   console.log($scope.confirmedCart);
+
+  function calculateCartFullAmount(){
+    if($scope.confirmedCart.orders.length>0){
+      $scope.confirmedCart.totalAmount = 0;
+      for(var i=0;i< $scope.confirmedCart.orders.length;i++){
+        $scope.confirmedCart.totalAmount += $scope.confirmedCart.orders[i].selectedSize.finalPrice * $scope.confirmedCart.orders[i].selectedSize.qty;
+      }
+    }
+  };
 
 });
 

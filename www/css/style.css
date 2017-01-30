@@ -102,15 +102,15 @@
   top: 8px;
 }
 .remove-button{
-  color: red;
+  color: rgba(241, 31, 31, 0.79);;
   position: absolute;
-  bottom: 15px;
-  right: 13px;
+  bottom: 13px;
+  right: 17px;
 }
 .edit-button{
   position: absolute;
   bottom: 15px;
-  right: 85px;
+  right: 60px;
 }
 .add-remove-buttons {
   background: #c3c3c3 !important;

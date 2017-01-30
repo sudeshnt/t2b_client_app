@@ -2,6 +2,9 @@ var t2b_mobile = angular.module('t2b_mobile');
 
 t2b_mobile.controller('restaurantController', function ($scope,$state,$translate,$rootScope,$stateParams,cartService,serviceLocator,httpService) {
   var t2bMobileApi = serviceLocator.serviceList.t2bMobileApi;
+  var resetCartItemQty = $rootScope.$on("resetCartItemQty", function(){
+    $scope.resetCartItemQty();
+  });
 
   $rootScope.cartVisible = true;
 
@@ -535,6 +538,16 @@ t2b_mobile.controller('restaurantController', function ($scope,$state,$translate
       angular.forEach(response,function (foodItem) {
         $scope.foodItems.push(foodItem);
       });
+    });
+  };
+
+  $scope.resetCartItemQty = function () {
+    console.log("I'm remote");
+    angular.forEach($scope.foodItems,function(foodItem){
+      for(var i=0;i< foodItem.products.length;i++) {
+        foodItem.products[i].qty = 0;
+      }
+      foodItem.selectedSize =  foodItem.products[0];
     });
   };
 

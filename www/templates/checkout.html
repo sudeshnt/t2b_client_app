@@ -39,6 +39,7 @@
     <div>
       <div class="row zero-padding">
         <a style="margin-right: auto; margin-left:10px" ng-click=""><i class="ion-android-arrow-back orange"> Continue Shopping</i></a>
+        <a style="margin-left: auto; margin-right:10px" ng-click="resetCart()"><i class="primary"> Reset</i></a>
       </div>
       <!--{{cart}}-->
       <md-whiteframe class="md-whiteframe-2dp small-margin" flex-sm="100" flex-gt-sm="100" flex-gt-md="100" layout layout-align="center center" style="    display: list-item;">
@@ -52,17 +53,18 @@
               <div class="col zero-padding">
                 <div class="row zero-padding" style="min-height: 35px;">
                   <div class="col zero-padding">
-                    <h3 style="font-size: 14px; text-align: left;" class="zero-margin">{{item.selectedSize.name}} <span style="font-size: 10px;" ng-show="!item.editEnabled">({{item.selectedSize.sizeName}})</span> <span style="font-size: 10px;" ng-show="item.editEnabled"> Rs {{item.selectedSize.finalPrice}} x {{item.selectedSize.qty}}</span></h3>
+                    <h3 style="font-size: 14px; text-align: left;" class="zero-margin">{{item.selectedSize.name}} <span style="font-size: 10px;" ng-show="!item.editEnabled">({{item.selectedSize.sizeName}})</span> </h3>
                   </div>
                   <div class="col.col-30 zero-padding align-right" style="min-width: 90px;">
                     <!--Rs {{item.itemTotal}}.00-->
+                    <span style="font-size: 10px;" ng-show="item.editEnabled"> Rs {{item.selectedSize.finalPrice}} x {{item.selectedSize.qty}}<br></span>
                     Rs {{item.selectedSize.finalPrice*item.selectedSize.qty}}.00
                   </div>
                 </div>
                 <div class="row zero-padding">
                   <div style="display: inherit" ng-show="item.editEnabled">
                     <div class="col zero-padding" style="max-width: 65px;">
-                      <md-input-container style="margin: 13px 0px 0px 0px; font-size: smaller ">
+                      <md-input-container style="margin: 16px 0px 0px 0px; font-size: smaller ">
                         <label>size</label>
                         <md-select ng-model="item.selectedSize">
                           <md-option ng-repeat="size in item.products" ng-value="size">
@@ -89,10 +91,10 @@
                     <span style="font-size: 13px; padding-top: 15px;"> Rs {{item.selectedSize.finalPrice}} x {{item.selectedSize.qty}} (qty)</span>
                   </div>
                   <div class="col align-right"  ng-hide="item.editEnabled">
-                    <a class="edit-button"><i class="ion-edit" ng-click="toggleEdit(item)" style="font-size: 13px;"> edit</i></a>
+                    <a class="edit-button"><i class="ion-edit" ng-click="toggleEdit(item)" style="font-size: 15px;"> edit</i></a>
                   </div>
                   <div class="col align-right" style="max-width: 65px;">
-                    <a class="remove-button"><i class="ion-ios-close-empty" style="font-size: 13px;"> remove</i></a>
+                    <a class="remove-button" ng-click="deleteItemFromCart(item)"><i class="ion-trash-b" style="font-size: 20px;"></i></a>
                   </div>
                 </div>
               </div>
