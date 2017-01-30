@@ -26,8 +26,8 @@ angular.module('t2b_mobile').service('httpService', ['$http', '$q', '$ionicLoadi
     function postRequest(service,extended_url,data,config){
       var deferred = $q.defer();
       var url = service.serviceUrl+':'+service.port+service.base_url+extended_url;
-      console.log(JSON.stringify(url));
-      console.log(JSON.stringify(data));
+      // console.log(JSON.stringify(url));
+      // console.log(JSON.stringify(data));
       addToPendingRequests(url,deferred);
       showLoading();
       $http.post(url,data,config)

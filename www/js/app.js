@@ -111,7 +111,6 @@ t2b_mobile.controller("initialController",function($scope,$state,$rootScope,cart
 
   $rootScope.$on('$stateChangeStart', function (event,toState,toParams, fromState, fromParams) {
     $scope.progressbar.start();
-    console.log();
     if(fromState.name == 'restaurant'){
       $rootScope.cartVisible = false;
     }

@@ -46,7 +46,7 @@ t2b_mobile.controller('deliveryMemberController', function ($scope,$state,servic
       var extended_url = '/public/delevaryOptions';
       httpService.postRequest(t2bMobileApi,extended_url,{},{}).then(function(response){
         if(response!=null) {
-          console.log(response);
+          // console.log(response);
           $scope.deliveryOptions = response;
         }
       });
@@ -63,7 +63,7 @@ t2b_mobile.controller('deliveryMemberController', function ($scope,$state,servic
             if($scope.addresses.length==0){
               $scope.addNewEnabled = true;
             }
-            console.log($scope.addresses);
+            // console.log($scope.addresses);
           }
         });
     }
@@ -78,7 +78,7 @@ t2b_mobile.controller('deliveryMemberController', function ($scope,$state,servic
 
     $scope.submitNewAddress = function () {
       $scope.addNewEnabled = false;
-      console.log($scope.newAddress);
+      // console.log($scope.newAddress);
       var extended_url = '/User/address/new';
       var reqObj = {
         "addressId": 0,
@@ -99,7 +99,7 @@ t2b_mobile.controller('deliveryMemberController', function ($scope,$state,servic
       };
       httpService.postRequest(t2bMobileApi,extended_url,reqObj,{}).then(function(response){
         if(response!=null) {
-          console.log(response);
+          // console.log(response);
         }
       });
     };
@@ -129,7 +129,7 @@ t2b_mobile.controller('deliveryMemberController', function ($scope,$state,servic
       $scope.checkoutCart.city = deliveryAddress.city;
       $scope.checkoutCart.customerMobile = deliveryAddress.telephone;
       $scope.checkoutCart.customerName = deliveryAddress.contactName;
-      console.log(JSON.stringify($scope.checkoutCart));
+      // console.log(JSON.stringify($scope.checkoutCart));
       var extended_url = '/orders/new';
       httpService.postRequest(t2bMobileApi,extended_url,$scope.checkoutCart,{}).then(function(response){
         if(response!=null) {

@@ -47,7 +47,7 @@ t2b_mobile.controller('checkoutController', function ($scope,$state,$translate,$
   };
 
   $scope.getItemTotal = function (item) {
-    console.log(item);
+    // console.log(item);
     // return item.selectedSize.unitPrice*item.selectedSize.qty;
   };
 

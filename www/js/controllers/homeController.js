@@ -22,7 +22,7 @@ t2b_mobile.controller('homeController', function ($scope,$state,$mdBottomSheet,$
           }
           $scope.restaurants[Math.floor(i/2)].push(response[i]);
         }
-        console.log($scope.restaurants);
+        // console.log($scope.restaurants);
       }
     });
     // $scope.restaurants = [

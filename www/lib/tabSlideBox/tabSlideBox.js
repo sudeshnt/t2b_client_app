@@ -92,12 +92,12 @@ angular.module('tabSlideBox', [])
             }
 
             $timeout(function() {
-              console.log('asdas');
+              // console.log('asdas');
               ionicSlideBoxDelegate.slide(initialIndex);
             }, 0);
           }
           function setPosition(index){
-            console.log(index);
+            // console.log(index);
             var iconsDiv = angular.element(ta.querySelector(".tsb-icons")), icons = iconsDiv.find("a"), wrap = iconsDiv[0].querySelector(".tsb-ic-wrp"), totalTabs = icons.length;
             var scrollDiv = wrap.querySelector(".scroll");
 

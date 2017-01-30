@@ -9,6 +9,9 @@ t2b_mobile.controller('restaurantController', function ($scope,$state,$translate
   $scope.restaurant = {};
   $scope.foodItems = [];
 
+  var offset = 0;
+  var limit = 5;
+
   init();
 
   function init() {
@@ -48,27 +51,29 @@ t2b_mobile.controller('restaurantController', function ($scope,$state,$translate
     };
     httpService.postRequest(t2bMobileApi,extended_url,reqObj,{}).then(function(response){
       if(response!=null) {
-        console.log(response);
+        // console.log(response);
         $scope.restaurant.categories.push({
           branchId: 0,
           categoryId: 0,
           categoryName: "All",
-          description: "Lunch Items",
+          description: "All",
           imageUrl: "https://s3-ap-southeast-1.amazonaws.com/horanaapi/mobile_test/LUNCH.jpg",
           organizationId: 35
         });
         angular.forEach(response.data,function (category) {
-          $scope.restaurant.categories.push(category);
+          if(category.itemCount>0){
+            $scope.restaurant.categories.push(category);
+          }
         });
-        console.log($scope.restaurant.categories);
+        $scope.selectedCategory = 'all';
       }
     });
   };
 
   function initCart(){
-     console.log($scope.cart);
+     // console.log($scope.cart);
      if($scope.cart.CART.cartObject!=null){
-       console.log($scope.cart.CART.cartObject.organizationId,$scope.restaurant.orgId);
+       // console.log($scope.cart.CART.cartObject.organizationId,$scope.restaurant.orgId);
        if($scope.cart.CART.cartObject.organizationId==$scope.restaurant.orgId){
          $rootScope.cart = $scope.cart.CART.cartObject;
        }else{
@@ -427,6 +432,13 @@ t2b_mobile.controller('restaurantController', function ($scope,$state,$translate
      //     break;
      // }
     $scope.foodItems = [];
+    loadFoods(category,function (response) {
+      $scope.foodItems = response;
+    });
+  };
+
+  function loadFoods(category,next){
+    $scope.noMoreItemsAvailable = true;
     var extended_url;
     var reqObj;
     switch(category){
@@ -434,8 +446,8 @@ t2b_mobile.controller('restaurantController', function ($scope,$state,$translate
         extended_url = '/organization/items';
         reqObj = {
           "organizationId": $scope.restaurant.orgId,
-          "offset": 0,
-          "limit": 0
+          "offset": offset,
+          "limit": limit
         };
         break;
       default:
@@ -443,24 +455,33 @@ t2b_mobile.controller('restaurantController', function ($scope,$state,$translate
         reqObj = {
           "orgId": $scope.restaurant.orgId,
           "catId": category.categoryId,
-          "offset": 0,
-          "limit": 0
+          "offset": offset,
+          "limit": limit
         };
         break;
     }
+    // console.log(reqObj);
     httpService.postRequest(t2bMobileApi,extended_url,reqObj,{}).then(function(response){
       if(response!=null) {
-        $scope.foodItems = response;
-        console.log($scope.foodItems);
-        // angular.forEach(response.data,function (category) {
-        //   $scope.restaurant.categories.push(category);
-        // });
+        if(response.length>0){
+          // console.log(response);
+          // console.log(offset,limit);
+          if(response.length==limit){
+            offset+=limit;
+            $scope.noMoreItemsAvailable = false;
+          }
+          if(next!=undefined){
+            next(response);
+          }
+        }
       }
     });
-  };
+  }
 
   $scope.onSlideMove = function(data){
     $scope.activeTab = data.index;
+    offset = 0;
+    limit = 5;
     // switch(data.index){
     //   case 0:
     //     initFoodItems('all');
@@ -488,10 +509,21 @@ t2b_mobile.controller('restaurantController', function ($scope,$state,$translate
     //     break;
     // }
     if(data.index == 0){
+      $scope.selectedCategory = 'all';
       initFoodItems('all');
     }else{
+      $scope.selectedCategory = $scope.restaurant.categories[data.index];
       initFoodItems($scope.restaurant.categories[data.index]);
     }
+  };
+
+  $scope.loadMore = function () {
+    // console.log(offset,limit);
+    loadFoods($scope.selectedCategory,function (response) {
+      angular.forEach(response,function (foodItem) {
+        $scope.foodItems.push(foodItem);
+      });
+    });
   };
 
   $scope.subQty = function (item) {
@@ -505,7 +537,7 @@ t2b_mobile.controller('restaurantController', function ($scope,$state,$translate
           }
         }
       });
-      console.log($rootScope.cart);
+      // console.log($rootScope.cart);
     }
   };
 
@@ -514,8 +546,8 @@ t2b_mobile.controller('restaurantController', function ($scope,$state,$translate
     if($rootScope.cart.orders.length>0){
       var itemAvailable = false;
       angular.forEach($rootScope.cart.orders, function(obj) {
-        console.log(obj.itemId == item.itemId);
-        console.log(obj.selectedSize.sizeId == item.selectedSize.sizeId);
+        // console.log(obj.itemId == item.itemId);
+        // console.log(obj.selectedSize.sizeId == item.selectedSize.sizeId);
         if(obj.itemId == item.itemId && obj.selectedSize.sizeId == item.selectedSize.sizeId){
           obj.selectedSize.qty++;
           itemAvailable = true;
@@ -527,7 +559,7 @@ t2b_mobile.controller('restaurantController', function ($scope,$state,$translate
     }else {
       $rootScope.cart.orders.push(angular.copy(item));
     }
-     console.log($rootScope.cart);
+     // console.log($rootScope.cart);
   };
 
   var originatorEv;

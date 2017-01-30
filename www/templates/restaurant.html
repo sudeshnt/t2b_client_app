@@ -46,14 +46,14 @@
       <div class="tsb-icons">
         <div class="tsb-ic-wrp">
           <ion-scroll direction="x" class="tsb-hscroll">
-            <a href="javascript:;" class="{{tab.icon}}" ng-repeat="tab in restaurant.categories" on-finish-render="onSlideMove(tab)">
-              {{tab.categoryName  }}
+            <a href="javascript:;" class="{{tab.icon}}" ng-repeat="tab in restaurant.categories"  on-finish-render="onSlideMove(tab)">
+              {{tab.categoryName}}
             </a>
           </ion-scroll>
         </div>
       </div>
-      <ion-slide-box show-pager="false" on-slide-changed="slideHasChanged($index)">
-        <ion-slide ng-repeat="tab in restaurant.categories track by $index">
+      <ion-slide-box show-pager="false" on-slide-changed="slideHasChanged($index)" >
+        <ion-slide ng-repeat="tab1 in restaurant.categories track by $index">
           <div ng-if="activeTab == $index">
             <div  class="card item-card" ng-repeat="foodItem in foodItems">
               <div class="item item-text-wrap">
@@ -101,9 +101,11 @@
               </div>
             </div>
           </div>
+
         </ion-slide>
       </ion-slide-box>
     </tab-slide-box>
+    <ion-infinite-scroll ng-if="!noMoreItemsAvailable" on-infinite="loadMore()" distance="7%"></ion-infinite-scroll>
   </ion-content>
   <!--<md-menu ng-show="!isCartSeen && isHeaderThin">-->
   <md-menu  ng-show="!isCartSeen">
