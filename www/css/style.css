@@ -72,8 +72,14 @@
 .item-card{
   margin: 2px;
 }
-.item-card:last-child{
+/*.item-card:last-child{*/
+  /*margin-bottom: 80px;*/
+/*}*/
+.item-card-last-child{
   margin-bottom: 80px;
+}
+.padding-bottom-zero-items{
+  padding-bottom: 7px;
 }
 .cat-image{
   padding-left: 5px;
@@ -209,7 +215,7 @@
   height: 64px !important;
 }
 .bar-header > * {
-  margin-top: 15px !important;
+  margin-top: 8px !important;
 }
 
 .scroll-content{

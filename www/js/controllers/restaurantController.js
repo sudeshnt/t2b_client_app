@@ -2,6 +2,7 @@ var t2b_mobile = angular.module('t2b_mobile');
 
 t2b_mobile.controller('restaurantController', function ($scope,$state,$translate,$rootScope,$stateParams,cartService,serviceLocator,httpService) {
   var t2bMobileApi = serviceLocator.serviceList.t2bMobileApi;
+
   var resetCartItemQty = $rootScope.$on("resetCartItemQty", function(){
     $scope.resetCartItemQty();
   });
@@ -13,7 +14,7 @@ t2b_mobile.controller('restaurantController', function ($scope,$state,$translate
   $scope.foodItems = [];
 
   var offset = 0;
-  var limit = 5;
+  var limit = 10;
 
   init();
 
@@ -61,7 +62,7 @@ t2b_mobile.controller('restaurantController', function ($scope,$state,$translate
           categoryName: "All",
           description: "All",
           imageUrl: "https://s3-ap-southeast-1.amazonaws.com/horanaapi/mobile_test/LUNCH.jpg",
-          organizationId: 35
+          organizationId: orgId
         });
         angular.forEach(response.data,function (category) {
           if(category.itemCount>0){
@@ -484,10 +485,14 @@ t2b_mobile.controller('restaurantController', function ($scope,$state,$translate
           if(response.length==limit){
             offset+=limit;
             $scope.noMoreItemsAvailable = false;
+          } else{
+            response[response.length-1].class = 'item-card-last-child';
           }
           if(next!=undefined){
             next(response);
           }
+        }else{
+          $scope.noMoreItemClass = 'padding-bottom-zero-items'
         }
       }
     });

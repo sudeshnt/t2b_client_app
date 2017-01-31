@@ -46,16 +46,19 @@
       <div class="tsb-icons">
         <div class="tsb-ic-wrp">
           <ion-scroll direction="x" class="tsb-hscroll">
-            <a href="javascript:;" class="{{tab.icon}}" ng-repeat="tab in restaurant.categories"  on-finish-render="onSlideMove(tab)">
-              {{tab.categoryName}}
+            <a href="javascript:;" class="{{tab.icon}}" ng-repeat="tab in restaurant.categories track by $index"  on-finish-render="onSlideMove(tab)">
+              {{tab.categoryName}} <span style="font-size: 9px;">({{$index==0?restaurant.itemCount : tab.itemCount}})</span>
             </a>
           </ion-scroll>
+          <span style="line-height: 42px;height: 20px; padding-left: 10px;">
+            <i class="ion-ios-play" style="font-size: 18px; color: #b3b3b3; opacity: 0.7;"></i>
+          </span>
         </div>
       </div>
       <ion-slide-box show-pager="false" on-slide-changed="slideHasChanged($index)" >
-        <ion-slide ng-repeat="tab1 in restaurant.categories track by $index">
+        <ion-slide ng-repeat="tab1 in restaurant.categories track by $index" ng-class="noMoreItemClass">
           <div ng-if="activeTab == $index">
-            <div  class="card item-card" ng-repeat="foodItem in foodItems">
+            <div  class="card item-card" ng-repeat="foodItem in foodItems" ng-class="foodItem.class">
               <div class="item item-text-wrap">
                 <div class="row zero-padding">
                   <div class="col col-25 zero-padding" style="max-width: 140px;">
@@ -101,11 +104,11 @@
               </div>
             </div>
           </div>
-
         </ion-slide>
       </ion-slide-box>
     </tab-slide-box>
-    <ion-infinite-scroll ng-if="!noMoreItemsAvailable" on-infinite="loadMore()" distance="7%"></ion-infinite-scroll>
+    <ion-infinite-scroll ng-if="!noMoreItemsAvailable" on-infinite="loadMore()" distance="55px"></ion-infinite-scroll>
+
   </ion-content>
   <!--<md-menu ng-show="!isCartSeen && isHeaderThin">-->
   <md-menu  ng-show="!isCartSeen">

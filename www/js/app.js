@@ -114,6 +114,23 @@ t2b_mobile.controller("initialController",function($scope,$state,$rootScope,cart
     if(fromState.name == 'restaurant'){
       $rootScope.cartVisible = false;
     }
+
+    //init loginStatus
+    if(localStorage.getItem('loginStatus')==null && localStorage.getItem('loginStatus')==''){
+      localStorage.setItem('loginStatus',false);
+    }else if(JSON.parse(localStorage.getItem('loginStatus'))==true){
+      if(localStorage.getItem('authResponse')!=null && localStorage.getItem('authResponse')!=''){
+        if(JSON.parse(localStorage.getItem('authResponse')).email != undefined || JSON.parse(localStorage.getItem('authResponse')).mobile != undefined){
+          $scope.loginStatus = true;
+          $scope.authUser = JSON.parse(localStorage.getItem('authResponse'));
+        }else{
+          localStorage.setItem('loginStatus',false);
+        }
+      }
+    }else if(JSON.parse(localStorage.getItem('loginStatus'))!=true){
+      $scope.loginStatus = false;
+    }
+
   });
 
   $rootScope.$on('$stateChangeSuccess',

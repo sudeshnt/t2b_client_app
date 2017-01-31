@@ -47,9 +47,11 @@ t2b_mobile.controller('checkoutController', function ($scope,$state,$translate,$
   };
 
   $scope.deleteItemFromCart = function (item) {
+    console.log(item);
     for(var i=0;i< $scope.currentCart.orders.length;i++){
-      if($scope.currentCart.orders[i].itemId == item.itemId){
-         $scope.currentCart.orders.splice(i, 1);
+      if($scope.currentCart.orders[i].selectedSize.foodProductId == item.selectedSize.foodProductId){
+        // console.log($scope.currentCart.orders[i]);
+        $scope.currentCart.orders.splice(i, 1);
       }
     }
     calculateCartFullAmount();
@@ -58,6 +60,10 @@ t2b_mobile.controller('checkoutController', function ($scope,$state,$translate,$
   $scope.resetCart = function () {
     $scope.currentCart = angular.copy($scope.cart.CART.cartObject);
     calculateCartFullAmount();
+  };
+
+  $scope.backToRestaurant = function () {
+    $state.go('restaurant');
   };
 
   function calculateCartFullAmount(){

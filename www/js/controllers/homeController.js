@@ -1,6 +1,6 @@
 var t2b_mobile = angular.module('t2b_mobile');
 
-t2b_mobile.controller('homeController', function ($scope,$state,$mdBottomSheet,$mdSidenav, $log,serviceLocator,httpService,$sce,$translate,$rootScope) {
+t2b_mobile.controller('homeController', function ($scope,$state,$mdBottomSheet,$mdSidenav, $log,serviceLocator,httpService,$ionicHistory,$sce,$translate,$rootScope) {
   var t2bMobileApi = serviceLocator.serviceList.t2bMobileApi;
 
   $scope.restaurants = [];
@@ -92,22 +92,30 @@ t2b_mobile.controller('homeController', function ($scope,$state,$mdBottomSheet,$
   };
 
   $scope.goToLogin = function () {
-    $state.go('login');
+    $ionicHistory.clearCache().then(function(){ $state.go('login') })
+  };
+
+  $scope.logOut = function () {
+    localStorage.setItem('loginStatus',false);
+    localStorage.setItem('authResponse','');
+    $scope.loginStatus = false;
+    $scope.authUser = {};
+    $mdSidenav('right').close();
   };
 
   $scope.toggleSearch = function () {
     $scope.searchEnabled = $scope.searchEnabled ? false : true;
   };
 
-  $scope.showListBottomSheet = function() {
-    $scope.alert = '';
-    $mdBottomSheet.show({
-      templateUrl: 'templates/bottomSheetList.html',
-      controller: 'ListBottomSheetCtrl'
-    }).then(function(clickedItem) {
-      $scope.alert = clickedItem['name'] + ' clicked!';
-    });
-  };
+  // $scope.showListBottomSheet = function() {
+  //   $scope.alert = '';
+  //   $mdBottomSheet.show({
+  //     templateUrl: 'templates/bottomSheetList.html',
+  //     controller: 'ListBottomSheetCtrl'
+  //   }).then(function(clickedItem) {
+  //     $scope.alert = clickedItem['name'] + ' clicked!';
+  //   });
+  // };
   $scope.toggleSideBar = buildToggler('right');
 
   function buildToggler(navID) {

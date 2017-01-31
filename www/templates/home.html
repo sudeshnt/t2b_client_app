@@ -1,4 +1,4 @@
-<ion-view>
+<ion-view cache-view="false">
   <ion-header-bar class="bar-stable "  ng-show="!searchEnabled">
     <div style="width: 100%; display: inherit;" >
       <div style="position: absolute; left: 5px;">
@@ -6,7 +6,15 @@
           <i class="ion-navicon white" style="font-size: 30px;"></i>
         </a>
       </div>
-      <h3 class="side-margin-auto white"  style="margin-top: 0px">Touch2Buy</h3>
+      <div class="side-margin-auto">
+        <h3 class="side-margin-auto white"  style="margin-top: -14px; margin-bottom: 5px;">Touch2Buy</h3>
+        <md-select ng-model="weapon" placeholder="" class="md-no-underline zero-margin side-margin-auto white" style="max-width: 85px;background: #ce6e27;padding: 0px 5px;height: 28px;border-radius: 10px;">
+          <md-option selected value="axe">Food</md-option>
+          <md-option value="sword">Water</md-option>
+          <md-option value="wand">Fish</md-option>
+          <md-option value="pen">Maids</md-option>
+        </md-select>
+      </div>
       <div style="position: absolute; right: 5px;" >
         <a class="button button-icon row"  ng-click="toggleSearch()">
           <i class="ion-ios-search-strong white" style="font-size: 30px;"></i>
@@ -16,7 +24,7 @@
   </ion-header-bar>
   <ion-header-bar class="bar-stable "  ng-show="searchEnabled">
     <div style="width: 100%; display: inherit;" >
-      <md-autocomplete
+        <md-autocomplete
            style="width:89%; margin-top: -5px !important; "
            ng-disabled="isDisabled"
            md-no-cache="noCache"
@@ -192,24 +200,41 @@
     <md-content >
       <img ng-src="img/food_slider/4.jpg" style="width:100%">
       <md-list flex>
-        <md-list-item class="md-3-line" style="height: 45px; min-height:0px; padding-top: 11px;">
+        <md-list-item class="md-3-line" style="height: 40px; min-height:0px; padding-top: 10px;" ng-if="!loginStatus">
           <div class="md-list-item-text zero-margin" layout="column" ng-click="goToLogin()">
-            <h3>Login</h3>
+            <h4><i class="ion-log-in"></i> Login</h4>
           </div>
         </md-list-item>
-        <md-divider ></md-divider>
-        <md-list-item class="md-3-line" style="height: 45px; min-height:0px; padding-top: 11px;">
+        <!--<md-divider ></md-divider>-->
+        <md-list-item class="md-3-line" style="height: 40px; min-height:0px; padding-top: 10px;" ng-if="!loginStatus">
           <div class="md-list-item-text zero-margin" layout="column" ng-click="goToRegistration()">
-            <h3>Register</h3>
+            <h4><i class="ion-person-add"></i> Register</h4>
           </div>
         </md-list-item>
-        <md-divider ></md-divider>
-        <md-list-item class="md-3-line" style="height: 45px; min-height:0px; padding-top: 11px;">
+        <!--<md-divider ></md-divider>-->
+        <md-list-item class="md-3-line" style="height: 40px; min-height:0px; padding-top: 10px;" ng-if="loginStatus">
           <div class="md-list-item-text zero-margin" layout="column">
-            <h3>About us</h3>
+            <h4><i class="ion-document-text"></i> Order History</h4>
           </div>
         </md-list-item>
-        <md-divider ></md-divider>
+        <!--<md-divider ></md-divider>-->
+        <md-list-item class="md-3-line" style="height: 40px; min-height:0px; padding-top: 10px;" ng-if="loginStatus">
+          <div class="md-list-item-text zero-margin" layout="column">
+            <h4><i class="ion-ios-compose"></i> Edit Profile</h4>
+          </div>
+        </md-list-item>
+        <!--<md-divider ></md-divider>-->
+        <md-list-item class="md-3-line" style="height: 40px; min-height:0px; padding-top: 10px;">
+          <div class="md-list-item-text zero-margin" layout="column">
+            <h4><i class="ion-information-circled"></i> About us</h4>
+          </div>
+        </md-list-item>
+        <md-list-item class="md-3-line" style="height: 40px; min-height:0px; padding-top: 10px;" ng-if="loginStatus">
+          <div class="md-list-item-text zero-margin" layout="column" ng-click="logOut()">
+            <h4 ><i class="ion-log-out"></i> Log Out</h4>
+          </div>
+        </md-list-item>
+        <!--<md-divider ></md-divider>-->
       </md-list>
       <!--<md-button ng-click="close()" class="md-primary">-->
         <!--Close Sidenav Right-->

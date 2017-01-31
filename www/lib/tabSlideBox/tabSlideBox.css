@@ -16,11 +16,16 @@
   /*background-color: #0398dc;*/
 }
 .tabbed-slidebox .tsb-icons {
+  width: 98%;
   text-align: center;
   margin: 0px 0 5px 0;
   position: relative;
   background-color:#fff;
 }
+/*.tabbed-slidebox .tsb-icons::after {*/
+  /*content: " > ";*/
+/*}*/
+
 .tabbed-slidebox .tsb-ic-wrp {
   display: flex;
   position: relative;

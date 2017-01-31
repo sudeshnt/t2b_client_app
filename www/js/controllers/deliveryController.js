@@ -53,9 +53,10 @@ t2b_mobile.controller('deliveryMemberController', function ($scope,$state,servic
     }
 
     function initAddress() {
+      console.log($scope.authResponse.email);
         var extended_url = '/User/get';
         var reqObj = {
-          "userName": $scope.authResponse.mobile
+          "userName": $scope.authResponse.email!=undefined ? $scope.authResponse.email : $scope.authResponse.mobile
         };
         httpService.postRequest(t2bMobileApi,extended_url,reqObj,{}).then(function(response){
           if(response!=null) {
@@ -63,7 +64,7 @@ t2b_mobile.controller('deliveryMemberController', function ($scope,$state,servic
             if($scope.addresses.length==0){
               $scope.addNewEnabled = true;
             }
-            // console.log($scope.addresses);
+            console.log($scope.addresses);
           }
         });
     }
@@ -97,9 +98,11 @@ t2b_mobile.controller('deliveryMemberController', function ($scope,$state,servic
         "longitude": 0,
         "latitude": 0
       };
+      console.log(reqObj);
       httpService.postRequest(t2bMobileApi,extended_url,reqObj,{}).then(function(response){
         if(response!=null) {
-          // console.log(response);
+          initAddress();
+          console.log(response);
         }
       });
     };

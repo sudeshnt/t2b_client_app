@@ -6,11 +6,18 @@ angular.module('t2b_mobile').service('serviceLocator', [serviceLocator]);
 
     var serviceList = {
         t2bMobileApi:{
-          serviceId:3,
+          serviceId:1,
           serviceName:'touch2but Mobile Api',
           serviceUrl:'http://52.221.14.28',
           port:'8080',
           base_url:'/api'
+        },
+        t2bMobileApi_new:{
+          serviceId:2,
+          serviceName:'touch2but Mobile Api New',
+          serviceUrl:'http://192.168.1.200',
+          port:'8090',
+          base_url:'/online-shop'
         }
     };
 
