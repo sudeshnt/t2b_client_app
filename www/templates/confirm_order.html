@@ -44,14 +44,14 @@
     </div>
     <h5 class="align-center success-step" style="margin-top:3px; margin-bottom:3px">order placed successfully !</h5>
 
-    <h3 style="font-size: 15px; text-align: center; padding-bottom: 7px; margin-top: 15px">Order Summary</h3>
+    <h3 style="font-size: 15px; text-align: center; padding-bottom: 0px; margin-top: 5px">Order Summary</h3>
 
     <md-whiteframe class="md-whiteframe-2dp " flex-sm="100" flex-gt-sm="100" flex-gt-md="100" layout layout-align="center center" style="display: block; margin:8px 15px 8px 15px; padding: 10px 0px;">
       <div class="cart-item item-text-wrap">
         <div class="row zero-padding" ng-repeat="orderItem in confirmedCart.orders">
           <div class="col col-25 zero-padding" style="max-width: 75px;">
             <div>
-              <img ng-src="{{orderItem.imageUrl}}" style="height:65px; width:55px;">
+              <img ng-src="{{orderItem.imageUrl}}" style="height:50px; width:50px;">
             </div>
           </div>
           <div class="col zero-padding">
@@ -74,10 +74,10 @@
       <div class=" item-text-wrap">
         <div class="row zero-padding">
           <div class="col align-right">
-            <h5 style="margin-right: 10px;">Total Amount: </h5>
+            <h5 style="margin:0px 10px 0px 0px;" >Total Amount: </h5>
           </div>
           <div class="col col-25 total-col" >
-            Rs. {{confirmedCart.totalAmount}}.00
+            <h5 style="margin:5px 10px 0px 0px;">Rs. {{confirmedCart.totalAmount}}.00</h5>
           </div>
         </div>
       </div>

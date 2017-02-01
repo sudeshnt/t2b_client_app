@@ -109,7 +109,7 @@
           </div>
       </md-whiteframe>
       <md-input-container class="md-icon-float md-block align-right" >
-        <md-button class="md-raised custom-height-button" ng-if="loginStatus" ng-click="continueToDelivery()" style="height: 25px; line-height: 25px; font-size: 10px; width: 64%; color: white; background-color: #4caf50;">Continue <i class="ion-arrow-right-c"></i></md-button>
+        <md-button class="md-raised custom-height-button" ng-if="loginStatus" ng-click="continueToDelivery()" style="height: 30px; line-height: 25px; font-size: 10px; width: 64%; color: white; background-color: #4caf50;">Continue <i class="ion-arrow-right-c"></i></md-button>
       </md-input-container>
       <ion-list class="align-center" ng-if="!loginStatus">
         <ion-item class="item-accordion zero-padding" ng-show="isMemberLogin" style="padding: 10px;">
@@ -127,13 +127,13 @@
               </md-input-container>
               <div class="error" style="margin:1%" ng-if="errorMessage">{{errorMessage}}</div>
               <md-input-container class="md-icon-float md-block align-center zero-padding" >
-                <md-button class="md-raised custom-height-button md-primary" ng-click="doLogin(userLoginForm.$valid)" style="height: 25px; line-height: 25px; font-size: 10px; width: 90%;">Login</md-button>
+                <md-button class="md-raised custom-height-button md-primary" ng-click="doLogin(userLoginForm.$valid)" style="height: 30px; line-height: 25px; font-size: 10px; width: 90%;">Login</md-button>
               </md-input-container>
             </form>
           </div>
         </ion-item>
         <md-input-container class="md-icon-float md-block align-center" ng-if="!isMemberLogin && !loginStatus">
-          <md-button class="md-raised custom-height-button md-primary" ng-click="toggleMemberLoginForm()" style="height: 25px; line-height: 25px; font-size: 10px; width: 90%;">Member Login</md-button>
+          <md-button class="md-raised custom-height-button md-primary" ng-click="toggleMemberLoginForm()" style="height: 30px; line-height: 25px; font-size: 10px; width: 90%;">Member Login</md-button>
         </md-input-container>
         <md-input-container class="md-icon-float md-block align-center" ng-if="!loginStatus">
           <md-button class="md-raised custom-height-button md-primary" ng-click="memberDelivery()" style="height: 25px; line-height: 25px; font-size: 10px; width: 90%; background-color: #4caf50;">Checkout as Guest</md-button>

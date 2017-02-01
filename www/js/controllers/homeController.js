@@ -91,6 +91,10 @@ t2b_mobile.controller('homeController', function ($scope,$state,$mdBottomSheet,$
     $state.go('register');
   };
 
+  $scope.goToOrderHistory = function () {
+    $state.go('order_history');
+  };
+
   $scope.goToLogin = function () {
     $ionicHistory.clearCache().then(function(){ $state.go('login') })
   };
@@ -147,6 +151,46 @@ t2b_mobile.controller('homeController', function ($scope,$state,$mdBottomSheet,$
   }
 });
 
+t2b_mobile.controller('orderHistoryController', function($scope,$state,serviceLocator,httpService) {
+    var t2bMobileApi = serviceLocator.serviceList.t2bMobileApi;
+    var offset = 0;
+    var limit = 0;
+    var shops = {};
+
+    initShops();
+
+    function initShops(){
+      var extended_url = '/organization/getAll';
+      httpService.postRequest(t2bMobileApi,extended_url,{},{}).then(function(response){
+        if(response!=null) {
+          for(var i=0;i<response.length;i++){
+            shops[response[i].orgId] = response[i];
+          }
+          initOrderHistory();
+        }
+      });
+    }
+
+    function initOrderHistory() {
+      var extended_url = '/orders/orderList';
+      var reqObj = {
+        "userName": $scope.authUser.email!=undefined ? $scope.authUser.email : $scope.authUser.mobile,
+        "offset": offset,
+        "limit": limit
+      };
+      httpService.postRequest(t2bMobileApi,extended_url,reqObj,{}).then(function(response){
+        if(response!=null) {
+          for(var i=0;i<response.data.length;i++){
+            response.data[i].organization = shops[response.data[i].organizationId];
+          }
+         $scope.orderHistory = response.data;
+         console.log($scope.orderHistory);
+        }
+      });
+    }
+
+});
+
 t2b_mobile.controller('ListBottomSheetCtrl', function($scope, $mdBottomSheet) {
 
   $scope.items = [
@@ -160,4 +204,6 @@ t2b_mobile.controller('ListBottomSheetCtrl', function($scope, $mdBottomSheet) {
     var clickedItem = $scope.items[$index];
     $mdBottomSheet.hide(clickedItem);
   };
-})
+});
+
+

@@ -94,6 +94,11 @@ t2b_mobile.config(function($stateProvider, $urlRouterProvider ,$translateProvide
       controller: 'confirmOrderController',
       params : {bookingCart : null}
     })
+    .state('order_history', {
+      url: '/order_history',
+      templateUrl: 'templates/orderHistory.html',
+      controller: 'orderHistoryController',
+    })
     .state('search', {
       url: '/search',
       templateUrl: 'templates/search.html',

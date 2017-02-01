@@ -7,12 +7,12 @@
         </a>
       </div>
       <div class="side-margin-auto">
-        <h3 class="side-margin-auto white"  style="margin-top: -14px; margin-bottom: 5px;">Touch2Buy</h3>
+        <h3 class="side-margin-auto white"  style="margin-top: -14px; margin-bottom: 5px; font-size: 20px;">Touch2Buy</h3>
         <md-select ng-model="weapon" placeholder="" class="md-no-underline zero-margin side-margin-auto white" style="max-width: 85px;background: #ce6e27;padding: 0px 5px;height: 28px;border-radius: 10px;">
-          <md-option selected value="axe">Food</md-option>
-          <md-option value="sword">Water</md-option>
-          <md-option value="wand">Fish</md-option>
-          <md-option value="pen">Maids</md-option>
+          <md-option selected value="axe" style="height:30px;">Food</md-option>
+          <md-option value="sword" style="height:30px;">Water</md-option>
+          <md-option value="wand" style="height:30px;">Fish</md-option>
+          <md-option value="pen" style="height:30px;">Maids</md-option>
         </md-select>
       </div>
       <div style="position: absolute; right: 5px;" >
@@ -213,7 +213,7 @@
         </md-list-item>
         <!--<md-divider ></md-divider>-->
         <md-list-item class="md-3-line" style="height: 40px; min-height:0px; padding-top: 10px;" ng-if="loginStatus">
-          <div class="md-list-item-text zero-margin" layout="column">
+          <div class="md-list-item-text zero-margin" layout="column" ng-click="goToOrderHistory()">
             <h4><i class="ion-document-text"></i> Order History</h4>
           </div>
         </md-list-item>

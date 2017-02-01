@@ -212,7 +212,7 @@
 .fake-statusbar .pull-right { float: right; }
 
 .bar-header {
-  height: 64px !important;
+  height: 60px !important;
 }
 .bar-header > * {
   margin-top: 8px !important;
@@ -429,7 +429,7 @@
   background-color: rgb(42, 201, 170) !important;
   color: rgb(255, 255, 255) !important;
   font-size: 11px;
-  height: 25px;
+  height: 30px;
   line-height: 23px;
 }
 .clear-cart-button{
@@ -438,11 +438,10 @@
   background-color:rgb(239, 71, 58) !important;
   color: rgb(255, 255, 255) !important;
   font-size: 11px;
-  height: 25px;
+  height: 30px;
   line-height: 23px;
   margin-bottom: 4px !important;
 }
-
 .eye-lit{
   color:#3f51b5;
 }
@@ -451,4 +450,21 @@
 }
 .error{
   color: red;
+}
+
+.image {
+  position: relative;
+  width: 100%; /* for IE 6 */
+}
+
+.image > span {
+  position: absolute;
+  width: 100%;
+  top: 5px;
+  left: 15px;
+  font-size: xx-large;
+  color: rgb(101, 93, 88);;
+}
+.opacity-half{
+  opacity: 0.5;
 }
